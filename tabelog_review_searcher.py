@@ -50,10 +50,9 @@ class TabelogReviewSearcher:
                     # print(store_name)
                     # print(body)
                     # remove default spaces of the starts of sentences
-                    review_list.append(TabelogReview(review_url, title, store_name, body[13:]))
+                    review_list.append(TabelogReview(review_url, store_name, title, body[13:]))
                 page += 1
             except:
                 break
-
 
         return review_list
