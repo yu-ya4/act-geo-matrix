@@ -3,6 +3,9 @@
 
 from tabelog_review import TabelogReview
 import requests
+import lxml.html
+from time import sleep
+
 
 class TabelogReviewSearcher:
 
@@ -28,9 +31,25 @@ class TabelogReviewSearcher:
         page = 1
         url = self.url + str(page) + '/'
         res = requests.get(url, params=parameters)
+        print(res.url)
+        html = res.text
+        root = lxml.html.fromstring(html)
 
         review_list = []
-        review_list.append(TabelogReview(1, 'hoge', 'hogehoge', 'hogehogehoge'))
-        review_list.append(TabelogReview(2, 'hoga', 'hogahoga', 'hogahogahoga'))
+        try:
+            reviews = root.cssselect('.review-wrap')
+            for review in reviews:
+                review_url = 'https://tabelog.com' + review.cssselect('.title a')[0].attrib['href']
+                title = review.cssselect('.title a')[0].text_content()
+                store_name = review.cssselect('.mname-wrap a')[0].text_content()
+                body = review.cssselect('.comment p')[0].text_content()
+                # print(review_url)
+                # print(title)
+                # print(store_name)
+                # print(body)
+                review_list.append(TabelogReview(review_url, title, store_name, body))
+        except:
+            print("fin")
+
 
         return review_list
