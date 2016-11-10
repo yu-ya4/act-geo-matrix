@@ -9,6 +9,14 @@ class TabelogReview:
         self.title = title
         self.body = body
 
+    def get_url(self):
+        return self.url
+
+    def get_store_name(self):
+        return self.store_name
+
+    def get_title(self):
+        return self.title
 
     def get_body(self):
         return self.body
