@@ -31,6 +31,7 @@ class TabelogReviewSearcher:
         while 1:
             url = self.url + str(page) + '/'
             res = requests.get(url, params=parameters)
+            sleep(6)
             html = res.text
             root = lxml.html.fromstring(html)
 
