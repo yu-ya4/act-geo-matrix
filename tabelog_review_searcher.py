@@ -26,27 +26,34 @@ class TabelogReviewSearcher:
             'sw': query
         }
         page = 1
-        url = self.url + str(page) + '/'
-        res = requests.get(url, params=parameters)
-        print(res.url)
-        html = res.text
-        root = lxml.html.fromstring(html)
-
         review_list = []
-        try:
-            reviews = root.cssselect('.review-wrap')
-            for review in reviews:
-                review_url = 'https://tabelog.com' + review.cssselect('.title a')[0].attrib['href']
-                title = review.cssselect('.title a')[0].text_content()
-                store_name = review.cssselect('.mname-wrap a')[0].text_content()
-                body = review.cssselect('.comment p')[0].text_content()
-                # print(review_url)
-                # print(title)
-                # print(store_name)
-                # print(body)
-                review_list.append(TabelogReview(review_url, title, store_name, body))
-        except:
-            print("fin")
+
+        while 1:
+            url = self.url + str(page) + '/'
+            res = requests.get(url, params=parameters)
+            html = res.text
+            root = lxml.html.fromstring(html)
+
+            try:
+                reviews = root.cssselect('.review-wrap')
+                # when all reviews are got, break loop
+                if not reviews:
+                    break
+                # parse necessary information of review
+                for review in reviews:
+                    review_url = 'https://tabelog.com' + review.cssselect('.title a')[0].attrib['href']
+                    title = review.cssselect('.title a')[0].text_content()
+                    store_name = review.cssselect('.mname-wrap a')[0].text_content()
+                    body = review.cssselect('.comment p')[0].text_content().replace('\n', '')
+                    # print(review_url)
+                    # print(title)
+                    # print(store_name)
+                    # print(body)
+                    # remove default spaces of the starts of sentences
+                    review_list.append(TabelogReview(review_url, title, store_name, body[13:]))
+                page += 1
+            except:
+                break
 
 
         return review_list
