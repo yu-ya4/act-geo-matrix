@@ -13,6 +13,7 @@ class ActGeoMatrix:
 
         self.read_actions(actions_filename)
         self.read_reviews(review_dir)
+        self.make_matrix()
 
     def read_actions(self, actions_filename):
         '''
@@ -37,11 +38,12 @@ class ActGeoMatrix:
         '''
         self.reviews = {}
         self.geos = []
-        urls = []
-        store_names = []
-        titles = []
-        bodies = []
+
         for action in self.actions:
+            urls = []
+            store_names = []
+            titles = []
+            bodies = []
             self.reviews[action] = []
             f_urls = open(review_dir + '/urls/' + action + '.txt', 'r')
             for line in f_urls:
@@ -70,3 +72,15 @@ class ActGeoMatrix:
 
             for i in range(len(urls)):
                 self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
+
+    def make_matrix(self):
+
+        self.matrix = []
+        for action in self.actions:
+            row = len(self.geos)*[0]
+            for review in self.reviews[action]:
+                store_name = review.get_store_name()
+                index = self.geos.index(store_name)
+                row[index] += 1
+
+            self.matrix.append(row)
