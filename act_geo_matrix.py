@@ -10,6 +10,7 @@ class ActGeoMatrix:
         self.geos = []
         self.reviews = []
         self.matrix = []
+        self.action_similarities = []
 
         self.read_actions(actions_filename)
         self.read_reviews(review_dir)
@@ -146,19 +147,24 @@ class ActGeoMatrix:
         print('\n')
         return sim_dic
 
-    def reflect_similarity_in_matrix(self, result_dir):
+    def read_action_similarities(self, result_dir):
         '''
-        remake geo act matrix reflecting similarity of actions
+        read action similarities from txt file
         Args:
             result_dir: str
         '''
-        similarities = []
+        self.action_similarities = []
         for action in self.actions:
-            similarity_dict = {}
+            action_similarity_dict = {}
             f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
             for line in f_s:
                 line = line.replace('\n', '')
                 action, similarity = line.split(':')
-                similarity_dict[action] = similarity
-            similarities.append(similarity_dict)
-        print(similarities[0])
+                action_similarity_dict[action] = similarity
+            self.action_similarities.append(action_similarity_dict)
+
+    def reflect_similarity_in_matrix(self, result_dir):
+        '''
+        remake geo act matrix reflecting similarity of actions
+        '''
+        self.read_action_similarities(result_dir)
