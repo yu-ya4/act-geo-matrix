@@ -163,8 +163,8 @@ class ActGeoMatrix:
                 action_similarity_dict[action] = similarity
             self.action_similarities.append(action_similarity_dict)
 
-    def reflect_similarity_in_matrix(self, result_dir):
+    def reflect_action_similarity_in_matrix(self, result_dir):
         '''
-        remake geo act matrix reflecting similarity of actions
+        remake geo-act-matrix reflecting similarity of actions
         '''
         self.read_action_similarities(result_dir)
