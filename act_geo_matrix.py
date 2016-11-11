@@ -84,3 +84,25 @@ class ActGeoMatrix:
                 row[index] += 1
 
             self.matrix.append(row)
+
+    def show_geo_ranking(self, action, num):
+        '''
+        show geo ranking with its score
+        Args:
+            action: str
+                action
+            num: int
+                the number of geos shown
+        '''
+        action_index = self.actions.index(action)
+        row = self.matrix[action_index]
+        ranking = sorted([(v,i) for (i,v) in enumerate(row)])
+        for i in range(num+1):
+            if i == 0:
+                continue
+            geo_index = ranking[-i][1]
+            score = ranking[-i][0]
+
+            if score == 0:
+                break
+            print(self.geos[geo_index] + ': ' + str(score))
