@@ -62,5 +62,5 @@ class ActGeoMatrix:
                 body = line.replace('\n', '')
                 bodies.append(body)
 
-        for i in range(len(self.actions)):
-            self.reviews[self.actions[i]].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
+            for i in range(len(urls)):
+                self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
