@@ -74,7 +74,9 @@ class ActGeoMatrix:
                 self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
 
     def make_matrix(self):
-
+        '''
+        make matrix by reviews
+        '''
         self.matrix = []
         for action in self.actions:
             row = len(self.geos)*[0]
@@ -129,8 +131,6 @@ class ActGeoMatrix:
                 break
             print(self.geos[geo_index] + ': ' + str(score))
 
-
-
     def read_similar_scores(self, result_dir, action, use_num):
         sim_dic = {}
         f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
@@ -145,3 +145,20 @@ class ActGeoMatrix:
             i += 1
         print('\n')
         return sim_dic
+
+    def reflect_similarity_in_matrix(self, result_dir):
+        '''
+        remake geo act matrix reflecting similarity of actions
+        Args:
+            result_dir: str
+        '''
+        similarities = []
+        for action in self.actions:
+            similarity_dict = {}
+            f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
+            for line in f_s:
+                line = line.replace('\n', '')
+                action, similarity = line.split(':')
+                similarity_dict[action] = similarity
+            similarities.append(similarity_dict)
+        print(similarities[0])
