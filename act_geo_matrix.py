@@ -85,19 +85,19 @@ class ActGeoMatrix:
 
             self.matrix.append(row)
 
-    def show_geo_ranking(self, action, num):
+    def show_geo_ranking(self, action, result_num):
         '''
         show geo ranking with its score
         Args:
             action: str
                 action
-            num: int
+            result_num: int
                 the number of geos shown
         '''
         action_index = self.actions.index(action)
         row = self.matrix[action_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
-        for i in range(num+1):
+        for i in range(result_num+1):
             if i == 0:
                 continue
             geo_index = ranking[-i][1]
@@ -106,3 +106,42 @@ class ActGeoMatrix:
             if score == 0:
                 break
             print(self.geos[geo_index] + ': ' + str(score))
+
+    def show_geo_ranking_sim(self, action, result_num, result_dir, use_num):
+        sim_dic = self.read_similar_scores(result_dir, action, use_num)
+
+        action_index = self.actions.index(action)
+        row = self.matrix[action_index]
+        for a, s in sim_dic.items():
+            a_index = self.actions.index(a)
+            a_row = self.matrix[a_index]
+            a_row = list(map(lambda x: x*float(s), a_row))
+            row = [x + y for (x, y) in zip(row, a_row)]
+
+        ranking = sorted([(v,i) for (i,v) in enumerate(row)])
+        for i in range(result_num+1):
+            if i == 0:
+                continue
+            geo_index = ranking[-i][1]
+            score = ranking[-i][0]
+
+            if score == 0:
+                break
+            print(self.geos[geo_index] + ': ' + str(score))
+
+
+
+    def read_similar_scores(self, result_dir, action, use_num):
+        sim_dic = {}
+        f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
+        i = 0
+        for line in f_s:
+            if i == use_num:
+                break
+            line = line.replace('\n', '')
+            action, similarity = line.split(':')
+            sim_dic[action] = similarity
+            print(action + ':' + similarity)
+            i += 1
+        print('\n')
+        return sim_dic
