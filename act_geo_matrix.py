@@ -13,6 +13,7 @@ class ActGeoMatrix:
 
         self.read_actions(actions_filename)
         self.read_reviews(review_dir)
+        self.read_geos()
 
     def read_actions(self, actions_filename):
         '''
@@ -64,3 +65,13 @@ class ActGeoMatrix:
 
             for i in range(len(urls)):
                 self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
+
+    def read_geos(self):
+        self.geos = []
+        for action in self.actions:
+            for review in self.reviews[action]:
+                store_name = review.get_store_name()
+                if store_name in self.geos:
+                    continue
+                else:
+                    self.geos.append(store_name)
