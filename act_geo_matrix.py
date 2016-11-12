@@ -168,3 +168,18 @@ class ActGeoMatrix:
         remake geo-act-matrix reflecting similarity of actions
         '''
         self.read_action_similarities(result_dir)
+        # pass by value
+        original_matrix = self.matrix[:]
+        action_index = 0
+        for row in original_matrix:
+            # action similarities dict for an action
+            action_similarity_dict = self.action_similarities[action_index]
+            for similar_action, similarity in action_similarity_dict.items():
+                similar_action_index = self.actions.index(similar_action)
+                similar_action_row = original_matrix[similar_action_index]
+                self.matrix[action_index] = [x + float(similarity) * y for (x, y) in zip(self.matrix[action_index], similar_action_row)]
+            print(original_matrix[action_index][:100])
+            print(self.matrix[action_index][:100])
+            action_index += 1
+            if action_index == len(self.actions):
+                break
