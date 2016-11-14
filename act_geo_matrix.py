@@ -111,7 +111,10 @@ class ActGeoMatrix:
             result_num: int
                 the number of geos shown
         '''
-        action_index = self.actions.index(action)
+        try:
+            action_index = self.actions.index(action)
+        except:
+            return print('no index')
         row = self.matrix[action_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
         for i in range(result_num+1):
@@ -124,52 +127,12 @@ class ActGeoMatrix:
                 break
             print(self.geos[geo_index] + ': ' + str(score))
 
-    # def show_geo_ranking_sim(self, action, result_num, result_dir, use_num):
-    #     sim_dic = self.read_similar_scores(result_dir, action, use_num)
-    #
-    #     action_index = self.actions.index(action)
-    #     row = self.matrix[action_index]
-    #     for a, s in sim_dic.items():
-    #         a_index = self.actions.index(a)
-    #         a_row = self.matrix[a_index]
-    #         a_row = list(map(lambda x: x*float(s), a_row))
-    #         row = [x + y for (x, y) in zip(row, a_row)]
-    #
-    #     ranking = sorted([(v,i) for (i,v) in enumerate(row)])
-    #     for i in range(result_num+1):
-    #         if i == 0:
-    #             continue
-    #         geo_index = ranking[-i][1]
-    #         score = ranking[-i][0]
-    #
-    #         if score == 0:
-    #             break
-    #         print(self.geos[geo_index] + ': ' + str(score))
-    #
-    # def read_similar_scores(self, result_dir, action, use_num):
-    #     '''
-    #     read similar
-    #     '''
-    #     sim_dic = {}
-    #     f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
-    #     i = 0
-    #     for line in f_s:
-    #         if i == use_num:
-    #             break
-    #         line = line.replace('\n', '')
-    #         action, similarity = line.split(':')
-    #         sim_dic[action] = similarity
-    #         print(action + ':' + similarity)
-    #         i += 1
-    #     print('\n')
-    #     return sim_dic
-
-    def read_action_similarities(self, result_dir):
+    def read_action_similarities(self, result_dir, num):
         '''
         read action similarities from txt file
         Args:
             result_dir: str
-
+            num: int
 
         action_similarities: list[dict{str: float}]
         '''
@@ -178,21 +141,30 @@ class ActGeoMatrix:
             action_similarity_dict = {}
             f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
             for line in f_s:
+                if len(action_similarity_dict) == num:
+                    break
                 line = line.replace('\n', '')
                 action, similarity = line.split(':')
                 action_similarity_dict[action] = similarity
             self.action_similarities.append(action_similarity_dict)
 
-    def reflect_action_similarity_in_matrix(self, result_dir):
+
+    def reflect_action_similarity_in_matrix(self, result_dir, num):
         '''
         remake geo-act-matrix reflecting similar actions
+
+        Args:
+            num: int
+                the number of similar action used for remake the matrix
         '''
-        self.read_action_similarities(result_dir)
+        self.read_action_similarities(result_dir, num)
         # pass by value
         original_matrix = self.matrix[:]
         action_index = 0
         # a row for an action
         for row in original_matrix:
+            if action_index == len(self.actions):
+                break
             # an action similarities dict for the action
             action_similarity_dict = self.action_similarities[action_index]
             # TOPn件のみの類似度・頻度を反映するという仕様に後で変更する
@@ -205,5 +177,3 @@ class ActGeoMatrix:
                 # add each element of the similar action multiplied by the similarity to the element of the action
                 self.matrix[action_index] = [x + float(similarity) * y for (x, y) in zip(self.matrix[action_index], similar_action_row)]
             action_index += 1
-            if action_index == len(self.actions):
-                break
