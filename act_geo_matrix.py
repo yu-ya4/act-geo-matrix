@@ -6,6 +6,13 @@ from time import sleep
 
 class ActGeoMatrix:
     def __init__(self, actions_filename, review_dir):
+        '''
+        Args:
+            actions_filename: str
+                file path of the text file of actions list for matrix
+            review_dir: str
+                path of the directory countaining text files of reviews
+        '''
         self.actions = []
         self.geos = []
         self.reviews = []
@@ -14,11 +21,11 @@ class ActGeoMatrix:
 
         self.read_actions(actions_filename)
         self.read_reviews(review_dir)
-        self.make_matrix()
+        self.make_flequency_matrix()
 
     def read_actions(self, actions_filename):
         '''
-        read actions list from txt file
+        read actions list from text file
 
         Args:
             actions_filename: str
@@ -31,8 +38,9 @@ class ActGeoMatrix:
 
     def read_reviews(self, review_dir):
         '''
-        read reviews dict from txt file
-            dict{action: list[TabelogReview]}
+        read reviews dictionary from text file
+            dict{str: list[TabelogReview]}
+                ex. self.reviews['ちょっと飲む'][0].get_store_name = '鳥貴族 出町柳駅前店'
 
         Args:
             review_dir: str
@@ -74,17 +82,23 @@ class ActGeoMatrix:
             for i in range(len(urls)):
                 self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
 
-    def make_matrix(self):
+    def make_flequency_matrix(self):
         '''
         make matrix by reviews
+        search for reviews by action query
+        each element means the flequency of the reviews about the geo by the action query
+        order by self.actions and self.geos
+
+        self.matrix: list[list[int]]
         '''
         self.matrix = []
+        n = len(self.geos)
         for action in self.actions:
-            row = len(self.geos)*[0]
+            row = n * [0]
             for review in self.reviews[action]:
                 store_name = review.get_store_name()
-                index = self.geos.index(store_name)
-                row[index] += 1
+                geo_index = self.geos.index(store_name)
+                row[geo_index] += 1
 
             self.matrix.append(row)
 
@@ -110,48 +124,54 @@ class ActGeoMatrix:
                 break
             print(self.geos[geo_index] + ': ' + str(score))
 
-    def show_geo_ranking_sim(self, action, result_num, result_dir, use_num):
-        sim_dic = self.read_similar_scores(result_dir, action, use_num)
-
-        action_index = self.actions.index(action)
-        row = self.matrix[action_index]
-        for a, s in sim_dic.items():
-            a_index = self.actions.index(a)
-            a_row = self.matrix[a_index]
-            a_row = list(map(lambda x: x*float(s), a_row))
-            row = [x + y for (x, y) in zip(row, a_row)]
-
-        ranking = sorted([(v,i) for (i,v) in enumerate(row)])
-        for i in range(result_num+1):
-            if i == 0:
-                continue
-            geo_index = ranking[-i][1]
-            score = ranking[-i][0]
-
-            if score == 0:
-                break
-            print(self.geos[geo_index] + ': ' + str(score))
-
-    def read_similar_scores(self, result_dir, action, use_num):
-        sim_dic = {}
-        f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
-        i = 0
-        for line in f_s:
-            if i == use_num:
-                break
-            line = line.replace('\n', '')
-            action, similarity = line.split(':')
-            sim_dic[action] = similarity
-            print(action + ':' + similarity)
-            i += 1
-        print('\n')
-        return sim_dic
+    # def show_geo_ranking_sim(self, action, result_num, result_dir, use_num):
+    #     sim_dic = self.read_similar_scores(result_dir, action, use_num)
+    #
+    #     action_index = self.actions.index(action)
+    #     row = self.matrix[action_index]
+    #     for a, s in sim_dic.items():
+    #         a_index = self.actions.index(a)
+    #         a_row = self.matrix[a_index]
+    #         a_row = list(map(lambda x: x*float(s), a_row))
+    #         row = [x + y for (x, y) in zip(row, a_row)]
+    #
+    #     ranking = sorted([(v,i) for (i,v) in enumerate(row)])
+    #     for i in range(result_num+1):
+    #         if i == 0:
+    #             continue
+    #         geo_index = ranking[-i][1]
+    #         score = ranking[-i][0]
+    #
+    #         if score == 0:
+    #             break
+    #         print(self.geos[geo_index] + ': ' + str(score))
+    #
+    # def read_similar_scores(self, result_dir, action, use_num):
+    #     '''
+    #     read similar
+    #     '''
+    #     sim_dic = {}
+    #     f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
+    #     i = 0
+    #     for line in f_s:
+    #         if i == use_num:
+    #             break
+    #         line = line.replace('\n', '')
+    #         action, similarity = line.split(':')
+    #         sim_dic[action] = similarity
+    #         print(action + ':' + similarity)
+    #         i += 1
+    #     print('\n')
+    #     return sim_dic
 
     def read_action_similarities(self, result_dir):
         '''
         read action similarities from txt file
         Args:
             result_dir: str
+
+
+        action_similarities: list[dict{str: float}]
         '''
         self.action_similarities = []
         for action in self.actions:
@@ -165,21 +185,25 @@ class ActGeoMatrix:
 
     def reflect_action_similarity_in_matrix(self, result_dir):
         '''
-        remake geo-act-matrix reflecting similarity of actions
+        remake geo-act-matrix reflecting similar actions
         '''
         self.read_action_similarities(result_dir)
         # pass by value
         original_matrix = self.matrix[:]
         action_index = 0
+        # a row for an action
         for row in original_matrix:
-            # action similarities dict for an action
+            # an action similarities dict for the action
             action_similarity_dict = self.action_similarities[action_index]
+            # TOPn件のみの類似度・頻度を反映するという仕様に後で変更する
+            # 今はとりあえず全部反映
+            # an similar action and its similarity of the action
             for similar_action, similarity in action_similarity_dict.items():
                 similar_action_index = self.actions.index(similar_action)
                 similar_action_row = original_matrix[similar_action_index]
+                # reflect the similar actions row in the action row
+                # add each element of the similar action multiplied by the similarity to the element of the action
                 self.matrix[action_index] = [x + float(similarity) * y for (x, y) in zip(self.matrix[action_index], similar_action_row)]
-            print(original_matrix[action_index][:100])
-            print(self.matrix[action_index][:100])
             action_index += 1
             if action_index == len(self.actions):
                 break
