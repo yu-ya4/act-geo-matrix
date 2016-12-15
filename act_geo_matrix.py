@@ -5,15 +5,28 @@ from tabelog_review import TabelogReview
 from time import sleep
 
 class ActGeoMatrix:
+    '''
+    Action and Gegraphic feature matrix
+    a row means an action such as "drink a little"
+    a column means an geographic feature such as "Torikizoku Demachiyanagiten"
+    a element means some score of the action and geographic feature
+    '''
+
     def __init__(self, actions_filename, review_dir):
         '''
+        read actions and reviews from text files
+        and make Action and Geographic matrix
+
         Args:
             actions_filename: str
                 file path of the text file of actions list for matrix
             review_dir: str
                 path of the directory countaining text files of reviews
         '''
+
+        # actions of rows
         self.actions = []
+        # geographic features of columns
         self.geos = []
         self.reviews = []
         self.matrix = []
@@ -30,11 +43,9 @@ class ActGeoMatrix:
         Args:
             actions_filename: str
         '''
-        self.actions = []
         f_a = open(actions_filename, 'r')
-        for line in f_a:
-            action = line.replace('\n', '')
-            self.actions.append(action)
+        self.actions = [line.replace('\n', '') for line in f_a]
+        f_a.close()
 
     def read_reviews(self, review_dir):
         '''
@@ -49,16 +60,12 @@ class ActGeoMatrix:
         self.geos = []
 
         for action in self.actions:
-            urls = []
-            store_names = []
-            titles = []
-            bodies = []
-            self.reviews[action] = []
-            f_urls = open(review_dir + '/urls/' + action + '.txt', 'r')
-            for line in f_urls:
-                url = line.replace('\n', '')
-                urls.append(url)
 
+            f_urls = open(review_dir + '/urls/' + action + '.txt', 'r')
+            urls = [line.replace('\n', '') for line in f_urls]
+            f_urls.close()
+
+            store_names = []
             f_store_names = open(review_dir + '/store_names/' + action + '.txt', 'r')
             for line in f_store_names:
                 store_name = line.replace('\n', '')
@@ -68,19 +75,17 @@ class ActGeoMatrix:
                     continue
                 else:
                     self.geos.append(store_name)
+            f_store_names.close()
 
             f_titles = open(review_dir + '/titles/' + action + '.txt', 'r')
-            for line in f_titles:
-                title = line.replace('\n', '')
-                titles.append(title)
+            titles = [line.replace('\n', '') for line in f_titles]
+            f_titles.close()
 
             f_bodies = open(review_dir + '/bodies/' + action + '.txt', 'r')
-            for line in f_bodies:
-                body = line.replace('\n', '')
-                bodies.append(body)
+            bodies = [line.replace('\n', '') for line in f_bodies]
+            f_bodies.close()
 
-            for i in range(len(urls)):
-                self.reviews[action].append(TabelogReview(urls[i], store_names[i], titles[i], bodies[i]))
+            self.reviews[action] = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
 
     def make_flequency_matrix(self):
         '''
