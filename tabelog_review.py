@@ -2,6 +2,10 @@
 # -*- coding: utf-8
 
 class TabelogReview:
+    '''
+    This class reprents a review of tabelog.
+    The instance has a url, a store name, a title and a body of the review.
+    '''
 
     def __init__(self, url, store_name, title, body):
         self.url = url
