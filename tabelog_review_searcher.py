@@ -8,6 +8,14 @@ from time import sleep
 
 
 class TabelogReviewSearcher:
+    '''
+    search tabelog for reviews
+    shops in Kyoto
+
+    ex:
+        trs = TabelogReviewSearcher()
+        reviews = trs.search('ちょっと飲む')
+    '''
 
     def __init__(self):
         self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
@@ -46,10 +54,6 @@ class TabelogReviewSearcher:
                     title = review.cssselect('.title a')[0].text_content()
                     store_name = review.cssselect('.mname-wrap a')[0].text_content()
                     body = review.cssselect('.comment p')[0].text_content().replace('\n', '')
-                    # print(review_url)
-                    # print(title)
-                    # print(store_name)
-                    # print(body)
                     # remove default spaces of the starts of sentences
                     review_list.append(TabelogReview(review_url, store_name, title, body[13:]))
                 page += 1
