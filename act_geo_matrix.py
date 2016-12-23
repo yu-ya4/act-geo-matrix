@@ -138,6 +138,7 @@ class ActGeoMatrix:
         Args:
             result_dir: str
             num: int
+                read top n similar actions
 
         action_similarities: list[dict{str: float}]
         '''
@@ -145,12 +146,14 @@ class ActGeoMatrix:
         for action in self.actions:
             action_similarity_dict = {}
             f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
+            i = 0
             for line in f_s:
-                if len(action_similarity_dict) == num:
+                if i == num:
                     break
                 line = line.replace('\n', '')
-                action, similarity = line.split(':')
-                action_similarity_dict[action] = similarity
+                similar_action, similarity = line.split(':')
+                action_similarity_dict[similar_action] = similarity
+                i += 1
             self.action_similarities.append(action_similarity_dict)
 
 
