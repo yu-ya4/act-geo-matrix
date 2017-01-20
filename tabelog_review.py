@@ -5,22 +5,27 @@ class TabelogReview:
     '''
     This class reprents a review of tabelog.
     The instance has a url, a store name, a title and a body of the review.
+
     '''
 
     def __init__(self, url, store_name, title, body):
-        self.url = url
-        self.store_name = store_name
-        self.title = title
-        self.body = body
+        self.__url = url
+        self.__store_name = store_name
+        self.__title = title
+        self.__body = body
 
-    def get_url(self):
-        return self.url
+    @property
+    def url(self):
+        return self.__url
 
-    def get_store_name(self):
-        return self.store_name
+    @property
+    def store_name(self):
+        return self.__store_name
 
-    def get_title(self):
-        return self.title
+    @property
+    def title(self):
+        return self.__title
 
-    def get_body(self):
-        return self.body
+    @property
+    def body(self):
+        return self.__body
