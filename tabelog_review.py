@@ -57,4 +57,10 @@ class TabelogReviews:
         bodies = [line.replace('\n', '') for line in f_bodies]
         f_bodies.close()
 
-        return [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
+        try:
+            reviews = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
+        except Exception as e:
+            print(e)
+            reviews = []
+
+        return reviews
