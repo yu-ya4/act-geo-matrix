@@ -36,9 +36,13 @@ class TabelogReviews:
     '''
 
     def __init__(self, reviews_path):
-        self.reviews = self.read_reviews(reviews_path)
+        self.__reviews = self.__read_reviews(reviews_path)
 
-    def read_reviews(self, reviews_path):
+    @property
+    def reviews(self):
+        return self.__reviews
+
+    def __read_reviews(self, reviews_path):
         '''
         '''
         f_urls = open(reviews_path + '/urls.txt', 'r')
