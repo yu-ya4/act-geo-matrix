@@ -68,3 +68,22 @@ class TabelogReviews:
             reviews = []
 
         return reviews
+
+    def get_review_counts_for_each_geo(self, geos):
+        '''
+        Args:
+            geos: list[str]
+                a list of geographic feature names
+        Returns:
+            list[float]
+                a list of counts of review for each geographic feature
+        '''
+        frequencies = len(geos) * [0]
+        for review in self.reviews:
+            try:
+                geo_index = geos.index(review.store_name)
+                frequencies[geo_index] += 1.0
+            except ValueError as ve:
+                print(ve)
+
+        return frequencies
