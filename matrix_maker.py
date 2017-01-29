@@ -1,7 +1,9 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
+from tabelog_review import TabelogReview, TabelogReviews
 from act_geo_matrix import ActGeoMatrix
+import numpy as np
 
 class MatrixMaker:
     '''
@@ -16,6 +18,7 @@ class MatrixMaker:
 
         self.actions = self.read_actions(actions_filename)
         self.geos = self.read_geos(geos_filename)
+        self.scores = np.zeros([len(self.actions), len(self.geos)])
 
     def read_actions(self, actions_filename):
         '''
@@ -40,6 +43,20 @@ class MatrixMaker:
         geos = [line.replace('\n', '') for line in f_g]
         f_g.close()
         return geos
+
+    def get_scores_by_review_counts_for_each_geo(self):
+        '''
+        for each action, get review counts for each geographic feature(store name)
+
+        Returns:
+            None
+        '''
+        counts_list = []
+        for action in self.actions:
+            reviews = TabelogReviews(reviews_path='./reviews/test_review')
+            counts_list.append(reviews.get_review_counts_for_each_geo(self.geos))
+
+        self.scores = np.array(counts_list)
 
     def make(self):
         '''
