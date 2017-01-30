@@ -69,6 +69,28 @@ class TabelogReviews:
 
         return reviews
 
+    def append(self, another_review):
+        '''
+        append a TabelogReview to the TabelogReviews
+
+        Args:
+            antheor_review: TabelogReview
+        Return:
+            None
+        '''
+        self.__reviews.append(another_review)
+
+    def extend(self, other_reviews):
+        '''
+        extend the TabelogReviews by another TabelogReviews
+
+        Args:
+            other_reviews: TabelogReviews
+        Return:
+            None
+        '''
+        self.__reviews.extend(other_reviews.reviews)
+
     def get_review_counts_for_each_geo(self, geos):
         '''
         count reviews for each geographic feature(store name)
