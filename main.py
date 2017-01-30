@@ -1,16 +1,41 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from tabelog_review import TabelogReview
+from tabelog_review import TabelogReview, TabelogReviews
 from tabelog_review_searcher import TabelogReviewSearcher
+from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
 import MeCab
 
 if __name__ == '__main__':
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')
-    # print(tr.get_body())
+    # # print(tr.get_body())
+    # trs1 = TabelogReviews('./reviews/tabelog_searched_by_sep_actions/ちょっと飲む/')
+    # print(len(trs1.reviews))
+    # trs2 = TabelogReviews('./reviews/tabelog_searched_by_sep_actions/おしゃれに飲む/')
+    # print(len(trs2.reviews))
+    # trs1.extend(trs2)
+    # print(len(trs1.reviews))
+    # trs1.append(tr)
+    # print(len(trs1.reviews))
+    # print(trs1.reviews[1881].title)
 
-    mat = ActGeoMatrix('./actions_飲む.txt', './tabelog_reviews_sep')
+
+
+    # exit()
+
+    mm = MatrixMaker(actions_filename='./actions/actions_飲む.txt', geos_filename='./geos/tabelog_searched_by_sep_actions.txt')
+    mm.get_scores_by_review_counts_for_each_geo('./reviews/tabelog_searched_by_sep_actions/')
+    mat = mm.make_matrix()
+    print(mat.scores)
+    exit()
+    trs = TabelogReviews('./reviews/test_review/')
+    print(trs.get_geo_names())
+    exit()
+    fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
+    print(fre)
+    exit()
+    mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
     mat.show_geo_ranking('大勢で飲む', 30)
     print('\n')
     mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
