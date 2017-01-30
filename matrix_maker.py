@@ -44,7 +44,7 @@ class MatrixMaker:
         f_g.close()
         return geos
 
-    def get_scores_by_review_counts_for_each_geo(self):
+    def get_scores_by_review_counts_for_each_geo(self, reviews_path):
         '''
         for each action, get review counts for each geographic feature(store name)
 
@@ -53,7 +53,8 @@ class MatrixMaker:
         '''
         counts_list = []
         for action in self.actions:
-            reviews = TabelogReviews(reviews_path='./reviews/test_review')
+            # reviews got by each action query
+            reviews = TabelogReviews(reviews_path + action + '/')
             counts_list.append(reviews.get_review_counts_for_each_geo(self.geos))
 
         self.scores = np.array(counts_list)
