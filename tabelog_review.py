@@ -89,3 +89,18 @@ class TabelogReviews:
                 print(ve)
 
         return counts
+
+    def get_geo_names(self):
+        '''
+        get geographic features names from reviews store names
+        duplicates are removed
+
+        Returns:
+            list[str]
+        '''
+        # geos = {review.store_name for review in self.reviews}
+        geos = []
+        for review in self.reviews:
+            if review.store_name not in geos:
+                geos.append(review.store_name)
+        return geos
