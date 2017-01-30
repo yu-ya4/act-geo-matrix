@@ -59,14 +59,12 @@ class MatrixMaker:
 
         self.scores = np.array(counts_list)
 
-    def make(self):
+    def make_matrix(self):
         '''
-        Args:
-
+        make ActGeoMatrix
+        
         Return:
             ActGeoMatrix
         '''
 
-        matrix = ActGeoMatrix()
-
-        return matrix
+        return ActGeoMatrix(self.actions, self.geos, self.scores)
