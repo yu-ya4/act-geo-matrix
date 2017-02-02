@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from tabelog_review import TabelogReview
+from tabelog_review import TabelogReview, TabelogReviews
 import requests
 import lxml.html
 from time import sleep
@@ -26,7 +26,7 @@ class TabelogReviewSearcher:
             query: str
                 query for searching tabelog review
         Returns:
-            list[TabelogReview]
+            TabelogReviews
         '''
 
         parameters = {
@@ -34,30 +34,32 @@ class TabelogReviewSearcher:
             'sw': query
         }
         page = 1
-        review_list = []
+        # an instance of TabelogReviews
+        result = TabelogReviews('')
 
         while 1:
             url = self.url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            sleep(6)
+            # sleep(6)
             html = res.text
             root = lxml.html.fromstring(html)
 
             try:
-                reviews = root.cssselect('.review-wrap')
+                reviews = root.cssselect('.rvw-item')
                 # when all reviews are got, break loop
                 if not reviews:
                     break
                 # parse necessary information of review
                 for review in reviews:
-                    review_url = 'https://tabelog.com' + review.cssselect('.title a')[0].attrib['href']
-                    title = review.cssselect('.title a')[0].text_content()
-                    store_name = review.cssselect('.mname-wrap a')[0].text_content()
-                    body = review.cssselect('.comment p')[0].text_content().replace('\n', '')
+                    review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
+                    store_name = review.cssselect('.rvw-item__rst-name')[0].text_content()
+                    title = review.cssselect('.rvw-item__title-target')[0].text_content()
+                    body = review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
                     # remove default spaces of the starts of sentences
-                    review_list.append(TabelogReview(review_url, store_name, title, body[13:]))
+                    result.append(TabelogReview(review_url, store_name, title, body[13:]))
+
                 page += 1
             except:
                 break
 
-        return review_list
+        return result
