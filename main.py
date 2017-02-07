@@ -24,23 +24,23 @@ if __name__ == '__main__':
 
     # exit()
 
-    mm = MatrixMaker(actions_filename='./actions/actions_飲む.txt', geos_filename='./geos/tabelog_searched_by_sep_actions.txt')
-    mm.get_scores_by_review_counts_for_each_geo('./reviews/tabelog_searched_by_sep_actions/')
-    mat = mm.make_matrix()
-    print(mat.scores)
-    exit()
-    trs = TabelogReviews('./reviews/test_review/')
-    print(trs.get_geo_names())
-    exit()
-    fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
-    print(fre)
-    exit()
-    mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
-    mat.show_geo_ranking('大勢で飲む', 30)
-    print('\n')
-    mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
-    mat.show_geo_ranking('大勢で飲む', 50)
-    exit()
+    # mm = MatrixMaker(actions_filename='./actions/actions_飲む.txt', geos_filename='./geos/tabelog_searched_by_sep_actions.txt')
+    # mm.get_scores_by_review_counts_for_each_geo('./reviews/tabelog_searched_by_sep_actions/')
+    # mat = mm.make_matrix()
+    # print(mat.scores)
+    # exit()
+    # trs = TabelogReviews('./reviews/test_review/')
+    # print(trs.get_geo_names())
+    # exit()
+    # fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
+    # print(fre)
+    # exit()
+    # mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
+    # mat.show_geo_ranking('大勢で飲む', 30)
+    # print('\n')
+    # mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
+    # mat.show_geo_ranking('大勢で飲む', 50)
+    # exit()
 
     # for row in mat.matrix:
     #     count = 0
@@ -49,18 +49,21 @@ if __name__ == '__main__':
     #     print(count)
     #
     # print(mat.actions)
-    exit()
-    # action_list = []
-    # f_a = open('./actions_飲む.txt', 'r')
-    # for line in f_a:
-    #     action = line.replace('\n', '')
-    #     action_list.append(action)
-    #
-    # trs = TabelogReviewSearcher()
-    #
-    # for action in action_list:
-    #     query = action[:-2] + ' ' + "飲む"
-    #     reviews = trs.search(query)
+    # exit()
+    action_list = []
+    f_a = open('./actions/actions_飲む.txt', 'r')
+    for line in f_a:
+        action = line.replace('\n', '')
+        action_list.append(action)
+    f_a.close()
+
+    trs = TabelogReviewSearcher()
+
+    for action in action_list:
+        query = action[:-2] + ' ' + "飲む"
+        reviews = trs.search(query)
+        print(reviews, reviews.reviews, reviews.reviews[0].title)
+        exit()
     #     f_urls = open('./tabelog_reviews_sep/urls/' + action + '.txt', 'w')
     #     f_store_names = open('./tabelog_reviews_sep/store_names/' + action + '.txt', 'w')
     #     f_titles = open('./tabelog_reviews_sep/titles/' + action + '.txt', 'w')
