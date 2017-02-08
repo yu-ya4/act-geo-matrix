@@ -44,6 +44,11 @@ class TabelogReviews:
 
     def __read_reviews(self, reviews_path):
         '''
+        Read TabelogReviews from reviews directory.
+
+        Args:
+            reviews_path: str
+                a path to the review directory
         '''
         try:
 
@@ -65,7 +70,7 @@ class TabelogReviews:
 
             reviews = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
         except Exception as e:
-            print(e)
+            # print(e)
             reviews = []
 
         return reviews
