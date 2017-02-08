@@ -5,7 +5,7 @@ from tabelog_review import TabelogReview, TabelogReviews
 import requests
 import lxml.html
 from time import sleep
-
+import sys
 
 class TabelogReviewSearcher:
     '''
@@ -31,7 +31,8 @@ class TabelogReviewSearcher:
 
         parameters = {
             'rvw_part': 'all',
-            'sw': query
+            'sw': query,
+            'lc': 2 #1ページあたり１００件取得
         }
         page = 1
         # an instance of TabelogReviews
@@ -50,14 +51,25 @@ class TabelogReviewSearcher:
                 if not reviews:
                     break
                 # parse necessary information of review
+                i = 0
                 for review in reviews:
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
+                    # get review detail
+                    detail_res = requests.get(review_url)
+                    detail_html = detail_res.text
+                    detail_root = lxml.html.fromstring(detail_html)
+                    detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
+                    body = detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
                     store_name = review.cssselect('.rvw-item__rst-name')[0].text_content()
                     title = review.cssselect('.rvw-item__title-target')[0].text_content()
-                    body = review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
+                    # body = review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
                     # remove default spaces of the starts of sentences
-                    result.append(TabelogReview(review_url, store_name, title, body[13:]))
-
+                    # result.append(TabelogReview(review_url, store_name, title, body[13:]))
+                    result.append(TabelogReview(review_url, store_name, title, body[8:]))
+                    if i == 10:
+                        break
+                    i += 1
+                break
                 page += 1
             except:
                 break
