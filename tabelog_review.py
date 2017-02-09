@@ -1,6 +1,8 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
+import os
+
 class TabelogReview:
     '''
     This class reprents a review of tabelog.
@@ -42,12 +44,12 @@ class TabelogReviews:
     def reviews(self):
         return self.__reviews
 
-    def __read_reviews(self, reviews_path):
+    def __read_reviews(self, reviews_dir):
         '''
         Read TabelogReviews from reviews directory.
 
         Args:
-            reviews_path: str
+            reviews_dir: str
                 a path to the review directory
         '''
         try:
@@ -74,6 +76,34 @@ class TabelogReviews:
             reviews = []
 
         return reviews
+
+    def write_review(self, review_dir):
+        '''
+        Write TabelogReviews in text files in specified directory
+
+        Args:
+            review_dir: str
+        Returns:
+            None
+        '''
+        if not os.path.exists(review_dir):
+            os.makedirs(review_dir)
+
+        f_urls = open(review_dir + 'urls.txt', 'w')
+        f_store_names = open(review_dir + 'store_names.txt', 'w')
+        f_titles = open(review_dir + 'titles.txt', 'w')
+        f_bodies = open(review_dir + 'bodies.txt', 'w')
+
+        for review in self.reviews:
+            f_urls.write(review.url + '\n')
+            f_store_names.write(review.store_name + '\n')
+            f_titles.write(review.title + '\n')
+            f_bodies.write(review.body + '\n')
+        f_urls.close()
+        f_store_names.close()
+        f_titles.close()
+        f_bodies.close()
+
 
     def append(self, another_review):
         '''
