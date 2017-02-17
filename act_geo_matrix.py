@@ -1,9 +1,6 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from tabelog_review import TabelogReview
-from time import sleep
-
 class ActGeoMatrix:
     '''
     Action and Gegraphic feature matrix
@@ -12,100 +9,30 @@ class ActGeoMatrix:
     a element means some score of the action and geographic feature
     '''
 
-    def __init__(self, actions_filename, review_dir):
+    def __init__(self, actions, geos, scores):
         '''
-        read actions and reviews from text files
-        and make Action and Geographic matrix
+        get actions, geographic features list and scores from MatrixMaker
 
         Args:
-            actions_filename: str
-                file path of the text file of actions list for matrix
-            review_dir: str
-                path of the directory countaining text files of reviews
+            actions: list[str]
+            geos: list[str]
+            scores: numpy.ndarray[float]
         '''
 
         # actions of rows
-        self.actions = []
+        self.__actions = actions
         # geographic features of columns
-        self.geos = []
-        self.reviews = []
-        self.matrix = []
+        self.__geos = geos
+        self.scores = scores
         self.action_similarities = []
 
-        self.read_actions(actions_filename)
-        self.read_reviews(review_dir)
-        self.make_flequency_matrix()
+    @property
+    def actions(self):
+        return self.__actions
 
-    def read_actions(self, actions_filename):
-        '''
-        read actions list from text file
-
-        Args:
-            actions_filename: str
-        '''
-        f_a = open(actions_filename, 'r')
-        self.actions = [line.replace('\n', '') for line in f_a]
-        f_a.close()
-
-    def read_reviews(self, review_dir):
-        '''
-        read reviews dictionary from text file
-            dict{str: list[TabelogReview]}
-                ex. self.reviews['ちょっと飲む'][0].get_store_name = '鳥貴族 出町柳駅前店'
-
-        Args:
-            review_dir: str
-        '''
-        self.reviews = {}
-        self.geos = []
-
-        for action in self.actions:
-
-            f_urls = open(review_dir + '/urls/' + action + '.txt', 'r')
-            urls = [line.replace('\n', '') for line in f_urls]
-            f_urls.close()
-
-            store_names = []
-            f_store_names = open(review_dir + '/store_names/' + action + '.txt', 'r')
-            for line in f_store_names:
-                store_name = line.replace('\n', '')
-                store_names.append(store_name)
-                # make geos list
-                if store_name in self.geos:
-                    continue
-                else:
-                    self.geos.append(store_name)
-            f_store_names.close()
-
-            f_titles = open(review_dir + '/titles/' + action + '.txt', 'r')
-            titles = [line.replace('\n', '') for line in f_titles]
-            f_titles.close()
-
-            f_bodies = open(review_dir + '/bodies/' + action + '.txt', 'r')
-            bodies = [line.replace('\n', '') for line in f_bodies]
-            f_bodies.close()
-
-            self.reviews[action] = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
-
-    def make_flequency_matrix(self):
-        '''
-        make matrix by reviews
-        search for reviews by action query
-        each element means the flequency of the reviews about the geo by the action query
-        order by self.actions and self.geos
-
-        self.matrix: list[list[int]]
-        '''
-        self.matrix = []
-        n = len(self.geos)
-        for action in self.actions:
-            row = n * [0]
-            for review in self.reviews[action]:
-                store_name = review.get_store_name()
-                geo_index = self.geos.index(store_name)
-                row[geo_index] += 1
-
-            self.matrix.append(row)
+    @property
+    def geos(self):
+        return self.__geos
 
     def show_geo_ranking(self, action, result_num):
         '''
@@ -140,6 +67,9 @@ class ActGeoMatrix:
             num: int
                 read top n similar actions
 
+        Returns:
+            None
+
         action_similarities: list[dict{str: float}]
         '''
         self.action_similarities = []
@@ -164,6 +94,8 @@ class ActGeoMatrix:
         Args:
             num: int
                 the number of similar action used for remake the matrix
+        Returns:
+            None
         '''
         self.read_action_similarities(result_dir, num)
         # pass by value

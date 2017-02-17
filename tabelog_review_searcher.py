@@ -1,11 +1,11 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from tabelog_review import TabelogReview
+from tabelog_review import TabelogReview, TabelogReviews
 import requests
 import lxml.html
 from time import sleep
-
+import sys
 
 class TabelogReviewSearcher:
     '''
@@ -26,38 +26,52 @@ class TabelogReviewSearcher:
             query: str
                 query for searching tabelog review
         Returns:
-            list[TabelogReview]
+            TabelogReviews
         '''
 
         parameters = {
             'rvw_part': 'all',
-            'sw': query
+            'sw': query,
+            'lc': 2 #1ページあたり１００件取得
         }
         page = 1
-        review_list = []
+        # an instance of TabelogReviews
+        result = TabelogReviews('')
 
         while 1:
             url = self.url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            sleep(6)
+            # sleep(6)
             html = res.text
             root = lxml.html.fromstring(html)
 
             try:
-                reviews = root.cssselect('.review-wrap')
+                reviews = root.cssselect('.rvw-item')
                 # when all reviews are got, break loop
                 if not reviews:
                     break
                 # parse necessary information of review
+                i = 0
                 for review in reviews:
-                    review_url = 'https://tabelog.com' + review.cssselect('.title a')[0].attrib['href']
-                    title = review.cssselect('.title a')[0].text_content()
-                    store_name = review.cssselect('.mname-wrap a')[0].text_content()
-                    body = review.cssselect('.comment p')[0].text_content().replace('\n', '')
+                    review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
+                    # get review detail
+                    detail_res = requests.get(review_url)
+                    detail_html = detail_res.text
+                    detail_root = lxml.html.fromstring(detail_html)
+                    detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
+                    body = detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
+                    store_name = review.cssselect('.rvw-item__rst-name')[0].text_content()
+                    title = review.cssselect('.rvw-item__title-target')[0].text_content()
+                    # body = review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
                     # remove default spaces of the starts of sentences
-                    review_list.append(TabelogReview(review_url, store_name, title, body[13:]))
+                    # result.append(TabelogReview(review_url, store_name, title, body[13:]))
+                    result.append(TabelogReview(review_url, store_name, title, body[8:]))
+                    if i == 10:
+                        break
+                    i += 1
+                break
                 page += 1
             except:
                 break
 
-        return review_list
+        return result
