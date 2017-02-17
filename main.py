@@ -62,7 +62,8 @@ if __name__ == '__main__':
     for action in action_list:
         query = action[:-2] + ' ' + "飲む"
         reviews = trs.search(query)
-        print(reviews, reviews.reviews, reviews.reviews[0].title)
+        reviews.write_review('./reviews/search_test/' + action + '/')
+        # print(reviews, reviews.reviews, reviews.reviews[0].title)
         exit()
     #     f_urls = open('./tabelog_reviews_sep/urls/' + action + '.txt', 'w')
     #     f_store_names = open('./tabelog_reviews_sep/store_names/' + action + '.txt', 'w')

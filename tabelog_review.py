@@ -51,6 +51,8 @@ class TabelogReviews:
         Args:
             reviews_dir: str
                 a path to the review directory
+        Returns:
+            list[TabelogReview]
         '''
         try:
 
@@ -111,7 +113,7 @@ class TabelogReviews:
 
         Args:
             antheor_review: TabelogReview
-        Return:
+        Returns:
             None
         '''
         self.__reviews.append(another_review)
@@ -122,7 +124,7 @@ class TabelogReviews:
 
         Args:
             other_reviews: TabelogReviews
-        Return:
+        Returns:
             None
         '''
         self.__reviews.extend(other_reviews.reviews)

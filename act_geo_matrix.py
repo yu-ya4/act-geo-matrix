@@ -1,8 +1,6 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from time import sleep
-
 class ActGeoMatrix:
     '''
     Action and Gegraphic feature matrix
@@ -69,6 +67,9 @@ class ActGeoMatrix:
             num: int
                 read top n similar actions
 
+        Returns:
+            None
+
         action_similarities: list[dict{str: float}]
         '''
         self.action_similarities = []
@@ -93,6 +94,8 @@ class ActGeoMatrix:
         Args:
             num: int
                 the number of similar action used for remake the matrix
+        Returns:
+            None
         '''
         self.read_action_similarities(result_dir, num)
         # pass by value

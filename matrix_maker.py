@@ -26,6 +26,8 @@ class MatrixMaker:
 
         Args:
             actions_filename: str
+        Returns:
+            list[str]
         '''
         f_a = open(actions_filename, 'r')
         actions = [line.replace('\n', '') for line in f_a]
@@ -38,16 +40,20 @@ class MatrixMaker:
 
         Args:
             geos_filename: str
+        Returns:
+            list[str]
         '''
         f_g = open(geos_filename, 'r')
         geos = [line.replace('\n', '') for line in f_g]
         f_g.close()
         return geos
 
-    def get_scores_by_review_counts_for_each_geo(self, reviews_path):
+    def get_scores_by_review_counts_for_each_geo(self, reviews_dir):
         '''
         for each action, get review counts for each geographic feature(store name)
 
+        Args:
+            reviews_dir: str
         Returns:
             None
         '''
@@ -62,8 +68,8 @@ class MatrixMaker:
     def make_matrix(self):
         '''
         make ActGeoMatrix
-        
-        Return:
+
+        Returns:
             ActGeoMatrix
         '''
 
