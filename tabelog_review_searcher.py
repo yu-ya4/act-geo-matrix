@@ -41,7 +41,6 @@ class TabelogReviewSearcher:
         while 1:
             url = self.url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            # sleep(6)
             html = res.text
             root = lxml.html.fromstring(html)
 
@@ -51,11 +50,11 @@ class TabelogReviewSearcher:
                 if not reviews:
                     break
                 # parse necessary information of review
-                i = 0
                 for review in reviews:
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
                     # get review detail
                     detail_res = requests.get(review_url)
+                    sleep(7) 
                     detail_html = detail_res.text
                     detail_root = lxml.html.fromstring(detail_html)
                     detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
@@ -66,10 +65,6 @@ class TabelogReviewSearcher:
                     # remove default spaces of the starts of sentences
                     # result.append(TabelogReview(review_url, store_name, title, body[13:]))
                     result.append(TabelogReview(review_url, store_name, title, body[8:]))
-                    if i == 10:
-                        break
-                    i += 1
-                break
                 page += 1
             except:
                 break
