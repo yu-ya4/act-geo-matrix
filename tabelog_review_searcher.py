@@ -53,6 +53,7 @@ class TabelogReviewSearcher:
                 for review in reviews:
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
                     # get review detail
+                    sleep(3)
                     detail_res = requests.get(review_url)
                     sleep(7) 
                     detail_html = detail_res.text
