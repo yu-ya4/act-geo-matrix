@@ -64,7 +64,6 @@ if __name__ == '__main__':
         reviews = trs.search(query)
         reviews.write_review('./reviews/search_test/' + action + '/')
         # print(reviews, reviews.reviews, reviews.reviews[0].title)
-        exit()
     #     f_urls = open('./tabelog_reviews_sep/urls/' + action + '.txt', 'w')
     #     f_store_names = open('./tabelog_reviews_sep/store_names/' + action + '.txt', 'w')
     #     f_titles = open('./tabelog_reviews_sep/titles/' + action + '.txt', 'w')
