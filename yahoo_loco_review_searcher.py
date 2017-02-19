@@ -111,7 +111,7 @@ class YahooLocoReviewSearcher:
                     if 'Property' in review:
                         comment = review['Property']['Comment']
                         title = comment['Subject'].replace('\n', '')
-                        body = comment['Body'].replace('\n', '')
+                        body = comment['Body'].replace('\n', '').replace('\r', '')
                         r.append(TabelogReview(url, store_name, title, body))
             start += results
 
