@@ -50,23 +50,27 @@ if __name__ == '__main__':
     #
     # print(mat.actions)
     # exit()
-    action_list = []
-    f_a = open('./actions/actions_飲む.txt', 'r')
-    i = 1
-    for line in f_a:
-        if i<=24:
-            i = i+1
-            continue
-        action = line.replace('\n', '')
-        action_list.append(action)
-    f_a.close()
+    # action_list = []
+    # f_a = open('./actions/actions_飲む.txt', 'r')
+    # i = 1
+    # for line in f_a:
+    #     action = line.replace('\n', '')
+    #     action_list.append(action)
+    # f_a.close()
 
     trs = TabelogReviewSearcher()
+    action = '軽く一杯飲む'
+    # query = action[:-2] + ' ' + "飲む"
+    query = "軽く 一杯 飲む"
+    reviews = trs.search(query)
+    reviews.write_review('./reviews/search_test/' + action + '/')
 
-    for action in action_list:
-        query = action[:-2] + ' ' + "飲む"
-        reviews = trs.search(query)
-        reviews.write_review('./reviews/search_test/' + action + '/')
+    # for action in action_list:
+    #     query = action[:-2] + ' ' + "飲む"
+    #     reviews = trs.search(query)
+    #     reviews.write_review('./reviews/search_test/' + action + '/')
+
+
     #     f_urls = open('./tabelog_reviews_sep/urls/' + action + '.txt', 'w')
     #     f_store_names = open('./tabelog_reviews_sep/store_names/' + action + '.txt', 'w')
     #     f_titles = open('./tabelog_reviews_sep/titles/' + action + '.txt', 'w')
