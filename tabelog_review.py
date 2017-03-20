@@ -44,7 +44,7 @@ class TabelogReviews:
     def reviews(self):
         return self.__reviews
 
-    def __read_reviews(self, reviews_dir):
+    def __read_reviews(self, reviews_path):
         '''
         Read TabelogReviews from reviews directory.
 
@@ -74,7 +74,8 @@ class TabelogReviews:
 
             reviews = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
         except Exception as e:
-            # print(e)
+            print(e)
+            print(reviews_path)
             reviews = []
 
         return reviews
@@ -147,6 +148,7 @@ class TabelogReviews:
                 counts[geo_index] += 1.0
             except ValueError as ve:
                 print(ve)
+                exit()
 
         return counts
 

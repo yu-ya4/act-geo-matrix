@@ -9,7 +9,6 @@ https://tabelog.com/kyoto/A2601/A260401/26002686/dtlrvwlst/B75617054/?use_type=0
 https://tabelog.com/kyoto/A2601/A260503/26028144/dtlrvwlst/B243189797/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260601/26026864/dtlrvwlst/B188450623/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260601/26027780/dtlrvwlst/B210417835/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
-<<<<<<< HEAD
 https://tabelog.com/kyoto/A2601/A260202/26004652/dtlrvwlst/B112537117/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260201/26000900/dtlrvwlst/B245720951/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260201/26004119/dtlrvwlst/B245348452/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
@@ -1199,5 +1198,3 @@ https://tabelog.com/kyoto/A2601/A260401/26019562/dtlrvwlst/B141058943/?use_type=
 https://tabelog.com/kyoto/A2609/A260901/26017157/dtlrvwlst/B119476368/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260301/26005763/dtlrvwlst/B116739244/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
 https://tabelog.com/kyoto/A2601/A260202/26003122/dtlrvwlst/B116395108/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1
-=======
->>>>>>> 629933eeee6601b14e1b311975ca2eb602941bab

@@ -60,7 +60,7 @@ class MatrixMaker:
         counts_list = []
         for action in self.actions:
             # reviews got by each action query
-            reviews = TabelogReviews(reviews_path + action + '/')
+            reviews = TabelogReviews(reviews_dir + action + '/')
             counts_list.append(reviews.get_review_counts_for_each_geo(self.geos))
 
         self.scores = np.array(counts_list)

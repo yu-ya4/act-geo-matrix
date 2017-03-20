@@ -19,28 +19,56 @@ if __name__ == '__main__':
     # trs1.append(tr)
     # print(len(trs1.reviews))
     # print(trs1.reviews[1881].title)
-
-
-
+    #
+    # action_list = []
+    # f_a = open('./actions/action_飲む_extended.txt', 'r')
+    # for line in f_a:
+    #     action = line.replace('\n', '')
+    #     action_list.append(action)
+    # f_a.close()
+    #
+    # trs = TabelogReviews('')
+    # for action in action_list:
+    #     t = TabelogReviews('./reviews/search_test/' + action + '/')
+    #     trs.extend(t)
+    # geos = trs.get_geo_names()
+    # fw = open('./geos/search_test_geos.txt', 'w')
+    # for geo in geos:
+    #     fw.write(geo + '\n')
+    #
+    # fw.close()
     # exit()
 
-    # mm = MatrixMaker(actions_filename='./actions/actions_飲む.txt', geos_filename='./geos/tabelog_searched_by_sep_actions.txt')
-    # mm.get_scores_by_review_counts_for_each_geo('./reviews/tabelog_searched_by_sep_actions/')
-    # mat = mm.make_matrix()
+    mm = MatrixMaker(actions_filename='./actions/action_飲む_extended.txt', geos_filename='./geos/search_test_geos.txt')
+    mm.get_scores_by_review_counts_for_each_geo('./reviews/search_test/')
+    mat = mm.make_matrix()
+    # print(mat.actions[1])
+    # sum = 0
+    # for s in mat.scores[1]:
+    #     if s != 0.0:
+    #         sum += s
+    #         print(s)
+    # print(sum)
+    mat.show_geo_ranking('仕事終わりに飲む', 20)
+    print('\n')
+    mat.normalize_at_row()
+    mat.show_geo_ranking('仕事終わりに飲む', 10)
+    print('\n')
     # print(mat.scores)
-    # exit()
-    # trs = TabelogReviews('./reviews/test_review/')
-    # print(trs.get_geo_names())
-    # exit()
-    # fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
-    # print(fre)
-    # exit()
-    # mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
-    # mat.show_geo_ranking('大勢で飲む', 30)
-    # print('\n')
-    # mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
-    # mat.show_geo_ranking('大勢で飲む', 50)
-    # exit()
+    # mat.read_action_similarities('./actions/similarities_100/', 5)
+    mat.reflect_action_similarity_in_matrix('./actions/similarities_100/', 3)
+    mat.show_geo_ranking('仕事終わりに飲む', 10)
+
+    exit()
+    fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
+    print(fre)
+    exit()
+    mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
+    mat.show_geo_ranking('大勢で飲む', 30)
+    print('\n')
+    mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
+    mat.show_geo_ranking('大勢で飲む', 50)
+    exit()
 
     # for row in mat.matrix:
     #     count = 0
@@ -57,13 +85,13 @@ if __name__ == '__main__':
     #     action = line.replace('\n', '')
     #     action_list.append(action)
     # f_a.close()
-
-    trs = TabelogReviewSearcher()
-    action = '軽く一杯飲む'
-    # query = action[:-2] + ' ' + "飲む"
-    query = "軽く 一杯 飲む"
-    reviews = trs.search(query)
-    reviews.write_review('./reviews/search_test/' + action + '/')
+    #
+    # trs = TabelogReviewSearcher()
+    # action = '軽く一杯飲む'
+    # # query = action[:-2] + ' ' + "飲む"
+    # query = "軽く 一杯 飲む"
+    # reviews = trs.search(query)
+    # reviews.write_review('./reviews/search_test/' + action + '/')
 
     # for action in action_list:
     #     query = action[:-2] + ' ' + "飲む"

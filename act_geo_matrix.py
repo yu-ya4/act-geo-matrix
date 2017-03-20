@@ -1,6 +1,8 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
+import numpy as np
+
 class ActGeoMatrix:
     '''
     Action and Gegraphic feature matrix
@@ -44,10 +46,11 @@ class ActGeoMatrix:
                 the number of geos shown
         '''
         try:
+            # print(self.actions)
             action_index = self.actions.index(action)
         except:
             return print('no index')
-        row = self.matrix[action_index]
+        row = self.scores[action_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
         for i in range(result_num+1):
             if i == 0:
@@ -75,7 +78,7 @@ class ActGeoMatrix:
         self.action_similarities = []
         for action in self.actions:
             action_similarity_dict = {}
-            f_s = open('../similar_actions/result/tabelog/drink/' + result_dir + '/' + action + '.txt', 'r')
+            f_s = open(result_dir + action + '.txt', 'r')
             i = 0
             for line in f_s:
                 if i == num:
@@ -99,7 +102,7 @@ class ActGeoMatrix:
         '''
         self.read_action_similarities(result_dir, num)
         # pass by value
-        original_matrix = self.matrix[:]
+        original_matrix = self.scores[:]
         action_index = 0
         # a row for an action
         for row in original_matrix:
@@ -115,5 +118,12 @@ class ActGeoMatrix:
                 similar_action_row = original_matrix[similar_action_index]
                 # reflect the similar actions row in the action row
                 # add each element of the similar action multiplied by the similarity to the element of the action
-                self.matrix[action_index] = [x + float(similarity) * y for (x, y) in zip(self.matrix[action_index], similar_action_row)]
+                self.scores[action_index] = [x + float(similarity) * y for (x, y) in zip(self.scores[action_index], similar_action_row)]
             action_index += 1
+
+    def normalize_at_row(self):
+        i = 0
+        for row in self.scores:
+            if np.amax(row) * 1 != 0:
+                self.scores[i] = row / np.amax(row) * 1
+            i += 1
