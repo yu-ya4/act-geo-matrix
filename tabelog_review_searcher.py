@@ -18,7 +18,10 @@ class TabelogReviewSearcher:
     '''
 
     def __init__(self):
-        self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
+        # change the request url along with the change of specifications of 食べログ
+        # 2017/06/07 by yu-ya4
+        # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
+        self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-1-0/D-edited_at/'
 
     def search(self, query):
         '''
@@ -51,22 +54,37 @@ class TabelogReviewSearcher:
                     break
                 # parse necessary information of review
                 for review in reviews:
-                    review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
+                    # review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
+                    review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__frame')[0].attrib['data-detail-url']
                     # get review detail
                     detail_res = requests.get(review_url)
-                    sleep(4) 
+                    sleep(5)
                     detail_html = detail_res.text
                     detail_root = lxml.html.fromstring(detail_html)
-                    detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
-                    body = detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
+                    # detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
+                    # body = detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
+
+                    detail_reviews = detail_root.cssselect('.rvw-item__review-contents')
+                    body = ''
+                    for detail_review in detail_reviews:
+                        try:
+                            # remove default spaces of the starts of sentences
+                            body += detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
+                        except:
+                            continue
+
                     store_name = review.cssselect('.rvw-item__rst-name')[0].text_content()
-                    title = review.cssselect('.rvw-item__title-target')[0].text_content()
-                    # body = review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
-                    # remove default spaces of the starts of sentences
-                    # result.append(TabelogReview(review_url, store_name, title, body[13:]))
-                    result.append(TabelogReview(review_url, store_name, title, body[8:]))
+                    try:
+                        title = review.cssselect('.rvw-item__title-target')[0].text_content()
+                    except:
+                        title = ''
+                    result.append(TabelogReview(review_url, store_name, title, body))
                 page += 1
-            except:
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                print(review_url)
+                print(e)
                 break
 
         return result
