@@ -74,8 +74,8 @@ class TabelogReviews:
 
             reviews = [TabelogReview(urls[i], store_names[i], titles[i], bodies[i]) for i in range(len(urls))]
         except Exception as e:
-            print(e)
-            print(reviews_path)
+            # print(e)
+            # print(reviews_path)
             reviews = []
 
         return reviews
