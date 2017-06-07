@@ -8,6 +8,12 @@ from act_geo_matrix import ActGeoMatrix
 import MeCab
 
 if __name__ == '__main__':
+
+    trs = TabelogReviewSearcher()
+    reviews = trs.search('飲む')
+    reviews.write_review('./reviews/20170607/飲む/')
+
+    exit()
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')
     # # print(tr.get_body())
     # trs1 = TabelogReviews('./reviews/tabelog_searched_by_sep_actions/ちょっと飲む/')
