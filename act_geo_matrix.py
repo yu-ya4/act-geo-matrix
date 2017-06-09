@@ -62,6 +62,47 @@ class ActGeoMatrix:
                 break
             print(self.geos[geo_index] + ': ' + str(score))
 
+    def show_geo_ranking_by_multipule_actions(self, actions, result_num):
+        '''
+        show geo ranking with its score
+        Args:
+            actions: list<str>
+                actions
+            result_num: int
+                the number of geos shown
+        '''
+
+        rows = []
+        for action in actions:
+            try:
+                rows.append(self.scores[self.actions.index(action)])
+            except:
+                return print('no index')
+
+        sum_row = []
+        for i in range(len(rows[0])):
+            sum = 0.0
+            mul = 1.0
+            for row in rows:
+                sum += row[i]
+                mul = mul * row[i]
+
+            if mul == 0.0:
+                sum = 0.0
+            sum_row.append(sum)
+
+
+        ranking = sorted([(v,i) for (i,v) in enumerate(sum_row)])
+        for i in range(result_num+1):
+            if i == 0:
+                continue
+            geo_index = ranking[-i][1]
+            score = ranking[-i][0]
+
+            if score == 0:
+                break
+            print(self.geos[geo_index] + ': ' + str(score))
+
     def read_action_similarities(self, result_dir, num):
         '''
         read action similarities from txt file
