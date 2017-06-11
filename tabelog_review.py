@@ -152,6 +152,31 @@ class TabelogReviews:
 
         return counts
 
+    def get_review_counts_for_each_geo_contain_word(self, geos, word):
+        '''
+        count reviews that contain a specific word in title or body
+        for each geographic feature(store name)
+
+        Args:
+            geos: list[str]
+                a list of geographic feature names
+            word: str
+                a specific word to focus on
+        Returns:
+            list[float]
+                a list of counts of review for each geographic feature
+        '''
+        counts = len(geos) * [0]
+        for review in self.reviews:
+            if word in (review.title + review.body):
+                try:
+                    geo_index = geos.index(review.store_name)
+                    counts[geo_index] += 1.0
+                except ValueError as ve:
+                    print(ve)
+                    exit()
+        return counts
+
     def get_geo_names(self):
         '''
         get geographic features names from reviews store names

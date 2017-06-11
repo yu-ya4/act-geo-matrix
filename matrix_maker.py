@@ -65,6 +65,24 @@ class MatrixMaker:
 
         self.scores = np.array(counts_list)
 
+    def get_scores_by_review_counts_for_each_geo_by_modifiers(self, reviews_dir):
+        '''
+        for each modify that means an action,
+        get review counts for each geographic feature(store name)
+
+        Args:
+            reviews_dir: str
+        Returns:
+            None
+        '''
+        counts_list = []
+        reviews = TabelogReviews(reviews_dir)
+        for action in self.actions:
+            counts_list.append(reviews.get_review_counts_for_each_geo_contain_word(self.geos, action))
+
+        self.scores = np.array(counts_list)
+
+
     def make_matrix(self):
         '''
         make ActGeoMatrix
