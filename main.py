@@ -16,41 +16,41 @@ if __name__ == '__main__':
     # for tr in trs.reviews:
     #     fw.write(tr.title + tr.body + '\n')
     # fw.close()
-    mm = MatrixMaker(actions_filename='./actions/20170607飲むcut.txt', geos_filename='./geos/20170607飲む.txt')
-    mm.get_scores_by_review_counts_for_each_geo_by_modifiers('./reviews/20170607/飲む/')
-    mat = mm.make_matrix()
-    print(mat.scores.shape)
-    print('\n')
-    print('----------xxxxxxxxxxxxxxx--------------')
-    queries = ['ちょっと', '軽く', 'みんな', 'ひたすら', '友人']
+    # mm = MatrixMaker(actions_filename='./actions/20170607飲むcut.txt', geos_filename='./geos/20170607飲む.txt')
+    # mm.get_scores_by_review_counts_for_each_geo_by_modifiers('./reviews/20170607/飲む/')
+    # mat = mm.make_matrix()
+    # print(mat.scores.shape)
+    # print('\n')
+    # print('----------xxxxxxxxxxxxxxx--------------')
+    # queries = ['ちょっと', '軽く', 'みんな', 'ひたすら', '友人']
+    # # for query in queries:
+    # #     print(query + '\n')
+    # #     mat.show_geo_ranking(query, 10)
+    # #     print('\n')
+    #
+    # # mat.show_geo_ranking_by_multipule_actions(['ちょっと', '水'], 10)
+    # mat.normalize_at_row()
     # for query in queries:
-    #     print(query + '\n')
+    #     print(query)
     #     mat.show_geo_ranking(query, 10)
     #     print('\n')
-
-    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', '水'], 10)
-    mat.normalize_at_row()
-    for query in queries:
-        print(query)
-        mat.show_geo_ranking(query, 10)
-        print('\n')
-    print('ちょっとみんな')
-    mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
-    print('\n')
-    print('-----------------------------------------')
-    # print(mat.scores)
-    # mat.read_action_similarities('./actions/similarities_100/', 5)
-    mat.reflect_action_similarity_in_matrix('./actions/similarity20170607/drink_5_5/', 5)
-    for query in queries:
-        print(query)
-        mat.show_geo_ranking('ちょっと', 10)
-        print('\n')
-
-    print('ちょっとみんな')
-    mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
-
-
-    exit()
+    # print('ちょっとみんな')
+    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
+    # print('\n')
+    # print('-----------------------------------------')
+    # # print(mat.scores)
+    # # mat.read_action_similarities('./actions/similarities_100/', 5)
+    # mat.reflect_action_similarity_in_matrix('./actions/similarity20170607/drink_5_5/', 5)
+    # for query in queries:
+    #     print(query)
+    #     mat.show_geo_ranking('ちょっと', 10)
+    #     print('\n')
+    #
+    # print('ちょっとみんな')
+    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
+    #
+    #
+    # exit()
 
     # fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
     # print(fre)
@@ -63,10 +63,10 @@ if __name__ == '__main__':
     # exit()
     # exit()
 
-    # trs = TabelogReviewSearcher()
-    # reviews = trs.search('飲む')
+    trs = TabelogReviewSearcher()
+    reviews = trs.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+    exit()
     # reviews.write_review('./reviews/20170607/飲む/')
-    #
     # exit()
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')
     # # print(tr.get_body())
