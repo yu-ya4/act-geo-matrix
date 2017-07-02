@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 
 from tabelog_review import TabelogReview, TabelogReviews
-from tabelog_review_searcher import TabelogReviewSearcher
+from tabelog_searcher import TabelogSearcher
 from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
 import MeCab
@@ -63,8 +63,8 @@ if __name__ == '__main__':
     # exit()
     # exit()
 
-    trs = TabelogReviewSearcher()
-    reviews = trs.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+    tls = TabelogSearcher()
+    reviews = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
     exit()
     # reviews.write_review('./reviews/20170607/飲む/')
     # exit()

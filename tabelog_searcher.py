@@ -7,13 +7,13 @@ import lxml.html
 from time import sleep
 import sys
 
-class TabelogReviewSearcher:
+class TabelogSearcher:
     '''
-    search tabelog for reviews
+    search tabelog for stores or reviews
 
     ex:
-        trs = TabelogReviewSearcher()
-        reviews = trs.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+        tls = TabelogSearcher()
+        reviews = tls.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
 
         検索クエリ：'彼女'
         エリア1：'kyoto' -> 京都府
@@ -29,10 +29,12 @@ class TabelogReviewSearcher:
         # change the request url along with the change of specifications of 食べログ
         # 2017/06/07 by yu-ya4
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
-        self.url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
+        self.r_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
 
-    def search(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
+    def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
         '''
+        search tabelog for reviews by some condition
+
         Args:
             query: str
                 query for searching tabelog review
@@ -70,7 +72,7 @@ class TabelogReviewSearcher:
         result = TabelogReviews('')
 
         while 1:
-            url = self.url + str(page) + '/'
+            url = self.r_url + str(page) + '/'
             res = requests.get(url, params=parameters)
             print(res.url)
             html = res.text
