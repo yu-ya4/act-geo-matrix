@@ -23,6 +23,8 @@ class TabelogSearcher:
         ジャンル2：'BC04' -> ワインバー
         ジャンル3(最寄り駅)：'4596' -> 四条駅（京都市営）
 
+        カテゴリ参考: https://tabelog.com/cat_lst/
+
     '''
 
     def __init__(self):
@@ -52,7 +54,7 @@ class TabelogSearcher:
                 station
 
         Returns:
-            TabelogReviews
+            list[str]: list of htmls of reviews
         '''
 
         parameters = {
@@ -120,3 +122,37 @@ class TabelogSearcher:
                 break
 
         return result
+
+    def parse_reviews(self, review_htmls):
+        '''
+        parse htmls of tabelog reviews
+
+        Args:
+            review_html: list[str]
+        Returns:
+            list[dict{}]
+        '''
+
+        reviews = []
+
+        for review_html in review_htmls:
+            review = {}
+            root = lxml.html.fromstring(review_html)
+            try:
+                item = root.cssselect('.rvw-item')
+                body = item.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
+                store_name = item.cssselect('.rvw-item__rst-name')[0].text_content()
+                try:
+                    title = item.cssselect('.rvw-item__title-target')[0].text_content()
+                except:
+                    title = ''
+                review = {'title': title, 'store_name': store_name, 'body': body}
+                reviews.append(review)
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                print(e)
+                break
+                
+        return reviews
