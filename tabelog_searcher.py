@@ -13,7 +13,8 @@ class TabelogSearcher:
 
     ex:
         tls = TabelogSearcher()
-        reviews = tls.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+        review_htmls = tls.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+        reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
 
         検索クエリ：'彼女'
         エリア1：'kyoto' -> 京都府
@@ -31,7 +32,8 @@ class TabelogSearcher:
         # change the request url along with the change of specifications of 食べログ
         # 2017/06/07 by yu-ya4
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
-        self.r_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
+        self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
+        self.rst_url = 'https://tabelog.com/rstLst/'
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
         '''
@@ -78,7 +80,7 @@ class TabelogSearcher:
         review_urls = []
 
         while 1:
-            url = self.r_url + str(page) + '/'
+            url = self.rvw_url + str(page) + '/'
             res = requests.get(url, params=parameters)
             print(res.url)
             # a page of the search results
@@ -148,3 +150,76 @@ class TabelogSearcher:
                 break
 
         return reviews
+
+    def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
+        '''
+        search tabelog for restaurants by some condition
+        get htmls got by each url of restaurants
+
+        Args:
+            query: str
+                query for searching tabelog review
+            pal: str
+                area1
+            LstPrf: str
+                area2
+            LstAre: str
+                area3
+            Cat: str:
+                genre1
+            LstCat: str
+                genre2
+            station_id: str
+                station
+
+        Returns:
+            list[str], list[str]
+                list of htmls of restaurants, list of urls
+        '''
+
+        parameters = {
+            'sw': query,
+            'pal': pal,
+            'LstPrf': LstPrf,
+            'LstAre': LstAre,
+            'Cat': Cat,
+            'LstCat': LstCat,
+            'station_id': station_id,
+            'lc': 2 #1ページあたり１００件取得
+        }
+
+        page = 1
+        restaurant_htmls = []
+        restaurant_urls = []
+
+        while 1:
+            url = self.rst_url + str(page) + '/'
+            res = requests.get(url, params=parameters)
+            print(res.url)
+            # a page of the search results
+            html = res.text
+            root = lxml.html.fromstring(html)
+
+            try:
+                restaurants = root.cssselect('.list-rst')
+                # when all restaurants are got, break loop
+                if not restaurants:
+                    break
+                for restaurant in restaurants:
+                    restaurant_url = restaurant.cssselect('.list-rst__rst-name-target')[0].attrib['href']
+                    print(restaurant_url)
+                    # get review detail
+                    restaurant = requests.get(restaurant_url)
+                    # sleep(5)
+                    restaurant_html = restaurant.text
+                    restaurant_htmls.append(restaurant_html)
+                    restaurant_urls.append(restaurant_url)
+                page += 1
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                print(restaurant_url)
+                print(e)
+                break
+
+        return restaurant_htmls, restaurant_urls
