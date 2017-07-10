@@ -36,6 +36,7 @@ class TabelogSearcher:
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
         '''
         search tabelog for reviews by some condition
+        get htmls got by each url of reviews
 
         Args:
             query: str
@@ -54,7 +55,8 @@ class TabelogSearcher:
                 station
 
         Returns:
-            list[str]: list of htmls of reviews
+            list[str], list[str]
+                list of htmls of reviews, list of urls
         '''
 
         parameters = {
@@ -71,12 +73,15 @@ class TabelogSearcher:
 
         page = 1
         # an instance of TabelogReviews
-        result = TabelogReviews('')
+        # result = TabelogReviews('')
+        review_htmls = []
+        review_urls = []
 
         while 1:
             url = self.r_url + str(page) + '/'
             res = requests.get(url, params=parameters)
             print(res.url)
+            # a page of the search results
             html = res.text
             root = lxml.html.fromstring(html)
 
@@ -91,28 +96,11 @@ class TabelogSearcher:
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__frame')[0].attrib['data-detail-url']
                     print(review_url)
                     # get review detail
-                    detail_res = requests.get(review_url)
+                    review = requests.get(review_url)
                     # sleep(5)
-                    detail_html = detail_res.text
-                    detail_root = lxml.html.fromstring(detail_html)
-                    # detail_review = detail_root.cssselect('.rvw-item__review-contents')[0]
-                    # body = detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')
-
-                    detail_reviews = detail_root.cssselect('.rvw-item__review-contents')
-                    body = ''
-                    for detail_review in detail_reviews:
-                        try:
-                            # remove default spaces of the starts of sentences
-                            body += detail_review.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
-                        except:
-                            continue
-
-                    store_name = review.cssselect('.rvw-item__rst-name')[0].text_content()
-                    try:
-                        title = review.cssselect('.rvw-item__title-target')[0].text_content()
-                    except:
-                        title = ''
-                    result.append(TabelogReview(review_url, store_name, title, body))
+                    review_html = review.text
+                    review_htmls.append(review_html)
+                    review_urls.append(review_url)
                 page += 1
             except Exception as e:
                 import traceback
@@ -121,38 +109,42 @@ class TabelogSearcher:
                 print(e)
                 break
 
-        return result
+        return review_htmls, review_urls
 
-    def parse_reviews(self, review_htmls):
+    def parse_reviews(self, review_htmls, review_urls):
         '''
         parse htmls of tabelog reviews
 
         Args:
             review_html: list[str]
+            review_urls: list[str]
         Returns:
             list[dict{}]
         '''
 
         reviews = []
-
-        for review_html in review_htmls:
+        for (review_html, review_url) in zip(review_htmls, review_urls):
             review = {}
             root = lxml.html.fromstring(review_html)
             try:
-                item = root.cssselect('.rvw-item')
-                body = item.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
-                store_name = item.cssselect('.rvw-item__rst-name')[0].text_content()
+                review_contents = root.cssselect('.rvw-item__review-contents')[0]
                 try:
-                    title = item.cssselect('.rvw-item__title-target')[0].text_content()
+                    title = review_contents.cssselect('.rvw-item__title strong')[0].text_content()
                 except:
                     title = ''
-                review = {'title': title, 'store_name': store_name, 'body': body}
+                body = review_contents.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
+                rate = float(root.cssselect('.c-rating__val')[0].text_content())
+                divided_url = review_url.split('/')
+                store_id = divided_url[6]
+                review_id = divided_url[8]
+                review = {'review_id': review_id, 'rate': rate, 'store_id': store_id, 'title': title, 'body': body, 'html': review_html, 'url': review_url}
                 reviews.append(review)
 
             except Exception as e:
                 import traceback
                 traceback.print_exc()
                 print(e)
+                print(review_url)
                 break
-                
+
         return reviews

@@ -64,7 +64,9 @@ if __name__ == '__main__':
     # exit()
 
     tls = TabelogSearcher()
-    reviews = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+    review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+    reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    print(reviews)
     exit()
     # reviews.write_review('./reviews/20170607/飲む/')
     # exit()
