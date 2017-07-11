@@ -82,7 +82,7 @@ class TabelogSearcher:
         while 1:
             url = self.rvw_url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            print(res.url)
+            # print(res.url)
             # a page of the search results
             html = res.text
             root = lxml.html.fromstring(html)
@@ -96,7 +96,7 @@ class TabelogSearcher:
                 for review in reviews:
                     # review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__frame')[0].attrib['data-detail-url']
-                    print(review_url)
+                    # print(review_url)
                     # get review detail
                     review = requests.get(review_url)
                     # sleep(5)
@@ -137,9 +137,9 @@ class TabelogSearcher:
                 body = review_contents.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
                 rate = float(root.cssselect('.c-rating__val')[0].text_content())
                 divided_url = review_url.split('/')
-                store_id = divided_url[6]
+                restaurant_id = divided_url[6]
                 review_id = divided_url[8]
-                review = {'review_id': review_id, 'rate': rate, 'store_id': store_id, 'title': title, 'body': body, 'html': review_html, 'url': review_url}
+                review = {'review_id': review_id, 'rate': rate, 'restaurant_id': restaurant_id, 'title': title, 'body': body, 'html': review_html, 'url': review_url}
                 reviews.append(review)
 
             except Exception as e:
@@ -195,7 +195,7 @@ class TabelogSearcher:
         while 1:
             url = self.rst_url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            print(res.url)
+            # print(res.url)
             # a page of the search results
             html = res.text
             root = lxml.html.fromstring(html)
@@ -207,7 +207,7 @@ class TabelogSearcher:
                     break
                 for restaurant in restaurants:
                     restaurant_url = restaurant.cssselect('.list-rst__rst-name-target')[0].attrib['href']
-                    print(restaurant_url)
+                    # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
                     # sleep(5)
@@ -223,3 +223,83 @@ class TabelogSearcher:
                 break
 
         return restaurant_htmls, restaurant_urls
+
+
+    def parse_restaurants(self, restaurant_htmls, restaurant_urls):
+        '''
+        parse htmls of tabelog restaurants
+
+        Args:
+            restaurant_htmls: list[str]
+            restaurant_urls: list[str]
+        Returns:
+            list[dict{}]
+        '''
+
+        restaurants = []
+        for (restaurant_html, restaurant_url) in zip(restaurant_htmls, restaurant_urls):
+            restaurant = {}
+            root = lxml.html.fromstring(restaurant_html)
+            try:
+                try:
+                    pr_comment = root.cssselect('.pr-comment-wrap')[0]
+                    pr_comment_title = pr_comment.cssselect('.pr-comment-title')[0].text_content().replace('\n', '')
+                    pr_comment_body = pr_comment.cssselect('.pr-comment__body span')[0].text_content().replace('\n', '')[10:-8]
+                except:
+                    pr_comment_title = ''
+                    pr_comment_body = ''
+                try:
+                    rate = float(root.cssselect('.tb-rating__val span')[0].text_content())
+                except:
+                    rate = 0.0
+
+                try:
+                    detail = {}
+                    details = root.cssselect('#contents-rstdata')[0]
+                    trs = details.cssselect('tr')
+                    for tr in trs:
+                        key = tr.cssselect('th')[0].text_content().replace('\n', '').strip()
+                        val = tr.cssselect('td')[0].text_content().replace('\n', '').strip()
+                        detail[key] = val
+                    # print(detail)
+                except:
+                    continue
+
+                name = detail['店名'] if '店名' in detail else ''
+                genre = detail['ジャンル'] if 'ジャンル' in detail else ''
+                address = detail['住所'].split()[0] if '住所' in detail else ''
+                open_time = detail['営業時間'] if '営業時間' in detail else ''
+                regular_holiday = detail['定休日'] if '定休日' in detail else ''
+                budget= detail['予算'] if '予算' in detail else ''
+                budget_from_reviews= detail['予算（口コミ集計）'] if '予算（口コミ集計）' in detail else ''
+                seats= detail['席数'] if '席数' in detail else ''
+                private_room = detail['個室'] if '個室' in detail else ''
+                private_use = detail['貸切'] if '貸切' in detail else ''
+                smoking = detail['禁煙・喫煙'] if '禁煙・喫煙' in detail else ''
+                space_or_facilities = detail['空間・設備'] if '空間・設備' in detail else ''
+                occasion = detail['利用シーン'] if '利用シーン' in detail else ''
+                drink = detail['ドリンク'] if 'ドリンク' in detail else ''
+                location = detail['ロケーション'] if 'ロケーション' in detail else ''
+                service = detail['サービス'] if 'サービス' in detail else ''
+                homepage = detail['ホームページ'] if 'ホームページ' in detail else ''
+                remarks = detail['備考'] if '備考' in detail else ''
+
+                divided_url = restaurant_url.split('/')
+                restaurant_id = divided_url[6]
+
+                restaurant = {'name': name, 'genre': genre, 'address': address, 'open_time': open_time,
+                 'regular_holiday': regular_holiday, 'budget': budget, 'budget_from_reviews': budget_from_reviews,
+                 'seats': seats, 'private_room': private_room, 'private_use': private_use,
+                 'smoking': smoking, 'space_or_facilities': space_or_facilities, 'occasion': occasion, 'drink': drink,
+                 'location': location, 'service': service, 'homepage': homepage, 'remarks': remarks,
+                 'rate': rate, 'restaurant_id': restaurant_id, 'pr_comment_title': pr_comment_title, 'pr_comment_body': pr_comment_body, 'html': 1, 'url': restaurant_url
+                 }
+                restaurants.append(restaurant)
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                print(e)
+                print(restaurant_url)
+
+        return restaurants
