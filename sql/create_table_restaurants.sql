@@ -27,5 +27,5 @@ CREATE TABLE restaurants(
     pr_comment_title text,
     pr_comment_body text,
     url varchar(255),
-    html text
+    html longtext
 );
