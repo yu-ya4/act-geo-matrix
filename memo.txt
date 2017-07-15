@@ -1,10 +1,33 @@
 ### 食べログ
 
-- pal
-京都府: kyoto
+pal
+- 京都府: kyoto
 
-- LstPrf
-京都市: A2601
+LstPrf
+- 京都市: A2601
+
+LstAre
+- 京都駅周辺: A260101
+- 河原町・木屋町・先斗町: A260201
+- 御所周辺: A260202
+- 壬生・二条城周辺: A260203
+- 祇園・清水寺・東山: A260301
+- 下鴨神社・北白川・銀閣寺: A260302
+- 一乗寺・修学院: A260303
+- 東福寺周辺: A260304
+- 西院・桂: A260401
+- 太秦・妙心寺・仁和寺: A260402
+- 嵯峨・嵐山・保津峡: A260403
+- 京都市西部: A260404
+- 金閣寺・北野天満宮周辺: A260501
+- 鞍馬・貴船: A260502
+- 宝ヶ池・北山: A260503
+- 京都市北部: A260504
+- 伏見稲荷・伏見桃山: A260601
+- 醍醐寺・法界寺周辺: A260602
+- 山科: A260603
+- 上鳥羽: A260604
+- 京都市南部: A260605
 
 カテゴリ
 
@@ -26,12 +49,38 @@
 
 
 レストラン収集
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC01', '') 795
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC02', '') 54
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC03', '') 41
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC04', '') 178
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC05', '') 21
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC06', '') 49
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC07', '') 18
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC99', '') 314
-- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', '') 795
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC01', '', '') 795
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC02', '', '') 54
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC03', '', '') 41
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC04', '', '') 178
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC05', '', '') 21
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC06', '', '') 49
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC07', '', '') 18
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC99', '', '') 314
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260101', 'RC', 'RC21', 'RC2101', '') 173
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260201', 'RC', 'RC21', 'RC2101', '') 465
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260202', 'RC', 'RC21', 'RC2101', '') 227
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260203', 'RC', 'RC21', 'RC2101', '') 175
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260301', 'RC', 'RC21', 'RC2101', '') 212
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260302', 'RC', 'RC21', 'RC2101', '') 96
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260303', 'RC', 'RC21', 'RC2101', '') 17
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260304', 'RC', 'RC21', 'RC2101', '') 18
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260401', 'RC', 'RC21', 'RC2101', '') 210
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260402', 'RC', 'RC21', 'RC2101', '') 42
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260403', 'RC', 'RC21', 'RC2101', '') 29
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260404', 'RC', 'RC21', 'RC2101', '') 0
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260501', 'RC', 'RC21', 'RC2101', '') 38
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260502', 'RC', 'RC21', 'RC2101', '') 4
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260503', 'RC', 'RC21', 'RC2101', '') 71
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260504', 'RC', 'RC21', 'RC2101', '') 0
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260601', 'RC', 'RC21', 'RC2101', '') 171
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260602', 'RC', 'RC21', 'RC2101', '') 13
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260603', 'RC', 'RC21', 'RC2101', '') 107
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260604', 'RC', 'RC21', 'RC2101', '') 77
+- tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260605', 'RC', 'RC21', 'RC2101', '') 12
+
+
+
+
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2102', '') 510
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2199', '') 369
