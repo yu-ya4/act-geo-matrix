@@ -6,6 +6,8 @@ import requests
 import lxml.html
 from time import sleep
 import sys
+import MySQLdb
+from configparser import ConfigParser
 
 class TabelogSearcher:
     '''
@@ -34,6 +36,10 @@ class TabelogSearcher:
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
         self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
         self.rst_url = 'https://tabelog.com/rstLst/'
+        env = ConfigParser()
+        env.read('./.env')
+        self.db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
+        self.cursor = self.db_connection.cursor()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
         '''
@@ -210,7 +216,7 @@ class TabelogSearcher:
                     # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    # sleep(5)
+                    # sleep(6)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
@@ -328,3 +334,77 @@ class TabelogSearcher:
                 print(restaurant_url)
 
         return restaurants
+
+    def save_restaurants(self, restaurants):
+        '''
+        save restaurants in mysql
+
+        Args:
+            restaurants: list[dict{}]
+        '''
+
+        for restaurant in restaurants:
+            try:
+                self.cursor.execute(
+                    'INSERT INTO restaurants(\
+                        restaurant_id,\
+                        name,\
+                        genre,\
+                        address,\
+                        pal,\
+                        LstPrf,\
+                        LstAre,\
+                        open_time,\
+                        regular_holiday,\
+                        budget,\
+                        budget_from_reviews,\
+                        seats,\
+                        private_room,\
+                        private_use,\
+                        smoking,\
+                        space_or_facilities,\
+                        occasion,\
+                        location,\
+                        service,\
+                        homepage,\
+                        remarks,\
+                        rate,\
+                        pr_comment_title,\
+                        pr_comment_body,\
+                        url,\
+                        html\
+                    )\
+                    VALUES(\
+                        %(restaurant_id)s,\
+                        %(name)s,\
+                        %(genre)s,\
+                        %(address)s,\
+                        %(pal)s,\
+                        %(LstPrf)s,\
+                        %(LstAre)s,\
+                        %(open_time)s,\
+                        %(regular_holiday)s,\
+                        %(budget)s,\
+                        %(budget_from_reviews)s,\
+                        %(seats)s,\
+                        %(private_room)s,\
+                        %(private_use)s,\
+                        %(smoking)s,\
+                        %(space_or_facilities)s,\
+                        %(occasion)s,\
+                        %(location)s,\
+                        %(service)s,\
+                        %(homepage)s,\
+                        %(remarks)s,\
+                        %(rate)s,\
+                        %(pr_comment_title)s,\
+                        %(pr_comment_body)s,\
+                        %(url)s,\
+                        %(html)s\
+                    )', restaurant)
+
+            except MySQLdb.Error as e:
+                print(restaurant['url'])
+                print('MySQLdb.Error: ', e)
+        self.db_connection.commit()
+        self.db_connection.close()

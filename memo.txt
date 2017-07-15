@@ -1,0 +1,37 @@
+### 食べログ
+
+- pal
+京都府: kyoto
+
+- LstPrf
+京都市: A2601
+
+カテゴリ
+
+- バー・お酒: BC
+-- パブ: BC02
+-- ラウンジ: BC03
+-- ワインバー: BC04
+-- ビアガーデン: BC05
+-- ビアバー: BC06
+-- スポーツバー: BC07
+-- バー・お酒（その他）: BC99
+--- 日本酒バー・焼酎バー: BC9991
+--- バー・お酒（その他）: BC9999
+- レストラン: RC
+-- 居酒屋・ダイニングバー: RC21
+--- 居酒屋: RC2101
+--- ダイニングバー: RC2102
+--- 居酒屋・ダイニングバー（その他）: RC2199
+
+
+レストラン収集
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC01', '') 795
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC02', '') 54
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC03', '') 41
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC04', '') 178
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC05', '') 21
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC06', '') 49
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC07', '') 18
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'BC', 'BC99', '') 314
+- tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', '') 795
