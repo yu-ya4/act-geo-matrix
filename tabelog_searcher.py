@@ -285,14 +285,39 @@ class TabelogSearcher:
                 remarks = detail['備考'] if '備考' in detail else ''
 
                 divided_url = restaurant_url.split('/')
+                pal = divided_url[3]
+                LstPrf = divided_url[4]
+                LstAre = divided_url[5]
                 restaurant_id = divided_url[6]
 
-                restaurant = {'name': name, 'genre': genre, 'address': address, 'open_time': open_time,
-                 'regular_holiday': regular_holiday, 'budget': budget, 'budget_from_reviews': budget_from_reviews,
-                 'seats': seats, 'private_room': private_room, 'private_use': private_use,
-                 'smoking': smoking, 'space_or_facilities': space_or_facilities, 'occasion': occasion, 'drink': drink,
-                 'location': location, 'service': service, 'homepage': homepage, 'remarks': remarks,
-                 'rate': rate, 'restaurant_id': restaurant_id, 'pr_comment_title': pr_comment_title, 'pr_comment_body': pr_comment_body, 'html': 1, 'url': restaurant_url
+                restaurant = {
+                    'restaurant_id': restaurant_id,
+                    'name': name,
+                    'genre': genre,
+                    'address': address,
+                    'pal': pal,
+                    'LstPrf': LstPrf,
+                    'LstAre': LstAre,
+                    'open_time': open_time,
+                    'regular_holiday': regular_holiday,
+                    'budget': budget,
+                    'budget_from_reviews': budget_from_reviews,
+                    'seats': seats,
+                    'private_room': private_room,
+                    'private_use': private_use,
+                    'smoking': smoking,
+                    'space_or_facilities': space_or_facilities,
+                    'occasion': occasion,
+                    'drink': drink,
+                    'location': location,
+                    'service': service,
+                    'homepage': homepage,
+                    'remarks': remarks,
+                    'rate': rate,
+                    'pr_comment_title': pr_comment_title,
+                    'pr_comment_body': pr_comment_body,
+                    'url': restaurant_url,
+                    'html': restaurant_html,
                  }
                 restaurants.append(restaurant)
 
