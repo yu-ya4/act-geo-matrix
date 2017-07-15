@@ -15,7 +15,7 @@ class TabelogSearcher:
 
     ex:
         tls = TabelogSearcher()
-        review_htmls = tls.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+        review_htmls = tls.search('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '', '4596')
         reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
 
         検索クエリ：'彼女'
@@ -24,7 +24,8 @@ class TabelogSearcher:
         エリア3：'A260201' -> 河原町・木屋町・先斗町
         ジャンル1：'BC' -> バー・お酒
         ジャンル2：'BC04' -> ワインバー
-        ジャンル3(最寄り駅)：'4596' -> 四条駅（京都市営）
+        ジャンル3: 'BC9991' -> 日本酒バー・焼酎バー
+        最寄り駅：'4596' -> 四条駅（京都市営）
 
         カテゴリ参考: https://tabelog.com/cat_lst/
 
@@ -41,7 +42,7 @@ class TabelogSearcher:
         self.db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
         self.cursor = self.db_connection.cursor()
 
-    def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
+    def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
         search tabelog for reviews by some condition
         get htmls got by each url of reviews
@@ -59,6 +60,8 @@ class TabelogSearcher:
                 genre1
             LstCat: str
                 genre2
+            LstCatD: str
+                genre3
             station_id: str
                 station
 
@@ -75,6 +78,7 @@ class TabelogSearcher:
             'LstAre': LstAre,
             'Cat': Cat,
             'LstCat': LstCat,
+            'LstCatD': LstCatD,
             'station_id': station_id,
             'lc': 2 #1ページあたり１００件取得
         }
@@ -157,7 +161,7 @@ class TabelogSearcher:
 
         return reviews
 
-    def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, station_id):
+    def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
         search tabelog for restaurants by some condition
         get htmls got by each url of restaurants
@@ -175,6 +179,8 @@ class TabelogSearcher:
                 genre1
             LstCat: str
                 genre2
+            LstCatD: str
+                genre2
             station_id: str
                 station
 
@@ -190,6 +196,7 @@ class TabelogSearcher:
             'LstAre': LstAre,
             'Cat': Cat,
             'LstCat': LstCat,
+            'LstCatD': LstCatD,
             'station_id': station_id,
             'lc': 2 #1ページあたり１００件取得
         }
@@ -201,7 +208,6 @@ class TabelogSearcher:
         while 1:
             url = self.rst_url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            # print(res.url)
             # a page of the search results
             html = res.text
             root = lxml.html.fromstring(html)
