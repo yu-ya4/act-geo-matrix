@@ -22,7 +22,7 @@ CREATE TABLE restaurants(
     location varchar(255),
     service varchar(255),
     homepage varchar(255),
-    remarks varchar(255),
+    remarks text,
     rate float,
     pr_comment_title text,
     pr_comment_body text,
