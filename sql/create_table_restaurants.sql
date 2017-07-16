@@ -1,4 +1,4 @@
-USE test;
+USE tabelog;
 
 CREATE TABLE restaurants(
     id int primary key AUTO_INCREMENT,
