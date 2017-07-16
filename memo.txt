@@ -79,8 +79,1331 @@ LstAre
 - tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260604', 'RC', 'RC21', 'RC2101', '') 77
 - tls.search_for_restaurants('', 'kyoto', 'A2601', 'A260605', 'RC', 'RC21', 'RC2101', '') 12
 
-
-
-
 - tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2102', '') 510
 - tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2199', '') 369
+
+
+uya-Pro:act-geo-matrix yu$ python main.py
+795
+https://tabelog.com/kyoto/A2601/A260603/26019426/
+MySQLdb.Error:  (1062, "Duplicate entry '26019426' for key 'restaurant_id'")
+54
+https://tabelog.com/kyoto/A2601/A260202/26020274/
+MySQLdb.Error:  (1062, "Duplicate entry '26020274' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26028557/
+MySQLdb.Error:  (1062, "Duplicate entry '26028557' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006640/
+MySQLdb.Error:  (1062, "Duplicate entry '26006640' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26013363/
+MySQLdb.Error:  (1062, "Duplicate entry '26013363' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26006618/
+MySQLdb.Error:  (1062, "Duplicate entry '26006618' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016247/
+MySQLdb.Error:  (1062, "Duplicate entry '26016247' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016671/
+MySQLdb.Error:  (1062, "Duplicate entry '26016671' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26021829/
+MySQLdb.Error:  (1062, "Duplicate entry '26021829' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26001553/
+MySQLdb.Error:  (1062, "Duplicate entry '26001553' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26013700/
+MySQLdb.Error:  (1062, "Duplicate entry '26013700' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26012837/
+MySQLdb.Error:  (1062, "Duplicate entry '26012837' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000554/
+MySQLdb.Error:  (1062, "Duplicate entry '26000554' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26016166/
+MySQLdb.Error:  (1062, "Duplicate entry '26016166' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023183/
+MySQLdb.Error:  (1062, "Duplicate entry '26023183' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004192/
+MySQLdb.Error:  (1062, "Duplicate entry '26004192' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023416/
+MySQLdb.Error:  (1062, "Duplicate entry '26023416' for key 'restaurant_id'")
+41
+https://tabelog.com/kyoto/A2601/A260202/26000626/
+MySQLdb.Error:  (1062, "Duplicate entry '26000626' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26005057/
+MySQLdb.Error:  (1062, "Duplicate entry '26005057' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26021266/
+MySQLdb.Error:  (1062, "Duplicate entry '26021266' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26015014/
+MySQLdb.Error:  (1062, "Duplicate entry '26015014' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26007288/
+MySQLdb.Error:  (1062, "Duplicate entry '26007288' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26009006/
+MySQLdb.Error:  (1062, "Duplicate entry '26009006' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026802/
+MySQLdb.Error:  (1062, "Duplicate entry '26026802' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26028490/
+MySQLdb.Error:  (1062, "Duplicate entry '26028490' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005316/
+MySQLdb.Error:  (1062, "Duplicate entry '26005316' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26007626/
+MySQLdb.Error:  (1062, "Duplicate entry '26007626' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260501/26009923/
+MySQLdb.Error:  (1062, "Duplicate entry '26009923' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005727/
+MySQLdb.Error:  (1062, "Duplicate entry '26005727' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000593/
+MySQLdb.Error:  (1062, "Duplicate entry '26000593' for key 'restaurant_id'")
+178
+https://tabelog.com/kyoto/A2601/A260201/26006475/
+MySQLdb.Error:  (1062, "Duplicate entry '26006475' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020538/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260201/26002102/
+MySQLdb.Error:  (1062, "Duplicate entry '26002102' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006807/
+MySQLdb.Error:  (1062, "Duplicate entry '26006807' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016849/
+MySQLdb.Error:  (1062, "Duplicate entry '26016849' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26021266/
+MySQLdb.Error:  (1062, "Duplicate entry '26021266' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025409/
+MySQLdb.Error:  (1062, "Duplicate entry '26025409' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26023053/
+MySQLdb.Error:  (1062, "Duplicate entry '26023053' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26000106/
+MySQLdb.Error:  (1062, "Duplicate entry '26000106' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26017726/
+MySQLdb.Error:  (1062, "Duplicate entry '26017726' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26022554/
+MySQLdb.Error:  (1062, "Duplicate entry '26022554' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260304/26012781/
+MySQLdb.Error:  (1062, "Duplicate entry '26012781' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26017148/
+MySQLdb.Error:  (1062, "Duplicate entry '26017148' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018400/
+MySQLdb.Error:  (1062, "Duplicate entry '26018400' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260501/26006377/
+MySQLdb.Error:  (1062, "Duplicate entry '26006377' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260403/26026768/
+MySQLdb.Error:  (1062, "Duplicate entry '26026768' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026355/
+MySQLdb.Error:  (1062, "Duplicate entry '26026355' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26004781/
+MySQLdb.Error:  (1062, "Duplicate entry '26004781' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26017518/
+MySQLdb.Error:  (1062, "Duplicate entry '26017518' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025297/
+MySQLdb.Error:  (1062, "Duplicate entry '26025297' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26028281/
+MySQLdb.Error:  (1062, "Duplicate entry '26028281' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028698/
+MySQLdb.Error:  (1062, "Duplicate entry '26028698' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26007173/
+MySQLdb.Error:  (1062, "Duplicate entry '26007173' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26020647/
+MySQLdb.Error:  (1062, "Duplicate entry '26020647' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016791/
+MySQLdb.Error:  (1062, "Duplicate entry '26016791' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026285/
+MySQLdb.Error:  (1062, "Duplicate entry '26026285' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016457/
+MySQLdb.Error:  (1062, "Duplicate entry '26016457' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26007216/
+MySQLdb.Error:  (1062, "Duplicate entry '26007216' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26013476/
+MySQLdb.Error:  (1062, "Duplicate entry '26013476' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26026964/
+MySQLdb.Error:  (1062, "Duplicate entry '26026964' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025506/
+MySQLdb.Error:  (1062, "Duplicate entry '26025506' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26015623/
+MySQLdb.Error:  (1062, "Duplicate entry '26015623' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005727/
+MySQLdb.Error:  (1062, "Duplicate entry '26005727' for key 'restaurant_id'")
+21
+https://tabelog.com/kyoto/A2601/A260101/26001954/
+MySQLdb.Error:  (1062, "Duplicate entry '26001954' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003104/
+MySQLdb.Error:  (1062, "Duplicate entry '26003104' for key 'restaurant_id'")
+49
+https://tabelog.com/kyoto/A2601/A260202/26016849/
+MySQLdb.Error:  (1062, "Duplicate entry '26016849' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26021717/
+MySQLdb.Error:  (1062, "Duplicate entry '26021717' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26001165/
+MySQLdb.Error:  (1062, "Duplicate entry '26001165' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26014490/
+MySQLdb.Error:  (1062, "Duplicate entry '26014490' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26022924/
+MySQLdb.Error:  (1062, "Duplicate entry '26022924' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023690/
+MySQLdb.Error:  (1062, "Duplicate entry '26023690' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016558/
+MySQLdb.Error:  (1062, "Duplicate entry '26016558' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26025919/
+MySQLdb.Error:  (1062, "Duplicate entry '26025919' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26027949/
+MySQLdb.Error:  (1062, "Duplicate entry '26027949' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26012784/
+MySQLdb.Error:  (1062, "Duplicate entry '26012784' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26018853/
+MySQLdb.Error:  (1062, "Duplicate entry '26018853' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003112/
+MySQLdb.Error:  (1062, "Duplicate entry '26003112' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26013700/
+MySQLdb.Error:  (1062, "Duplicate entry '26013700' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025275/
+MySQLdb.Error:  (1062, "Duplicate entry '26025275' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26020910/
+MySQLdb.Error:  (1062, "Duplicate entry '26020910' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26007160/
+MySQLdb.Error:  (1062, "Duplicate entry '26007160' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26001278/
+MySQLdb.Error:  (1062, "Duplicate entry '26001278' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016737/
+MySQLdb.Error:  (1062, "Duplicate entry '26016737' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023390/
+MySQLdb.Error:  (1062, "Duplicate entry '26023390' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004192/
+MySQLdb.Error:  (1062, "Duplicate entry '26004192' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018247/
+MySQLdb.Error:  (1062, "Duplicate entry '26018247' for key 'restaurant_id'")
+18
+https://tabelog.com/kyoto/A2601/A260201/26028433/
+MySQLdb.Error:  (1062, "Duplicate entry '26028433' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26022924/
+MySQLdb.Error:  (1062, "Duplicate entry '26022924' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26023853/
+MySQLdb.Error:  (1062, "Duplicate entry '26023853' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026769/
+MySQLdb.Error:  (1062, "Duplicate entry '26026769' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26024177/
+MySQLdb.Error:  (1062, "Duplicate entry '26024177' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26021979/
+MySQLdb.Error:  (1062, "Duplicate entry '26021979' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26010498/
+MySQLdb.Error:  (1062, "Duplicate entry '26010498' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025355/
+MySQLdb.Error:  (1062, "Duplicate entry '26025355' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26015651/
+MySQLdb.Error:  (1062, "Duplicate entry '26015651' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003690/
+MySQLdb.Error:  (1062, "Duplicate entry '26003690' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023183/
+MySQLdb.Error:  (1062, "Duplicate entry '26023183' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26021893/
+MySQLdb.Error:  (1062, "Duplicate entry '26021893' for key 'restaurant_id'")
+314
+https://tabelog.com/kyoto/A2601/A260201/26028620/
+MySQLdb.Error:  (1062, "Duplicate entry '26028620' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022286/
+MySQLdb.Error:  (1062, "Duplicate entry '26022286' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028696/
+MySQLdb.Error:  (1062, "Duplicate entry '26028696' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002102/
+MySQLdb.Error:  (1062, "Duplicate entry '26002102' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019835/
+MySQLdb.Error:  (1062, "Duplicate entry '26019835' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028124/
+MySQLdb.Error:  (1062, "Duplicate entry '26028124' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26006092/
+MySQLdb.Error:  (1062, "Duplicate entry '26006092' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006640/
+MySQLdb.Error:  (1062, "Duplicate entry '26006640' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26027729/
+MySQLdb.Error:  (1062, "Duplicate entry '26027729' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025409/
+MySQLdb.Error:  (1062, "Duplicate entry '26025409' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004934/
+MySQLdb.Error:  (1062, "Duplicate entry '26004934' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26028626/
+MySQLdb.Error:  (1062, "Duplicate entry '26028626' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003502/
+MySQLdb.Error:  (1062, "Duplicate entry '26003502' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26015014/
+MySQLdb.Error:  (1062, "Duplicate entry '26015014' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021621/
+MySQLdb.Error:  (1062, "Duplicate entry '26021621' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024803/
+MySQLdb.Error:  (1062, "Duplicate entry '26024803' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26027151/
+MySQLdb.Error:  (1062, "Duplicate entry '26027151' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028949/
+MySQLdb.Error:  (1062, "Duplicate entry '26028949' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023690/
+MySQLdb.Error:  (1062, "Duplicate entry '26023690' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26004165/
+MySQLdb.Error:  (1062, "Duplicate entry '26004165' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26004757/
+MySQLdb.Error:  (1062, "Duplicate entry '26004757' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26010291/
+MySQLdb.Error:  (1062, "Duplicate entry '26010291' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26018532/
+MySQLdb.Error:  (1062, "Duplicate entry '26018532' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26009356/
+MySQLdb.Error:  (1062, "Duplicate entry '26009356' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021392/
+MySQLdb.Error:  (1062, "Duplicate entry '26021392' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26019316/
+MySQLdb.Error:  (1062, "Duplicate entry '26019316' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26025919/
+MySQLdb.Error:  (1062, "Duplicate entry '26025919' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260304/26012781/
+MySQLdb.Error:  (1062, "Duplicate entry '26012781' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026769/
+MySQLdb.Error:  (1062, "Duplicate entry '26026769' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021838/
+MySQLdb.Error:  (1062, "Duplicate entry '26021838' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26022598/
+MySQLdb.Error:  (1062, "Duplicate entry '26022598' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26001144/
+MySQLdb.Error:  (1062, "Duplicate entry '26001144' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016671/
+MySQLdb.Error:  (1062, "Duplicate entry '26016671' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26028861/
+MySQLdb.Error:  (1062, "Duplicate entry '26028861' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26012784/
+MySQLdb.Error:  (1062, "Duplicate entry '26012784' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26020731/
+MySQLdb.Error:  (1062, "Duplicate entry '26020731' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023574/
+MySQLdb.Error:  (1062, "Duplicate entry '26023574' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260303/26004684/
+MySQLdb.Error:  (1062, "Duplicate entry '26004684' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26001553/
+MySQLdb.Error:  (1062, "Duplicate entry '26001553' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016317/
+MySQLdb.Error:  (1062, "Duplicate entry '26016317' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26027021/
+MySQLdb.Error:  (1062, "Duplicate entry '26027021' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260303/26013401/
+MySQLdb.Error:  (1062, "Duplicate entry '26013401' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003112/
+MySQLdb.Error:  (1062, "Duplicate entry '26003112' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26027340/
+MySQLdb.Error:  (1062, "Duplicate entry '26027340' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260403/26026768/
+MySQLdb.Error:  (1062, "Duplicate entry '26026768' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26022327/
+MySQLdb.Error:  (1062, "Duplicate entry '26022327' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26013758/
+MySQLdb.Error:  (1062, "Duplicate entry '26013758' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003298/
+MySQLdb.Error:  (1062, "Duplicate entry '26003298' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002445/
+MySQLdb.Error:  (1062, "Duplicate entry '26002445' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019648/
+MySQLdb.Error:  (1062, "Duplicate entry '26019648' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005316/
+MySQLdb.Error:  (1062, "Duplicate entry '26005316' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26014318/
+MySQLdb.Error:  (1062, "Duplicate entry '26014318' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016642/
+MySQLdb.Error:  (1062, "Duplicate entry '26016642' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016791/
+MySQLdb.Error:  (1062, "Duplicate entry '26016791' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023782/
+MySQLdb.Error:  (1062, "Duplicate entry '26023782' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26016166/
+MySQLdb.Error:  (1062, "Duplicate entry '26016166' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023081/
+MySQLdb.Error:  (1062, "Duplicate entry '26023081' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016737/
+MySQLdb.Error:  (1062, "Duplicate entry '26016737' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026285/
+MySQLdb.Error:  (1062, "Duplicate entry '26026285' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003853/
+MySQLdb.Error:  (1062, "Duplicate entry '26003853' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26004139/
+MySQLdb.Error:  (1062, "Duplicate entry '26004139' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26007216/
+MySQLdb.Error:  (1062, "Duplicate entry '26007216' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26025934/
+MySQLdb.Error:  (1062, "Duplicate entry '26025934' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26020707/
+MySQLdb.Error:  (1062, "Duplicate entry '26020707' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26026893/
+MySQLdb.Error:  (1062, "Duplicate entry '26026893' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26006065/
+MySQLdb.Error:  (1062, "Duplicate entry '26006065' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26018514/
+MySQLdb.Error:  (1062, "Duplicate entry '26018514' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26014285/
+MySQLdb.Error:  (1062, "Duplicate entry '26014285' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26006214/
+MySQLdb.Error:  (1062, "Duplicate entry '26006214' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000689/
+MySQLdb.Error:  (1062, "Duplicate entry '26000689' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022608/
+MySQLdb.Error:  (1062, "Duplicate entry '26022608' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26014484/
+MySQLdb.Error:  (1062, "Duplicate entry '26014484' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26015414/
+MySQLdb.Error:  (1062, "Duplicate entry '26015414' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26027135/
+MySQLdb.Error:  (1062, "Duplicate entry '26027135' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025762/
+MySQLdb.Error:  (1062, "Duplicate entry '26025762' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260501/26017407/
+MySQLdb.Error:  (1062, "Duplicate entry '26017407' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26021893/
+MySQLdb.Error:  (1062, "Duplicate entry '26021893' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000593/
+MySQLdb.Error:  (1062, "Duplicate entry '26000593' for key 'restaurant_id'")
+173
+https://tabelog.com/kyoto/A2601/A260101/26020960/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260101/26023793/
+MySQLdb.Error:  (1062, "Duplicate entry '26023793' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26023712/
+MySQLdb.Error:  (1062, "Duplicate entry '26023712' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26013237/
+MySQLdb.Error:  (1062, "Duplicate entry '26013237' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026014/
+MySQLdb.Error:  (1062, "Duplicate entry '26026014' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26024095/
+MySQLdb.Error:  (1062, "Duplicate entry '26024095' for key 'restaurant_id'")
+465
+https://tabelog.com/kyoto/A2601/A260201/26002219/
+MySQLdb.Error:  (1062, "Duplicate entry '26002219' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26001576/
+MySQLdb.Error:  (1062, "Duplicate entry '26001576' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023483/
+MySQLdb.Error:  (1062, "Duplicate entry '26023483' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023636/
+MySQLdb.Error:  (1062, "Duplicate entry '26023636' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26000635/
+MySQLdb.Error:  (1062, "Duplicate entry '26000635' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26013633/
+MySQLdb.Error:  (1062, "Duplicate entry '26013633' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025332/
+MySQLdb.Error:  (1062, "Duplicate entry '26025332' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26013460/
+MySQLdb.Error:  (1062, "Duplicate entry '26013460' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016396/
+MySQLdb.Error:  (1062, "Duplicate entry '26016396' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26007041/
+MySQLdb.Error:  (1062, "Duplicate entry '26007041' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26007552/
+MySQLdb.Error:  (1062, "Duplicate entry '26007552' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023442/
+MySQLdb.Error:  (1062, "Duplicate entry '26023442' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018648/
+MySQLdb.Error:  (1062, "Duplicate entry '26018648' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024141/
+MySQLdb.Error:  (1062, "Duplicate entry '26024141' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005736/
+MySQLdb.Error:  (1062, "Duplicate entry '26005736' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026986/
+MySQLdb.Error:  (1062, "Duplicate entry '26026986' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004116/
+MySQLdb.Error:  (1062, "Duplicate entry '26004116' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026953/
+MySQLdb.Error:  (1062, "Duplicate entry '26026953' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023464/
+MySQLdb.Error:  (1062, "Duplicate entry '26023464' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025459/
+MySQLdb.Error:  (1062, "Duplicate entry '26025459' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019461/
+MySQLdb.Error:  (1062, "Duplicate entry '26019461' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006735/
+MySQLdb.Error:  (1062, "Duplicate entry '26006735' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018484/
+MySQLdb.Error:  (1062, "Duplicate entry '26018484' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003536/
+MySQLdb.Error:  (1062, "Duplicate entry '26003536' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005977/
+MySQLdb.Error:  (1062, "Duplicate entry '26005977' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26013897/
+MySQLdb.Error:  (1062, "Duplicate entry '26013897' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002959/
+MySQLdb.Error:  (1062, "Duplicate entry '26002959' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022736/
+MySQLdb.Error:  (1062, "Duplicate entry '26022736' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26021791/
+MySQLdb.Error:  (1062, "Duplicate entry '26021791' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003943/
+MySQLdb.Error:  (1062, "Duplicate entry '26003943' for key 'restaurant_id'")
+227
+https://tabelog.com/kyoto/A2601/A260202/26025381/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260202/26028557/
+MySQLdb.Error:  (1062, "Duplicate entry '26028557' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26014169/
+MySQLdb.Error:  (1062, "Duplicate entry '26014169' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021381/
+MySQLdb.Error:  (1062, "Duplicate entry '26021381' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26029006/
+MySQLdb.Error:  (1062, "Duplicate entry '26029006' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002076/
+MySQLdb.Error:  (1062, "Duplicate entry '26002076' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26004888/
+MySQLdb.Error:  (1062, "Duplicate entry '26004888' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26007158/
+MySQLdb.Error:  (1062, "Duplicate entry '26007158' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26007950/
+MySQLdb.Error:  (1062, "Duplicate entry '26007950' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021392/
+MySQLdb.Error:  (1062, "Duplicate entry '26021392' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26026763/
+MySQLdb.Error:  (1062, "Duplicate entry '26026763' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022908/
+MySQLdb.Error:  (1062, "Duplicate entry '26022908' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26012785/
+MySQLdb.Error:  (1062, "Duplicate entry '26012785' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26000507/
+MySQLdb.Error:  (1062, "Duplicate entry '26000507' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26011688/
+MySQLdb.Error:  (1062, "Duplicate entry '26011688' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26029087/
+MySQLdb.Error:  (1062, "Duplicate entry '26029087' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002336/
+MySQLdb.Error:  (1062, "Duplicate entry '26002336' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26004118/
+MySQLdb.Error:  (1062, "Duplicate entry '26004118' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26006637/
+MySQLdb.Error:  (1062, "Duplicate entry '26006637' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26014443/
+MySQLdb.Error:  (1062, "Duplicate entry '26014443' for key 'restaurant_id'")
+175
+https://tabelog.com/kyoto/A2601/A260203/26023216/
+MySQLdb.Error:  (1062, "Duplicate entry '26023216' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025749/
+MySQLdb.Error:  (1062, "Duplicate entry '26025749' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26010291/
+MySQLdb.Error:  (1062, "Duplicate entry '26010291' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025828/
+MySQLdb.Error:  (1062, "Duplicate entry '26025828' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26022278/
+MySQLdb.Error:  (1062, "Duplicate entry '26022278' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26024753/
+MySQLdb.Error:  (1062, "Duplicate entry '26024753' for key 'restaurant_id'")
+212
+https://tabelog.com/kyoto/A2601/A260301/26019518/
+MySQLdb.Error:  (1062, "Duplicate entry '26019518' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028188/
+MySQLdb.Error:  (1062, "Duplicate entry '26028188' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26026306/
+MySQLdb.Error:  (1062, "Duplicate entry '26026306' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000704/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260301/26003779/
+MySQLdb.Error:  (1062, "Duplicate entry '26003779' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26013334/
+MySQLdb.Error:  (1062, "Duplicate entry '26013334' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006942/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260301/26025604/
+MySQLdb.Error:  (1062, "Duplicate entry '26025604' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26014897/
+MySQLdb.Error:  (1062, "Duplicate entry '26014897' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000242/
+MySQLdb.Error:  (1062, "Duplicate entry '26000242' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26014608/
+MySQLdb.Error:  (1062, "Duplicate entry '26014608' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26020759/
+MySQLdb.Error:  (1062, "Duplicate entry '26020759' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26024822/
+MySQLdb.Error:  (1062, "Duplicate entry '26024822' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006060/
+MySQLdb.Error:  (1062, "Duplicate entry '26006060' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005958/
+MySQLdb.Error:  (1062, "Duplicate entry '26005958' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000633/
+MySQLdb.Error:  (1062, "Duplicate entry '26000633' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005801/
+MySQLdb.Error:  (1062, "Duplicate entry '26005801' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26020922/
+MySQLdb.Error:  (1062, "Duplicate entry '26020922' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000698/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260301/26003171/
+MySQLdb.Error:  (1062, "Duplicate entry '26003171' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26027652/
+MySQLdb.Error:  (1062, "Duplicate entry '26027652' for key 'restaurant_id'")
+96
+https://tabelog.com/kyoto/A2601/A260302/26022553/
+MySQLdb.Error:  (1062, "Duplicate entry '26022553' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26021630/
+MySQLdb.Error:  (1062, "Duplicate entry '26021630' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26014751/
+MySQLdb.Error:  (1062, "Duplicate entry '26014751' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26017108/
+MySQLdb.Error:  (1062, "Duplicate entry '26017108' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26018550/
+MySQLdb.Error:  (1062, "Duplicate entry '26018550' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26014574/
+MySQLdb.Error:  (1062, "Duplicate entry '26014574' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26002049/
+MySQLdb.Error:  (1062, "Duplicate entry '26002049' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26007352/
+MySQLdb.Error:  (1062, "Duplicate entry '26007352' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26006082/
+MySQLdb.Error:  (1062, "Duplicate entry '26006082' for key 'restaurant_id'")
+17
+18
+https://tabelog.com/kyoto/A2601/A260304/26021888/
+MySQLdb.Error:  (1062, "Duplicate entry '26021888' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260304/26027250/
+MySQLdb.Error:  (1062, "Duplicate entry '26027250' for key 'restaurant_id'")
+210
+https://tabelog.com/kyoto/A2601/A260401/26025266/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260401/26019343/
+MySQLdb.Error:  (1062, "Duplicate entry '26019343' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26022641/
+MySQLdb.Error:  (1062, "Duplicate entry '26022641' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26016658/
+MySQLdb.Error:  (1062, "Duplicate entry '26016658' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26026248/
+MySQLdb.Error:  (1062, "Duplicate entry '26026248' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26003920/
+MySQLdb.Error:  (1062, "Duplicate entry '26003920' for key 'restaurant_id'")
+42
+https://tabelog.com/kyoto/A2601/A260402/26013964/
+MySQLdb.Error:  (1062, "Duplicate entry '26013964' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260402/26007783/
+MySQLdb.Error:  (1062, "Duplicate entry '26007783' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260402/26015792/
+MySQLdb.Error:  (1062, "Duplicate entry '26015792' for key 'restaurant_id'")
+29
+38
+4
+71
+https://tabelog.com/kyoto/A2601/A260503/26008007/
+MySQLdb.Error:  (1062, "Duplicate entry '26008007' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26003050/
+MySQLdb.Error:  (1062, "Duplicate entry '26003050' for key 'restaurant_id'")
+171
+https://tabelog.com/kyoto/A2601/A260601/26002759/
+MySQLdb.Error:  (1062, "Duplicate entry '26002759' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26025243/
+MySQLdb.Error:  (1062, "Duplicate entry '26025243' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26006330/
+MySQLdb.Error:  (1062, "Duplicate entry '26006330' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26003005/
+MySQLdb.Error:  (1062, "Duplicate entry '26003005' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26027659/
+MySQLdb.Error:  (1062, "Duplicate entry '26027659' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26001210/
+MySQLdb.Error:  (1062, "Duplicate entry '26001210' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26012656/
+MySQLdb.Error:  (1062, "Duplicate entry '26012656' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26007087/
+MySQLdb.Error:  (1062, "Duplicate entry '26007087' for key 'restaurant_id'")
+
+Yuya-Pro:act-geo-matrix yu$ python main.py
+510
+https://tabelog.com/kyoto/A2601/A260301/26027035/
+MySQLdb.Error:  (1062, "Duplicate entry '26027035' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26026675/
+MySQLdb.Error:  (1062, "Duplicate entry '26026675' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26014472/
+MySQLdb.Error:  (1062, "Duplicate entry '26014472' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028433/
+MySQLdb.Error:  (1062, "Duplicate entry '26028433' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26024935/
+MySQLdb.Error:  (1062, "Duplicate entry '26024935' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26025341/
+MySQLdb.Error:  (1062, "Duplicate entry '26025341' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002338/
+MySQLdb.Error:  (1062, "Duplicate entry '26002338' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022286/
+MySQLdb.Error:  (1062, "Duplicate entry '26022286' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26024517/
+MySQLdb.Error:  (1062, "Duplicate entry '26024517' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26001576/
+MySQLdb.Error:  (1062, "Duplicate entry '26001576' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26027725/
+MySQLdb.Error:  (1062, "Duplicate entry '26027725' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26026031/
+MySQLdb.Error:  (1062, "Duplicate entry '26026031' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003686/
+MySQLdb.Error:  (1062, "Duplicate entry '26003686' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020538/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260201/26026494/
+MySQLdb.Error:  (1062, "Duplicate entry '26026494' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26014169/
+MySQLdb.Error:  (1062, "Duplicate entry '26014169' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002294/
+MySQLdb.Error:  (1062, "Duplicate entry '26002294' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019066/
+MySQLdb.Error:  (1062, "Duplicate entry '26019066' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26006598/
+MySQLdb.Error:  (1062, "Duplicate entry '26006598' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26029006/
+MySQLdb.Error:  (1062, "Duplicate entry '26029006' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26029137/
+MySQLdb.Error:  (1062, "Duplicate entry '26029137' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26025485/
+MySQLdb.Error:  (1062, "Duplicate entry '26025485' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003779/
+MySQLdb.Error:  (1062, "Duplicate entry '26003779' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26027029/
+MySQLdb.Error:  (1062, "Duplicate entry '26027029' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26013334/
+MySQLdb.Error:  (1062, "Duplicate entry '26013334' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26027597/
+MySQLdb.Error:  (1062, "Duplicate entry '26027597' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26004106/
+MySQLdb.Error:  (1062, "Duplicate entry '26004106' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006716/
+MySQLdb.Error:  (1062, "Duplicate entry '26006716' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26022379/
+MySQLdb.Error:  (1062, "Duplicate entry '26022379' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004713/
+MySQLdb.Error:  (1062, "Duplicate entry '26004713' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006944/
+MySQLdb.Error:  (1062, "Duplicate entry '26006944' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000858/
+MySQLdb.Error:  (1062, "Duplicate entry '26000858' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006807/
+MySQLdb.Error:  (1062, "Duplicate entry '26006807' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26020674/
+MySQLdb.Error:  (1062, "Duplicate entry '26020674' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26025604/
+MySQLdb.Error:  (1062, "Duplicate entry '26025604' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26012683/
+MySQLdb.Error:  (1062, "Duplicate entry '26012683' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26014996/
+MySQLdb.Error:  (1062, "Duplicate entry '26014996' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26027101/
+MySQLdb.Error:  (1062, "Duplicate entry '26027101' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028124/
+MySQLdb.Error:  (1062, "Duplicate entry '26028124' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26020570/
+MySQLdb.Error:  (1062, "Duplicate entry '26020570' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000607/
+MySQLdb.Error:  (1062, "Duplicate entry '26000607' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260403/26025236/
+MySQLdb.Error:  (1062, "Duplicate entry '26025236' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000231/
+MySQLdb.Error:  (1062, "Duplicate entry '26000231' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023194/
+MySQLdb.Error:  (1062, "Duplicate entry '26023194' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024970/
+MySQLdb.Error:  (1062, "Duplicate entry '26024970' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003528/
+MySQLdb.Error:  (1062, "Duplicate entry '26003528' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26021717/
+MySQLdb.Error:  (1062, "Duplicate entry '26021717' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26020919/
+MySQLdb.Error:  (1062, "Duplicate entry '26020919' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26000525/
+MySQLdb.Error:  (1062, "Duplicate entry '26000525' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003171/
+MySQLdb.Error:  (1062, "Duplicate entry '26003171' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260304/26004338/
+MySQLdb.Error:  (1062, "Duplicate entry '26004338' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26025883/
+MySQLdb.Error:  (1062, "Duplicate entry '26025883' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26015843/
+MySQLdb.Error:  (1062, "Duplicate entry '26015843' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028949/
+MySQLdb.Error:  (1062, "Duplicate entry '26028949' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26015661/
+MySQLdb.Error:  (1062, "Duplicate entry '26015661' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006731/
+MySQLdb.Error:  (1062, "Duplicate entry '26006731' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26022751/
+MySQLdb.Error:  (1062, "Duplicate entry '26022751' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26006334/
+MySQLdb.Error:  (1062, "Duplicate entry '26006334' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26021228/
+MySQLdb.Error:  (1062, "Duplicate entry '26021228' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26024753/
+MySQLdb.Error:  (1062, "Duplicate entry '26024753' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000874/
+MySQLdb.Error:  (1062, "Duplicate entry '26000874' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025708/
+MySQLdb.Error:  (1062, "Duplicate entry '26025708' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26009172/
+MySQLdb.Error:  (1062, "Duplicate entry '26009172' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003071/
+MySQLdb.Error:  (1062, "Duplicate entry '26003071' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26027665/
+MySQLdb.Error:  (1062, "Duplicate entry '26027665' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26002144/
+MySQLdb.Error:  (1062, "Duplicate entry '26002144' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26029211/
+MySQLdb.Error:  (1062, "Duplicate entry '26029211' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024636/
+MySQLdb.Error:  (1062, "Duplicate entry '26024636' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025762/
+MySQLdb.Error:  (1062, "Duplicate entry '26025762' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022908/
+MySQLdb.Error:  (1062, "Duplicate entry '26022908' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26013363/
+MySQLdb.Error:  (1062, "Duplicate entry '26013363' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26014443/
+MySQLdb.Error:  (1062, "Duplicate entry '26014443' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023164/
+MySQLdb.Error:  (1062, "Duplicate entry '26023164' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26006645/
+MySQLdb.Error:  (1062, "Duplicate entry '26006645' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023416/
+MySQLdb.Error:  (1062, "Duplicate entry '26023416' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26025243/
+MySQLdb.Error:  (1062, "Duplicate entry '26025243' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003076/
+MySQLdb.Error:  (1062, "Duplicate entry '26003076' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025749/
+MySQLdb.Error:  (1062, "Duplicate entry '26025749' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26026126/
+MySQLdb.Error:  (1062, "Duplicate entry '26026126' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003943/
+MySQLdb.Error:  (1062, "Duplicate entry '26003943' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26022314/
+MySQLdb.Error:  (1062, "Duplicate entry '26022314' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005719/
+MySQLdb.Error:  (1062, "Duplicate entry '26005719' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26026522/
+MySQLdb.Error:  (1062, "Duplicate entry '26026522' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016724/
+MySQLdb.Error:  (1062, "Duplicate entry '26016724' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002065/
+MySQLdb.Error:  (1062, "Duplicate entry '26002065' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26020910/
+MySQLdb.Error:  (1062, "Duplicate entry '26020910' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26000502/
+MySQLdb.Error:  (1062, "Duplicate entry '26000502' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26014417/
+MySQLdb.Error:  (1062, "Duplicate entry '26014417' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26013879/
+MySQLdb.Error:  (1062, "Duplicate entry '26013879' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26010498/
+MySQLdb.Error:  (1062, "Duplicate entry '26010498' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26009926/
+MySQLdb.Error:  (1062, "Duplicate entry '26009926' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26002346/
+MySQLdb.Error:  (1062, "Duplicate entry '26002346' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26021740/
+MySQLdb.Error:  (1062, "Duplicate entry '26021740' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26022972/
+MySQLdb.Error:  (1062, "Duplicate entry '26022972' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016078/
+MySQLdb.Error:  (1062, "Duplicate entry '26016078' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26021780/
+MySQLdb.Error:  (1062, "Duplicate entry '26021780' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023581/
+MySQLdb.Error:  (1062, "Duplicate entry '26023581' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26007178/
+MySQLdb.Error:  (1062, "Duplicate entry '26007178' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26022327/
+MySQLdb.Error:  (1062, "Duplicate entry '26022327' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006520/
+MySQLdb.Error:  (1062, "Duplicate entry '26006520' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26001547/
+MySQLdb.Error:  (1062, "Duplicate entry '26001547' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26017359/
+MySQLdb.Error:  (1062, "Duplicate entry '26017359' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26023007/
+MySQLdb.Error:  (1062, "Duplicate entry '26023007' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26026748/
+MySQLdb.Error:  (1062, "Duplicate entry '26026748' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26004778/
+MySQLdb.Error:  (1062, "Duplicate entry '26004778' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005801/
+MySQLdb.Error:  (1062, "Duplicate entry '26005801' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022882/
+MySQLdb.Error:  (1406, "Data too long for column 'private_room' at row 1")
+https://tabelog.com/kyoto/A2601/A260201/26001552/
+MySQLdb.Error:  (1062, "Duplicate entry '26001552' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26009356/
+MySQLdb.Error:  (1062, "Duplicate entry '26009356' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26003547/
+MySQLdb.Error:  (1062, "Duplicate entry '26003547' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26006600/
+MySQLdb.Error:  (1062, "Duplicate entry '26006600' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005450/
+MySQLdb.Error:  (1062, "Duplicate entry '26005450' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26017556/
+MySQLdb.Error:  (1062, "Duplicate entry '26017556' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26024620/
+MySQLdb.Error:  (1062, "Duplicate entry '26024620' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26018289/
+MySQLdb.Error:  (1062, "Duplicate entry '26018289' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26019426/
+MySQLdb.Error:  (1062, "Duplicate entry '26019426' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003139/
+MySQLdb.Error:  (1062, "Duplicate entry '26003139' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26022513/
+MySQLdb.Error:  (1062, "Duplicate entry '26022513' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26004199/
+MySQLdb.Error:  (1062, "Duplicate entry '26004199' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004548/
+MySQLdb.Error:  (1062, "Duplicate entry '26004548' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26014764/
+MySQLdb.Error:  (1062, "Duplicate entry '26014764' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006793/
+MySQLdb.Error:  (1062, "Duplicate entry '26006793' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26026568/
+MySQLdb.Error:  (1062, "Duplicate entry '26026568' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26022278/
+MySQLdb.Error:  (1062, "Duplicate entry '26022278' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023359/
+MySQLdb.Error:  (1062, "Duplicate entry '26023359' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26023367/
+MySQLdb.Error:  (1062, "Duplicate entry '26023367' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028300/
+MySQLdb.Error:  (1062, "Duplicate entry '26028300' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26004458/
+MySQLdb.Error:  (1062, "Duplicate entry '26004458' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26009933/
+MySQLdb.Error:  (1062, "Duplicate entry '26009933' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26001197/
+MySQLdb.Error:  (1062, "Duplicate entry '26001197' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26002083/
+MySQLdb.Error:  (1062, "Duplicate entry '26002083' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26010275/
+MySQLdb.Error:  (1062, "Duplicate entry '26010275' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26024822/
+MySQLdb.Error:  (1062, "Duplicate entry '26024822' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26021654/
+MySQLdb.Error:  (1062, "Duplicate entry '26021654' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26004781/
+MySQLdb.Error:  (1062, "Duplicate entry '26004781' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26005323/
+MySQLdb.Error:  (1062, "Duplicate entry '26005323' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26000689/
+MySQLdb.Error:  (1062, "Duplicate entry '26000689' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26014304/
+MySQLdb.Error:  (1062, "Duplicate entry '26014304' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26003573/
+MySQLdb.Error:  (1062, "Duplicate entry '26003573' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003104/
+MySQLdb.Error:  (1062, "Duplicate entry '26003104' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020292/
+MySQLdb.Error:  (1062, "Duplicate entry '26020292' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025506/
+MySQLdb.Error:  (1062, "Duplicate entry '26025506' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018486/
+MySQLdb.Error:  (1062, "Duplicate entry '26018486' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26006539/
+MySQLdb.Error:  (1062, "Duplicate entry '26006539' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26000298/
+MySQLdb.Error:  (1062, "Duplicate entry '26000298' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26007571/
+MySQLdb.Error:  (1062, "Duplicate entry '26007571' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016389/
+MySQLdb.Error:  (1062, "Duplicate entry '26016389' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26028692/
+MySQLdb.Error:  (1062, "Duplicate entry '26028692' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022723/
+MySQLdb.Error:  (1062, "Duplicate entry '26022723' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26015771/
+MySQLdb.Error:  (1062, "Duplicate entry '26015771' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003950/
+MySQLdb.Error:  (1062, "Duplicate entry '26003950' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26021823/
+MySQLdb.Error:  (1062, "Duplicate entry '26021823' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26022295/
+MySQLdb.Error:  (1062, "Duplicate entry '26022295' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004116/
+MySQLdb.Error:  (1062, "Duplicate entry '26004116' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26012656/
+MySQLdb.Error:  (1062, "Duplicate entry '26012656' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26004903/
+MySQLdb.Error:  (1062, "Duplicate entry '26004903' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026986/
+MySQLdb.Error:  (1062, "Duplicate entry '26026986' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26001912/
+MySQLdb.Error:  (1062, "Duplicate entry '26001912' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26015823/
+MySQLdb.Error:  (1062, "Duplicate entry '26015823' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26006867/
+MySQLdb.Error:  (1062, "Duplicate entry '26006867' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005674/
+MySQLdb.Error:  (1062, "Duplicate entry '26005674' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26015762/
+MySQLdb.Error:  (1062, "Duplicate entry '26015762' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26028207/
+MySQLdb.Error:  (1062, "Duplicate entry '26028207' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26021963/
+MySQLdb.Error:  (1062, "Duplicate entry '26021963' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26002194/
+MySQLdb.Error:  (1062, "Duplicate entry '26002194' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26025313/
+MySQLdb.Error:  (1062, "Duplicate entry '26025313' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26015623/
+MySQLdb.Error:  (1062, "Duplicate entry '26015623' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26007599/
+MySQLdb.Error:  (1062, "Duplicate entry '26007599' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023530/
+MySQLdb.Error:  (1062, "Duplicate entry '26023530' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26028867/
+MySQLdb.Error:  (1062, "Duplicate entry '26028867' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002328/
+MySQLdb.Error:  (1062, "Duplicate entry '26002328' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26007789/
+MySQLdb.Error:  (1062, "Duplicate entry '26007789' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005215/
+MySQLdb.Error:  (1062, "Duplicate entry '26005215' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26007435/
+MySQLdb.Error:  (1062, "Duplicate entry '26007435' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26005365/
+MySQLdb.Error:  (1062, "Duplicate entry '26005365' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26004023/
+MySQLdb.Error:  (1062, "Duplicate entry '26004023' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003853/
+MySQLdb.Error:  (1062, "Duplicate entry '26003853' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023056/
+MySQLdb.Error:  (1062, "Duplicate entry '26023056' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26005616/
+MySQLdb.Error:  (1062, "Duplicate entry '26005616' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26026195/
+MySQLdb.Error:  (1062, "Duplicate entry '26026195' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26003684/
+MySQLdb.Error:  (1062, "Duplicate entry '26003684' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26009922/
+MySQLdb.Error:  (1062, "Duplicate entry '26009922' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26022743/
+MySQLdb.Error:  (1062, "Duplicate entry '26022743' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005675/
+MySQLdb.Error:  (1062, "Duplicate entry '26005675' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26017621/
+MySQLdb.Error:  (1062, "Duplicate entry '26017621' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26003505/
+MySQLdb.Error:  (1062, "Duplicate entry '26003505' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26003502/
+MySQLdb.Error:  (1062, "Duplicate entry '26003502' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26013657/
+MySQLdb.Error:  (1062, "Duplicate entry '26013657' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26001571/
+MySQLdb.Error:  (1062, "Duplicate entry '26001571' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021838/
+MySQLdb.Error:  (1062, "Duplicate entry '26021838' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26024928/
+MySQLdb.Error:  (1062, "Duplicate entry '26024928' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003298/
+MySQLdb.Error:  (1062, "Duplicate entry '26003298' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26000174/
+MySQLdb.Error:  (1062, "Duplicate entry '26000174' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019201/
+MySQLdb.Error:  (1062, "Duplicate entry '26019201' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016258/
+MySQLdb.Error:  (1062, "Duplicate entry '26016258' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26014392/
+MySQLdb.Error:  (1062, "Duplicate entry '26014392' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26018168/
+MySQLdb.Error:  (1062, "Duplicate entry '26018168' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006934/
+MySQLdb.Error:  (1062, "Duplicate entry '26006934' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26005879/
+MySQLdb.Error:  (1062, "Duplicate entry '26005879' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26010317/
+MySQLdb.Error:  (1062, "Duplicate entry '26010317' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26019235/
+MySQLdb.Error:  (1062, "Duplicate entry '26019235' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26012114/
+MySQLdb.Error:  (1062, "Duplicate entry '26012114' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023473/
+MySQLdb.Error:  (1062, "Duplicate entry '26023473' for key 'restaurant_id'")
+370
+https://tabelog.com/kyoto/A2601/A260203/26023142/
+MySQLdb.Error:  (1062, "Duplicate entry '26023142' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26018537/
+MySQLdb.Error:  (1062, "Duplicate entry '26018537' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002027/
+MySQLdb.Error:  (1062, "Duplicate entry '26002027' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26026845/
+MySQLdb.Error:  (1062, "Duplicate entry '26026845' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028074/
+MySQLdb.Error:  (1062, "Duplicate entry '26028074' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028675/
+MySQLdb.Error:  (1062, "Duplicate entry '26028675' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26023753/
+MySQLdb.Error:  (1062, "Duplicate entry '26023753' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26023846/
+MySQLdb.Error:  (1062, "Duplicate entry '26023846' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26015053/
+MySQLdb.Error:  (1062, "Duplicate entry '26015053' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26025015/
+MySQLdb.Error:  (1062, "Duplicate entry '26025015' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025172/
+MySQLdb.Error:  (1062, "Duplicate entry '26025172' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26027569/
+MySQLdb.Error:  (1062, "Duplicate entry '26027569' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002294/
+MySQLdb.Error:  (1062, "Duplicate entry '26002294' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26028714/
+MySQLdb.Error:  (1062, "Duplicate entry '26028714' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022615/
+MySQLdb.Error:  (1062, "Duplicate entry '26022615' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26026969/
+MySQLdb.Error:  (1062, "Duplicate entry '26026969' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26003570/
+MySQLdb.Error:  (1062, "Duplicate entry '26003570' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018362/
+MySQLdb.Error:  (1062, "Duplicate entry '26018362' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26028250/
+MySQLdb.Error:  (1062, "Duplicate entry '26028250' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26006716/
+MySQLdb.Error:  (1062, "Duplicate entry '26006716' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006718/
+MySQLdb.Error:  (1062, "Duplicate entry '26006718' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260402/26006907/
+MySQLdb.Error:  (1062, "Duplicate entry '26006907' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26026076/
+MySQLdb.Error:  (1062, "Duplicate entry '26026076' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020006/
+MySQLdb.Error:  (1062, "Duplicate entry '26020006' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26028219/
+MySQLdb.Error:  (1062, "Duplicate entry '26028219' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26028151/
+MySQLdb.Error:  (1062, "Duplicate entry '26028151' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26017476/
+MySQLdb.Error:  (1062, "Duplicate entry '26017476' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002740/
+MySQLdb.Error:  (1062, "Duplicate entry '26002740' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26024408/
+MySQLdb.Error:  (1062, "Duplicate entry '26024408' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26025974/
+MySQLdb.Error:  (1062, "Duplicate entry '26025974' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26002198/
+MySQLdb.Error:  (1062, "Duplicate entry '26002198' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026729/
+MySQLdb.Error:  (1062, "Duplicate entry '26026729' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26027568/
+MySQLdb.Error:  (1062, "Duplicate entry '26027568' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005585/
+MySQLdb.Error:  (1062, "Duplicate entry '26005585' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26001931/
+MySQLdb.Error:  (1062, "Duplicate entry '26001931' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022136/
+MySQLdb.Error:  (1062, "Duplicate entry '26022136' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000607/
+MySQLdb.Error:  (1062, "Duplicate entry '26000607' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016179/
+MySQLdb.Error:  (1062, "Duplicate entry '26016179' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26029156/
+MySQLdb.Error:  (1062, "Duplicate entry '26029156' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020401/
+MySQLdb.Error:  (1062, "Duplicate entry '26020401' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024970/
+MySQLdb.Error:  (1062, "Duplicate entry '26024970' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26004119/
+MySQLdb.Error:  (1062, "Duplicate entry '26004119' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019280/
+MySQLdb.Error:  (1062, "Duplicate entry '26019280' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26022765/
+MySQLdb.Error:  (1062, "Duplicate entry '26022765' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019835/
+MySQLdb.Error:  (1062, "Duplicate entry '26019835' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26027729/
+MySQLdb.Error:  (1062, "Duplicate entry '26027729' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024556/
+MySQLdb.Error:  (1062, "Duplicate entry '26024556' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26022323/
+MySQLdb.Error:  (1062, "Duplicate entry '26022323' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26002088/
+MySQLdb.Error:  (1062, "Duplicate entry '26002088' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26014285/
+MySQLdb.Error:  (1062, "Duplicate entry '26014285' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022638/
+MySQLdb.Error:  (1062, "Duplicate entry '26022638' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26027532/
+MySQLdb.Error:  (1062, "Duplicate entry '26027532' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025404/
+MySQLdb.Error:  (1062, "Duplicate entry '26025404' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025708/
+MySQLdb.Error:  (1062, "Duplicate entry '26025708' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26028762/
+MySQLdb.Error:  (1062, "Duplicate entry '26028762' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26007458/
+MySQLdb.Error:  (1062, "Duplicate entry '26007458' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026273/
+MySQLdb.Error:  (1062, "Duplicate entry '26026273' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26024348/
+MySQLdb.Error:  (1062, "Duplicate entry '26024348' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26011462/
+MySQLdb.Error:  (1062, "Duplicate entry '26011462' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26003129/
+MySQLdb.Error:  (1062, "Duplicate entry '26003129' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26024520/
+MySQLdb.Error:  (1062, "Duplicate entry '26024520' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26028876/
+MySQLdb.Error:  (1062, "Duplicate entry '26028876' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021621/
+MySQLdb.Error:  (1062, "Duplicate entry '26021621' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26026347/
+MySQLdb.Error:  (1062, "Duplicate entry '26026347' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26006653/
+MySQLdb.Error:  (1062, "Duplicate entry '26006653' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003076/
+MySQLdb.Error:  (1062, "Duplicate entry '26003076' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260605/26014746/
+MySQLdb.Error:  (1062, "Duplicate entry '26014746' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26024037/
+MySQLdb.Error:  (1062, "Duplicate entry '26024037' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26023390/
+MySQLdb.Error:  (1062, "Duplicate entry '26023390' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26022466/
+MySQLdb.Error:  (1062, "Duplicate entry '26022466' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023083/
+MySQLdb.Error:  (1062, "Duplicate entry '26023083' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26027570/
+MySQLdb.Error:  (1062, "Duplicate entry '26027570' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026083/
+MySQLdb.Error:  (1062, "Duplicate entry '26026083' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26011688/
+MySQLdb.Error:  (1062, "Duplicate entry '26011688' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26017108/
+MySQLdb.Error:  (1062, "Duplicate entry '26017108' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022736/
+MySQLdb.Error:  (1062, "Duplicate entry '26022736' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26004923/
+MySQLdb.Error:  (1062, "Duplicate entry '26004923' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26028903/
+MySQLdb.Error:  (1062, "Duplicate entry '26028903' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26016981/
+MySQLdb.Error:  (1062, "Duplicate entry '26016981' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26023853/
+MySQLdb.Error:  (1062, "Duplicate entry '26023853' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26016037/
+MySQLdb.Error:  (1062, "Duplicate entry '26016037' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26017529/
+MySQLdb.Error:  (1062, "Duplicate entry '26017529' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26025940/
+MySQLdb.Error:  (1062, "Duplicate entry '26025940' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26024516/
+MySQLdb.Error:  (1062, "Duplicate entry '26024516' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26005058/
+MySQLdb.Error:  (1062, "Duplicate entry '26005058' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026813/
+MySQLdb.Error:  (1062, "Duplicate entry '26026813' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26013079/
+MySQLdb.Error:  (1062, "Duplicate entry '26013079' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26016699/
+MySQLdb.Error:  (1062, "Duplicate entry '26016699' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26026436/
+MySQLdb.Error:  (1062, "Duplicate entry '26026436' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022272/
+MySQLdb.Error:  (1062, "Duplicate entry '26022272' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26028712/
+MySQLdb.Error:  (1062, "Duplicate entry '26028712' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26018852/
+MySQLdb.Error:  (1062, "Duplicate entry '26018852' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26028961/
+MySQLdb.Error:  (1062, "Duplicate entry '26028961' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260303/26001742/
+MySQLdb.Error:  (1062, "Duplicate entry '26001742' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26021929/
+MySQLdb.Error:  (1062, "Duplicate entry '26021929' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26017556/
+MySQLdb.Error:  (1062, "Duplicate entry '26017556' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260503/26005926/
+MySQLdb.Error:  (1062, "Duplicate entry '26005926' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26024056/
+MySQLdb.Error:  (1062, "Duplicate entry '26024056' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26026160/
+MySQLdb.Error:  (1062, "Duplicate entry '26026160' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005206/
+MySQLdb.Error:  (1062, "Duplicate entry '26005206' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26025001/
+MySQLdb.Error:  (1062, "Duplicate entry '26025001' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260603/26025150/
+MySQLdb.Error:  (1062, "Duplicate entry '26025150' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26024608/
+MySQLdb.Error:  (1062, "Duplicate entry '26024608' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26002098/
+MySQLdb.Error:  (1062, "Duplicate entry '26002098' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26003244/
+MySQLdb.Error:  (1062, "Duplicate entry '26003244' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26014490/
+MySQLdb.Error:  (1062, "Duplicate entry '26014490' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026355/
+MySQLdb.Error:  (1062, "Duplicate entry '26026355' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26000865/
+MySQLdb.Error:  (1062, "Duplicate entry '26000865' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26028619/
+MySQLdb.Error:  (1062, "Duplicate entry '26028619' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26028656/
+MySQLdb.Error:  (1062, "Duplicate entry '26028656' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26026085/
+MySQLdb.Error:  (1062, "Duplicate entry '26026085' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26007400/
+MySQLdb.Error:  (1062, "Duplicate entry '26007400' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26022126/
+MySQLdb.Error:  (1062, "Duplicate entry '26022126' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26023670/
+MySQLdb.Error:  (1062, "Duplicate entry '26023670' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26005459/
+MySQLdb.Error:  (1062, "Duplicate entry '26005459' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26015147/
+MySQLdb.Error:  (1062, "Duplicate entry '26015147' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26021979/
+MySQLdb.Error:  (1062, "Duplicate entry '26021979' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26009137/
+MySQLdb.Error:  (1062, "Duplicate entry '26009137' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26020735/
+MySQLdb.Error:  (1062, "Duplicate entry '26020735' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260504/26005820/
+MySQLdb.Error:  (1062, "Duplicate entry '26005820' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26008551/
+MySQLdb.Error:  (1062, "Duplicate entry '26008551' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260402/26016226/
+MySQLdb.Error:  (1062, "Duplicate entry '26016226' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26024816/
+MySQLdb.Error:  (1062, "Duplicate entry '26024816' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26020898/
+MySQLdb.Error:  (1062, "Duplicate entry '26020898' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26018759/
+MySQLdb.Error:  (1062, "Duplicate entry '26018759' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26003690/
+MySQLdb.Error:  (1062, "Duplicate entry '26003690' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018485/
+MySQLdb.Error:  (1062, "Duplicate entry '26018485' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26018484/
+MySQLdb.Error:  (1062, "Duplicate entry '26018484' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260604/26028207/
+MySQLdb.Error:  (1062, "Duplicate entry '26028207' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26002374/
+MySQLdb.Error:  (1062, "Duplicate entry '26002374' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26023530/
+MySQLdb.Error:  (1062, "Duplicate entry '26023530' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26023598/
+MySQLdb.Error:  (1062, "Duplicate entry '26023598' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26007789/
+MySQLdb.Error:  (1062, "Duplicate entry '26007789' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26019697/
+MySQLdb.Error:  (1062, "Duplicate entry '26019697' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26020711/
+MySQLdb.Error:  (1062, "Duplicate entry '26020711' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26029288/
+MySQLdb.Error:  (1062, "Duplicate entry '26029288' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26001278/
+MySQLdb.Error:  (1062, "Duplicate entry '26001278' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025123/
+MySQLdb.Error:  (1062, "Duplicate entry '26025123' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028790/
+MySQLdb.Error:  (1062, "Duplicate entry '26028790' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26025759/
+MySQLdb.Error:  (1062, "Duplicate entry '26025759' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022491/
+MySQLdb.Error:  (1062, "Duplicate entry '26022491' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26016247/
+MySQLdb.Error:  (1062, "Duplicate entry '26016247' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26026291/
+MySQLdb.Error:  (1062, "Duplicate entry '26026291' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26021203/
+MySQLdb.Error:  (1062, "Duplicate entry '26021203' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26017524/
+MySQLdb.Error:  (1062, "Duplicate entry '26017524' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26022547/
+MySQLdb.Error:  (1062, "Duplicate entry '26022547' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260401/26017754/
+MySQLdb.Error:  (1062, "Duplicate entry '26017754' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26021212/
+MySQLdb.Error:  (1062, "Duplicate entry '26021212' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005932/
+MySQLdb.Error:  (1062, "Duplicate entry '26005932' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260301/26028727/
+MySQLdb.Error:  (1062, "Duplicate entry '26028727' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260601/26014392/
+MySQLdb.Error:  (1062, "Duplicate entry '26014392' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260203/26007978/
+MySQLdb.Error:  (1062, "Duplicate entry '26007978' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260302/26006618/
+MySQLdb.Error:  (1062, "Duplicate entry '26006618' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260101/26003080/
+MySQLdb.Error:  (1062, "Duplicate entry '26003080' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260202/26025787/
+MySQLdb.Error:  (1062, "Duplicate entry '26025787' for key 'restaurant_id'")
+https://tabelog.com/kyoto/A2601/A260201/26005380/
+MySQLdb.Error:  (1062, "Duplicate entry '26005380' for key 'restaurant_id'")
