@@ -422,3 +422,80 @@ class TabelogSearcher:
                 print('MySQLdb.Error: ', e)
         self.db_connection.commit()
         self.db_connection.close()
+
+
+    def get_ares(self):
+        areas = []
+        tabelog_url = 'https://tabelog.com'
+        map_url = 'https://tabelog.com/map/'
+        res = requests.get(map_url)
+        # print(res.url)
+        html = res.text
+        root = lxml.html.fromstring(html)
+
+        try:
+            # i = 0
+            pals = root.cssselect('.list-japan li')
+            for pal in pals:
+                # if i == 2:
+                #     break
+
+                pal_url = tabelog_url + pal.cssselect('a')[0].attrib['href']
+                print(pal_url)
+                pal_name = pal.cssselect('a')[0].text_content()
+                pal_code = pal_url.split('/')[3]
+                pal_dict = {pal_name: [pal_code]}
+
+                pal_page = requests.get(pal_url)
+                pal_html = pal_page.text
+                pal_root = lxml.html.fromstring(pal_html)
+                lst_prfs = pal_root.cssselect('.list-area li')
+
+                lst_prf_dict_list = []
+                for lst_prf in lst_prfs:
+                     lst_prf_url = tabelog_url + lst_prf.cssselect('a')[0].attrib['href']
+                     lst_prf_name = lst_prf.cssselect('a')[0].text_content()
+                     lst_prf_code = lst_prf_url.split('/')[4]
+                     lst_prf_dict = {lst_prf_name: [lst_prf_code]}
+
+                     lst_prf_page = requests.get(lst_prf_url)
+                     lst_prf_html = lst_prf_page.text
+                     lst_prf_root = lxml.html.fromstring(lst_prf_html)
+                     lst_areas = lst_prf_root.cssselect('.list-area li')
+
+                     lst_area_dict_list = []
+                     for lst_area in lst_areas:
+                         lst_area_url = tabelog_url + lst_area.cssselect('a')[0].attrib['href']
+                         lst_area_name = lst_area.cssselect('a')[0].text_content()
+                         lst_area_code = lst_area_url.split('/')[5]
+                         lst_area_dict = {lst_area_name: [lst_area_code]}
+
+                         lst_area_page = requests.get(lst_area_url)
+                         lst_area_html = lst_area_page.text
+                         lst_area_root = lxml.html.fromstring(lst_area_html)
+                         stations = lst_area_root.cssselect('.list-area li')
+
+                         station_dict_list = []
+                         for station in stations:
+                             station_url = tabelog_url + station.cssselect('a')[0].attrib['href']
+                             station_name = station.cssselect('a')[0].text_content()
+                             station_code = station_url.split('/')[6]
+                             station_dict = {station_name: station_code}
+                             station_dict_list.append(station_dict)
+                         lst_area_dict[lst_area_name].append(station_dict_list)
+                         lst_area_dict_list.append(lst_area_dict)
+                     lst_prf_dict[lst_prf_name].append(lst_area_dict_list)
+                     lst_prf_dict_list.append(lst_prf_dict)
+                pal_dict[pal_name].append(lst_prf_dict_list)
+
+                areas.append(pal_dict)
+                i += 1
+
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            print(pal_url)
+            print(e)
+
+        return areas
