@@ -149,7 +149,15 @@ class TabelogSearcher:
                 divided_url = review_url.split('/')
                 restaurant_id = divided_url[6]
                 review_id = divided_url[8]
-                review = {'review_id': review_id, 'rate': rate, 'restaurant_id': restaurant_id, 'title': title, 'body': body, 'html': review_html, 'url': review_url}
+                review = {
+                    'review_id': review_id,
+                    'rate': rate,
+                    'restaurant_id': restaurant_id,
+                    'title': title,
+                    'body': body,
+                    'html': 1,
+                    'url': review_url
+                }
                 reviews.append(review)
 
             except Exception as e:
@@ -222,7 +230,7 @@ class TabelogSearcher:
                     # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    # sleep(6)
+                    sleep(1)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
