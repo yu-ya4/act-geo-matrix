@@ -1,4 +1,4 @@
-USE tabelog;
+USE matsumura_tabelog;
 
 CREATE TABLE restaurants(
     id int primary key AUTO_INCREMENT,
