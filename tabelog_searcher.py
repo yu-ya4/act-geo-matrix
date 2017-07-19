@@ -199,7 +199,10 @@ class TabelogSearcher:
                 except:
                     title = ''
                 body = review_contents.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
-                rate = float(root.cssselect('.c-rating__val')[0].text_content())
+                try:
+                    rate = float(root.cssselect('.c-rating__val')[0].text_content())
+                except:
+                    rate = 0.0
                 divided_url = review_url.split('/')
                 restaurant_id = divided_url[6]
                 review_id = divided_url[8]
