@@ -516,6 +516,16 @@ class TabelogSearcher:
         self.db_connection.commit()
         # self.db_connection.close()
 
+    def get_restaurant_urls_from_db(self, num, offset):
+        sql = 'select id, url from restaurants order by id limit ' + str(offset) + ', ' + str(num)
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        urls = []
+        for row in result:
+            print(row)
+            urls.append(row[1])
+
+        return urls
 
     def get_areas(self):
         areas = []
