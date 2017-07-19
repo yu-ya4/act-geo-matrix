@@ -123,6 +123,60 @@ class TabelogSearcher:
 
         return review_htmls, review_urls
 
+    def get_reviews_from_restaurant(self, restaurant_url):
+        '''
+        get review htmls from restaurant
+
+        Args:
+            restaurant: str
+        Returns:
+            list[str]
+                review htmls
+        '''
+
+        review_htmls = []
+        review_urls = []
+
+        page = 1
+
+        while 1:
+            rvw_url = restaurant_url + 'dtlrvwlst/'
+            parameters = {
+                'rvw_part': 'all',
+                'lc': 2, #1ページあたり１００件取得
+                'PG': page
+            }
+
+            res = requests.get(rvw_url, params=parameters)
+            html = res.text
+            root = lxml.html.fromstring(html) # レストラン口コミ一覧
+
+            try:
+                # review_items = root.cssselect('.rstdtl-rvwlst')
+                review_items = root.cssselect('.rvw-item')
+                if not review_items:
+                    break
+
+                for review_item in review_items:
+                    review_url = 'http://tabelog.com' + review_item.attrib['data-detail-url']
+                    rvw_res = requests.get(review_url)
+                    review_html = rvw_res.text
+
+                    review_htmls.append(review_html)
+                    review_urls.append(review_url)
+
+                page += 1
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                print(review_url)
+                print(e)
+                break
+
+        return review_htmls, review_urls
+
+
     def parse_reviews(self, review_htmls, review_urls):
         '''
         parse htmls of tabelog reviews
@@ -151,12 +205,12 @@ class TabelogSearcher:
                 review_id = divided_url[8]
                 review = {
                     'review_id': review_id,
-                    'rate': rate,
                     'restaurant_id': restaurant_id,
                     'title': title,
                     'body': body,
-                    'html': 1,
-                    'url': review_url
+                    'rate': rate,
+                    'url': review_url,
+                    'html': 1
                 }
                 reviews.append(review)
 
