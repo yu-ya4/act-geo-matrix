@@ -160,6 +160,7 @@ class TabelogSearcher:
                 for review_item in review_items:
                     review_url = 'http://tabelog.com' + review_item.attrib['data-detail-url']
                     rvw_res = requests.get(review_url)
+                    sleep(1)
                     review_html = rvw_res.text
 
                     review_htmls.append(review_html)
@@ -259,6 +260,10 @@ class TabelogSearcher:
             except MySQLdb.Error as e:
                 print(review['url'])
                 print('MySQLdb.Error: ', e)
+                print(e.args)
+                with open('mysqllog.txt', 'a') as f:
+                    f.write(review['url'] + '\n')
+                    f.write('MySQLdb.Error: ' +  e.args[1] +  '\n')
         self.db_connection.commit()
         # self.db_connection.close()
 
@@ -522,7 +527,7 @@ class TabelogSearcher:
         result = self.cursor.fetchall()
         urls = []
         for row in result:
-            print(row)
+            # print(row)
             urls.append(row[1])
 
         return urls
