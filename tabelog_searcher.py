@@ -130,7 +130,7 @@ class TabelogSearcher:
         Args:
             restaurant: str
         Returns:
-            list[str]
+            list[list[str], list[str]]
                 review htmls
         '''
 
@@ -222,6 +222,42 @@ class TabelogSearcher:
                 break
 
         return reviews
+
+    def save_reviews(self, reviews):
+        '''
+        save restaurants in mysql
+
+        Args:
+            restaurants: list[dict{}]
+        '''
+
+        for review in reviews:
+            try:
+                self.cursor.execute(
+                    'INSERT INTO reviews(\
+                        review_id,\
+                        restaurant_id,\
+                        title,\
+                        body,\
+                        rate,\
+                        url,\
+                        html\
+                    )\
+                    VALUES(\
+                        %(review_id)s,\
+                        %(restaurant_id)s,\
+                        %(title)s,\
+                        %(body)s,\
+                        %(rate)s,\
+                        %(url)s,\
+                        %(html)s\
+                    )', review)
+
+            except MySQLdb.Error as e:
+                print(review['url'])
+                print('MySQLdb.Error: ', e)
+        self.db_connection.commit()
+        self.db_connection.close()
 
     def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
