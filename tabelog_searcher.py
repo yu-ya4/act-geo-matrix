@@ -210,7 +210,7 @@ class TabelogSearcher:
                     'body': body,
                     'rate': rate,
                     'url': review_url,
-                    'html': 1
+                    'html': review_html
                 }
                 reviews.append(review)
 
@@ -257,7 +257,7 @@ class TabelogSearcher:
                 print(review['url'])
                 print('MySQLdb.Error: ', e)
         self.db_connection.commit()
-        self.db_connection.close()
+        # self.db_connection.close()
 
     def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
@@ -511,7 +511,7 @@ class TabelogSearcher:
                 print(restaurant['url'])
                 print('MySQLdb.Error: ', e)
         self.db_connection.commit()
-        self.db_connection.close()
+        # self.db_connection.close()
 
 
     def get_areas(self):
@@ -738,4 +738,3 @@ class TabelogSearcher:
                 pal_id += 1
 
         self.db_connection.commit()
-        self.db_connection.close()
