@@ -424,7 +424,7 @@ class TabelogSearcher:
         self.db_connection.close()
 
 
-    def get_ares(self):
+    def get_areas(self):
         areas = []
         tabelog_url = 'https://tabelog.com'
         map_url = 'https://tabelog.com/map/'
@@ -443,10 +443,12 @@ class TabelogSearcher:
                 pal_url = tabelog_url + pal.cssselect('a')[0].attrib['href']
                 print(pal_url)
                 pal_name = pal.cssselect('a')[0].text_content()
+                if pal_name == '中国':
+                    break
                 pal_code = pal_url.split('/')[3]
                 pal_dict = {pal_name: [pal_code]}
-
                 pal_page = requests.get(pal_url)
+                sleep(5)
                 pal_html = pal_page.text
                 pal_root = lxml.html.fromstring(pal_html)
                 lst_prfs = pal_root.cssselect('.list-area li')
@@ -459,6 +461,7 @@ class TabelogSearcher:
                      lst_prf_dict = {lst_prf_name: [lst_prf_code]}
 
                      lst_prf_page = requests.get(lst_prf_url)
+                     sleep(2)
                      lst_prf_html = lst_prf_page.text
                      lst_prf_root = lxml.html.fromstring(lst_prf_html)
                      lst_areas = lst_prf_root.cssselect('.list-area li')
@@ -471,6 +474,7 @@ class TabelogSearcher:
                          lst_area_dict = {lst_area_name: [lst_area_code]}
 
                          lst_area_page = requests.get(lst_area_url)
+                         sleep(1)
                          lst_area_html = lst_area_page.text
                          lst_area_root = lxml.html.fromstring(lst_area_html)
                          stations = lst_area_root.cssselect('.list-area li')
@@ -489,7 +493,7 @@ class TabelogSearcher:
                 pal_dict[pal_name].append(lst_prf_dict_list)
 
                 areas.append(pal_dict)
-                i += 1
+                # i += 1
 
 
         except Exception as e:
@@ -499,3 +503,149 @@ class TabelogSearcher:
             print(e)
 
         return areas
+
+    def save_areas(self, areas):
+        '''
+        Args:
+            areas: list[
+                        dict{
+                            pal_name: [
+                                pal_code,
+                                list[
+                                    dict{
+                                        lst_prf_name: list[
+                                            lst_prf_code,
+                                            list[
+                                                dict{
+                                                    lst_area_name: list[
+                                                        lst_area_code,
+                                                        list[
+                                                            dict{
+                                                                station_name: station_code
+                                                            }
+                                                        ]
+                                                    ]
+                                                }
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+        '''
+        pal_id = 1
+        lst_prf_id = 1
+        lst_area_id = 1
+
+        for pal_dict in areas:
+            for pal_name, pal_li in pal_dict.items():
+                pal = {
+                    'name': pal_name,
+                    'code': pal_li[0]
+                }
+                try:
+                    self.cursor.execute(
+                        'INSERT INTO pals(\
+                            name,\
+                            code\
+                        )\
+                        VALUES(\
+                            %(name)s,\
+                            %(code)s\
+                        )', pal)
+
+                    # lst_prf
+                    lst_prf_dict_list = pal_li[1]
+                    for lst_prf_dict in lst_prf_dict_list:
+                        for lst_prf_name, lst_prf_li in lst_prf_dict.items():
+                            lst_prf = {
+                                'name': lst_prf_name,
+                                'code': lst_prf_li[0],
+                                'pal_id': pal_id
+                            }
+
+                            try:
+                                self.cursor.execute(
+                                    'INSERT INTO lst_prfs(\
+                                        name,\
+                                        code,\
+                                        pal_id\
+                                    )\
+                                    VALUES(\
+                                        %(name)s,\
+                                        %(code)s,\
+                                        %(pal_id)s\
+                                    )', lst_prf)
+
+                                # lst_area
+                                lst_area_dict_list = lst_prf_li[1]
+                                for lst_area_dict in lst_area_dict_list:
+                                    for lst_area_name, lst_area_li in lst_area_dict.items():
+                                        lst_area = {
+                                            'name': lst_area_name,
+                                            'code': lst_area_li[0],
+                                            'lst_prf_id': lst_prf_id
+                                        }
+
+                                        try:
+                                            self.cursor.execute(
+                                                'INSERT INTO lst_ares(\
+                                                    name,\
+                                                    code,\
+                                                    lst_prf_id\
+                                                )\
+                                                VALUES(\
+                                                    %(name)s,\
+                                                    %(code)s,\
+                                                    %(lst_prf_id)s\
+                                                )', lst_area)
+
+
+                                            # station
+                                            if lst_area_li == []:
+                                                continue
+                                            # print(lst_area_li)
+                                            station_dict_list = lst_area_li[1]
+                                            print(station_dict_list)
+                                            for station_dict in station_dict_list:
+                                                for station_name, station_code in station_dict.items():
+                                                    station = {
+                                                        'name': station_name,
+                                                        'code': station_code,
+                                                        'lst_are_id': lst_area_id
+                                                    }
+
+                                                    try:
+                                                        self.cursor.execute(
+                                                            'INSERT INTO stations(\
+                                                                name,\
+                                                                code,\
+                                                                lst_are_id\
+                                                            )\
+                                                            VALUES(\
+                                                                %(name)s,\
+                                                                %(code)s,\
+                                                                %(lst_are_id)s\
+                                                            )', station)
+
+                                                    except MySQLdb.Error as e:
+                                                        print(station['name'])
+                                                        print('MySQLdb.Error: ', e)
+                                        except MySQLdb.Error as e:
+                                            print(lst_area['name'])
+                                            print('MySQLdb.Error: ', e)
+                                        lst_area_id += 1
+
+                            except MySQLdb.Error as e:
+                                print(lst_prf['name'])
+                                print('MySQLdb.Error: ', e)
+                            lst_prf_id += 1
+
+                except MySQLdb.Error as e:
+                    print(pal['name'])
+                    print('MySQLdb.Error: ', e)
+                pal_id += 1
+
+        self.db_connection.commit()
+        self.db_connection.close()
