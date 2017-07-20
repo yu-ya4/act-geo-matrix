@@ -90,3 +90,4 @@ ENV/
 
 api_keys.py
 tabelog.sql
+mysqllog.txt
