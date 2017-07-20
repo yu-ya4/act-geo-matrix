@@ -199,7 +199,10 @@ class TabelogSearcher:
                     title = review_contents.cssselect('.rvw-item__title strong')[0].text_content()
                 except:
                     title = ''
-                body = review_contents.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
+                try:
+                    body = review_contents.cssselect('.rvw-item__rvw-comment p')[0].text_content().replace('\n', '')[10:-8]
+                except:
+                    body = ''
                 try:
                     rate = float(root.cssselect('.c-rating__val')[0].text_content())
                 except:
