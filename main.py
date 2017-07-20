@@ -63,8 +63,6 @@ if __name__ == '__main__':
     # exit()
     # exit()
 
-    tls = TabelogSearcher()
-    areas = tls.get_areas()
     # areas = [
     #     {'兵庫': ['hyogo', [
     #                     {'川西市':['A1234', [
@@ -126,13 +124,17 @@ if __name__ == '__main__':
     #             ]
     #     }
     # ]
-    tls.save_areas(areas)
-    exit()
-
-    tls = TabelogSearcher()
-    review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '', '4596')
-    reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
-    print(reviews)
+    # tls = TabelogSearcher()
+    # review_htmls = tls.get_reviews_from_restaurant('https://tabelog.com/osaka/A2701/A270101/27052831/')
+    # print(review_htmls[1])
+    # print(len(review_htmls[1]))
+    #
+    # exit()
+    #
+    # tls = TabelogSearcher()
+    # review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '', '4596')
+    # reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    # print(reviews)
 
     # tls = TabelogSearcher()
     # # review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
@@ -142,7 +144,31 @@ if __name__ == '__main__':
     # print(len(restaurants))
     # tls.save_restaurants(restaurants)
 
+    # import requests
+    # tls = TabelogSearcher()
+    # restaurant_url = 'https://tabelog.com/kyoto/A2601/A260201/26022882/'
+    # res = requests.get(restaurant_url)
+    # restaurant_html = res.text
+    # restaurants = tls.parse_restaurants([restaurant_html], [restaurant_url])
+    # print(len(restaurants))
+    # tls.save_restaurants(restaurants)
     # print(restaurants)
+
+
+    tls = TabelogSearcher()
+
+    restaurant_urls = tls.get_restaurant_urls_from_db(200,3669)
+
+    # tls = TabelogSearcher()
+    # restaurant_urls = [
+    #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
+    #     ]
+    for restaurant_url in restaurant_urls:
+        review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+        reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+        print(len(reviews))
+        tls.save_reviews(reviews)
+    tls.db_connection.close()
     exit()
     # reviews.write_review('./reviews/20170607/飲む/')
     # exit()
