@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 
 from tabelog_review import TabelogReview, TabelogReviews
-from tabelog_review_searcher import TabelogReviewSearcher
+from tabelog_searcher import TabelogSearcher
 from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
 import MeCab
@@ -16,41 +16,41 @@ if __name__ == '__main__':
     # for tr in trs.reviews:
     #     fw.write(tr.title + tr.body + '\n')
     # fw.close()
-    mm = MatrixMaker(actions_filename='./actions/20170607飲むcut.txt', geos_filename='./geos/20170607飲む.txt')
-    mm.get_scores_by_review_counts_for_each_geo_by_modifiers('./reviews/20170607/飲む/')
-    mat = mm.make_matrix()
-    print(mat.scores.shape)
-    print('\n')
-    print('----------xxxxxxxxxxxxxxx--------------')
-    queries = ['ちょっと', '軽く', 'みんな', 'ひたすら', '友人']
+    # mm = MatrixMaker(actions_filename='./actions/20170607飲むcut.txt', geos_filename='./geos/20170607飲む.txt')
+    # mm.get_scores_by_review_counts_for_each_geo_by_modifiers('./reviews/20170607/飲む/')
+    # mat = mm.make_matrix()
+    # print(mat.scores.shape)
+    # print('\n')
+    # print('----------xxxxxxxxxxxxxxx--------------')
+    # queries = ['ちょっと', '軽く', 'みんな', 'ひたすら', '友人']
+    # # for query in queries:
+    # #     print(query + '\n')
+    # #     mat.show_geo_ranking(query, 10)
+    # #     print('\n')
+    #
+    # # mat.show_geo_ranking_by_multipule_actions(['ちょっと', '水'], 10)
+    # mat.normalize_at_row()
     # for query in queries:
-    #     print(query + '\n')
+    #     print(query)
     #     mat.show_geo_ranking(query, 10)
     #     print('\n')
-
-    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', '水'], 10)
-    mat.normalize_at_row()
-    for query in queries:
-        print(query)
-        mat.show_geo_ranking(query, 10)
-        print('\n')
-    print('ちょっとみんな')
-    mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
-    print('\n')
-    print('-----------------------------------------')
-    # print(mat.scores)
-    # mat.read_action_similarities('./actions/similarities_100/', 5)
-    mat.reflect_action_similarity_in_matrix('./actions/similarity20170607/drink_5_5/', 5)
-    for query in queries:
-        print(query)
-        mat.show_geo_ranking('ちょっと', 10)
-        print('\n')
-
-    print('ちょっとみんな')
-    mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
-
-
-    exit()
+    # print('ちょっとみんな')
+    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
+    # print('\n')
+    # print('-----------------------------------------')
+    # # print(mat.scores)
+    # # mat.read_action_similarities('./actions/similarities_100/', 5)
+    # mat.reflect_action_similarity_in_matrix('./actions/similarity20170607/drink_5_5/', 5)
+    # for query in queries:
+    #     print(query)
+    #     mat.show_geo_ranking('ちょっと', 10)
+    #     print('\n')
+    #
+    # print('ちょっとみんな')
+    # mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
+    #
+    #
+    # exit()
 
     # fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
     # print(fre)
@@ -63,10 +63,114 @@ if __name__ == '__main__':
     # exit()
     # exit()
 
-    # trs = TabelogReviewSearcher()
-    # reviews = trs.search('飲む')
-    # reviews.write_review('./reviews/20170607/飲む/')
+    # areas = [
+    #     {'兵庫': ['hyogo', [
+    #                     {'川西市':['A1234', [
+    #                                 {'大和': ['A123401', [
+    #                                             {'畦野駅': 'R1234'},
+    #                                             {'梅田駅': 'R1234'}
+    #                                                     ]
+    #                                         ]
+    #                                 },
+    #                                 {'多田': ['A123402', [
+    #                                             {'多田駅': 'R1244'},
+    #                                             {'日生駅': 'R1245'}
+    #                                                     ]
+    #                                         ]
+    #                                 }
+    #                                     ]
+    #                                 ]
+    #                     },
+    #                     {'神戸市':['A1244', [
+    #                                 {'灘': ['A124455', [
+    #                                             {'神戸駅': 'R1222'},
+    #                                             {'新神戸駅': 'R1221'}
+    #                                                     ]
+    #                                         ]
+    #                                 }
     #
+    #                                     ]
+    #                                 ]
+    #                     }
+    #                     ]
+    #             ]
+    #     },
+    #     {'大阪': ['ohsaka', [
+    #                     {'大阪市':['A1444', [
+    #                                 {'難波': ['A144444', [
+    #                                             {'難波駅': 'R4444'}
+    #                                                     ]
+    #                                         ]
+    #                                 },
+    #                                 {'多': ['A123411', [
+    #                                                     ]
+    #                                         ]
+    #                                 }
+    #                                     ]
+    #                                 ]
+    #                     },
+    #                     {'葛西市':['A3344', [
+    #                                 {'hoge': ['A125445', [
+    #                                             {'fuga駅': 'R12'},
+    #                                             {'hage': 'R121'}
+    #                                                     ]
+    #                                         ]
+    #                                 }
+    #
+    #                                     ]
+    #                                 ]
+    #                     }
+    #                     ]
+    #             ]
+    #     }
+    # ]
+    # tls = TabelogSearcher()
+    # review_htmls = tls.get_reviews_from_restaurant('https://tabelog.com/osaka/A2701/A270101/27052831/')
+    # print(review_htmls[1])
+    # print(len(review_htmls[1]))
+    #
+    # exit()
+    #
+    # tls = TabelogSearcher()
+    # review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '', '4596')
+    # reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    # print(reviews)
+
+    # tls = TabelogSearcher()
+    # # review_htmls = tls.search_for_reviews('彼女', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596')
+    # # reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    # restaurant_htmls = tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2199', '')
+    # restaurants = tls.parse_restaurants(restaurant_htmls[0], restaurant_htmls[1])
+    # print(len(restaurants))
+    # tls.save_restaurants(restaurants)
+
+    # import requests
+    # tls = TabelogSearcher()
+    # restaurant_url = 'https://tabelog.com/kyoto/A2601/A260201/26022882/'
+    # res = requests.get(restaurant_url)
+    # restaurant_html = res.text
+    # restaurants = tls.parse_restaurants([restaurant_html], [restaurant_url])
+    # print(len(restaurants))
+    # tls.save_restaurants(restaurants)
+    # print(restaurants)
+
+
+    tls = TabelogSearcher()
+
+    restaurant_urls = tls.get_restaurant_urls_from_db(200,3669)
+
+    # tls = TabelogSearcher()
+    # restaurant_urls = [
+    #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
+    #     ]
+    for restaurant_url in restaurant_urls:
+        review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+        reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+        print(len(reviews))
+        tls.save_reviews(reviews)
+    tls.db_connection.close()
+    exit()
+    # reviews.write_review('./reviews/20170607/飲む/')
     # exit()
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')
     # # print(tr.get_body())
