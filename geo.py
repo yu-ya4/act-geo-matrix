@@ -33,3 +33,41 @@ class Geo:
     @property
     def body(self):
         return self.__body
+
+class Geos:
+    '''
+    a list of Geo
+    '''
+
+    def __init__(self, geos):
+        '''
+        Args:
+            geos: list[Geo]
+        '''
+        self.__geos = geos
+
+    @property
+    def geos(self):
+        return self.__geos
+
+    def append(self, another_geo):
+        '''
+        append a Geo to the geos
+
+        Args:
+            another_geo: Geo
+        Returns:
+            None
+        '''
+        self.__geos.append(another_geo)
+
+    def extend(self, another_geos):
+        '''
+        extend the Geos by another Geos
+
+        Args:
+            another_geos: Geos
+        Returns:
+            None
+        '''
+        self.__geos.extend(another_geos.geos)
