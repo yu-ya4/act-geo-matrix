@@ -100,7 +100,7 @@ class MatrixMaker:
 
         db_connection = MySQLdb.connect(host=self.env.get('mysql', 'HOST'), user=self.env.get('mysql', 'USER'), passwd=self.env.get('mysql', 'PASSWD'), db=self.env.get('mysql', 'DATABASE'), charset=self.env.get('mysql', 'CHARSET'))
         cursor = db_connection.cursor()
-        sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id order by res.id limit 10;'
+        sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id order by res.id;'
         cursor.execute(sql)
         result = cursor.fetchall()
 
@@ -121,6 +121,23 @@ class MatrixMaker:
             else:
                 self.reviews[geo_id] = [review]
 
+
+    def get_scores_by_frequencies(self):
+        '''
+        get matrix scores by frequencies of reviews that include experiences fro geos
+        '''
+
+        for j, geo in enumerate(self.geos.geos):
+            geo_id = geo.geo_id
+            reviews = self.reviews[geo_id]
+            for i, modifier in enumerate(self.actions):
+                frequency = 0
+                for review in reviews:
+                    # ここ要相談
+                    if modifier in review and '飲む' in review:
+                    # if modifier+'飲む' in review:
+                        frequency += 1
+                self.scores[i,j] = frequency
 
     def make_matrix(self):
         '''

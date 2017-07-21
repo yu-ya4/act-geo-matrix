@@ -11,6 +11,11 @@ sys.path.append('../chiebukuro')
 from chiebukuro_analyzer import ChiebukuroAnalyzer
 
 if __name__ == '__main__':
+
+    mm = MatrixMaker('./actions/test_actions_0608.txt', 1)
+    mm.get_scores_by_frequencies()
+    print(mm.scores)
+    exit()
     # trs = TabelogReviews('./reviews/20170607/飲む/')
     # fw = open('reviews/20170607/all_text_飲む.txt', 'w')
     # for tr in trs.reviews:
