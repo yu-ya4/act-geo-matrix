@@ -139,6 +139,42 @@ class MatrixMaker:
                         frequency += 1
                 self.scores[i,j] = frequency
 
+
+    def test(self):
+        '''
+        for test
+        '''
+        self.actions = [
+                'ちょっと',
+                '一人で',
+                '女性と',
+                'しっぽり'
+        ]
+        self.geos = Geos([
+                Geo(1, 'くれしま', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(2, 'くれない', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(3, '鳥貴族', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(4, '鳥次郎', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(5, '大島', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(6, '順菜', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(7, '魔境', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(8, '眠い', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．')
+        ])
+
+        self.reviews = {
+        1: ['なんて日だ！', 'ちょっと飲むにはいい店です．', 'ちょっと飲むの楽しい'],
+        2: ['なんて日だ！'],
+        3: [],
+        4: ['ちょっとだけと思ったのに気づいたら飲む飲む', '一人で参戦！飲む', '楽しい'],
+        5: ['女性としっぽりと飲むでました', '女性とちょっとだけ飲む'],
+        6: [],
+        7: ['しっぽり！'],
+        8: ['ちょっと', '一人でゆっくりと飲む']
+        }
+
+        self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
+
+
     def make_matrix(self):
         '''
         make ActGeoMatrix
