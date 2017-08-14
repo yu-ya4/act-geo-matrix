@@ -2,6 +2,9 @@
 # -*- coding: utf-8
 
 import os
+import MySQLdb
+import traceback
+from configparser import ConfigParser
 
 class TabelogReview:
     '''
@@ -52,16 +55,51 @@ class TabelogReview:
 class TabelogReviews:
     '''
     This class represents a list of Review.
+
+    There are two ways of reading tabelog reviews.
+    One is reading from text files,
+    and the other is reading from database.
     '''
 
-    def __init__(self, reviews_path):
-        self.__reviews = self.__read_reviews(reviews_path)
+    def __init__(self):
+        # self.__reviews = self.__read_reviews(reviews_path)
+        self.__reviews = []
 
     @property
     def reviews(self):
         return self.__reviews
 
-    def __read_reviews(self, reviews_path):
+    def read_reviews_from_database(self):
+        '''
+        Read TabelogReviews from database.
+
+        Returns:
+            None
+        '''
+        self.__init__()
+        env = ConfigParser()
+        env.read('./.env')
+        try:
+            db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
+            cursor = db_connection.cursor()
+            sql = 'SELECT id, review_id, restaurant_id, url, title, body FROM reviews;'
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            for row in result:
+                tabelog_review = TabelogReview(row[1], int(row[2]), row[3], row[4], row[5])
+                self.__reviews.append(tabelog_review)
+
+        except MySQLdb.Error as e:
+            print('MySQLdb.Error: ', e)
+            exit()
+
+        except Exception as e:
+            traceback.print_exc()
+            print(pal_url)
+            print(e)
+            exit()
+
+    def __read_reviews_from_text(self, reviews_path):
         '''
         Read TabelogReviews from reviews directory.
 
