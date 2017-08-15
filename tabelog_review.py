@@ -91,13 +91,13 @@ class TabelogReviews:
 
         except MySQLdb.Error as e:
             print('MySQLdb.Error: ', e)
-            exit()
 
         except Exception as e:
             traceback.print_exc()
-            print(pal_url)
             print(e)
-            exit()
+
+        cursor.close()
+        db_connection.close()
 
     def __read_reviews_from_text(self, reviews_path):
         '''
