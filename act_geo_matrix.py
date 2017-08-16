@@ -17,7 +17,7 @@ class ActGeoMatrix:
 
         Args:
             actions: list[str]
-            geos: list[str]
+            geos: Geos()
             scores: numpy.ndarray[float]
         '''
 
@@ -49,18 +49,22 @@ class ActGeoMatrix:
             # print(self.actions)
             action_index = self.actions.index(action)
         except:
-            return print('no index')
+            return print('no index \n')
         row = self.scores[action_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
+
+        print('top ' + str(result_num) + ' geos for the action "' + action)
         for i in range(result_num+1):
             if i == 0:
                 continue
             geo_index = ranking[-i][1]
+            geo = self.geos.geos[geo_index]
             score = ranking[-i][0]
 
             if score == 0:
                 break
-            print(self.geos[geo_index] + ': ' + str(score))
+            print(str(geo.geo_id) + ' ' + geo.name + ': ' + str(score))
+        print('\n')
 
     def show_geo_ranking_by_multipule_actions(self, actions, result_num):
         '''
