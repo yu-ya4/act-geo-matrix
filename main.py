@@ -2,6 +2,7 @@
 # -*- coding: utf-8
 
 from tabelog_review import TabelogReview, TabelogReviews
+from geo import Geo, Geos
 from tabelog_searcher import TabelogSearcher
 from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
@@ -12,9 +13,27 @@ from chiebukuro_analyzer import ChiebukuroAnalyzer
 
 if __name__ == '__main__':
 
-    mm = MatrixMaker('./actions/test_actions_0608.txt', 1)
+    # trs = TabelogReviews()
+    # trs.read_reviews_from_database()
+    #
+    # geos = Geos()
+    # geos.read_geos_from_database()
+    # exit()
+
+    mm = MatrixMaker('./actions/20170816/20170816test-actions.txt')
     mm.get_scores_by_frequencies()
-    print(mm.scores)
+    mat = mm.make_matrix()
+    mat.normalize_at_row()
+    mat.show_geo_ranking('ちょっと', 15)
+    mat.show_geo_ranking('一杯', 15)
+    mat.show_geo_ranking('静かに', 15)
+    mat.show_geo_ranking('彼女と', 15)
+
+    mat.reflect_action_similarity_in_matrix('./actions/20170816/similarity/drink_15_15/', 10)
+    mat.show_geo_ranking('ちょっと', 15)
+    mat.show_geo_ranking('一杯', 15)
+    mat.show_geo_ranking('静かに', 15)
+    mat.show_geo_ranking('彼女と', 15)
     exit()
     # trs = TabelogReviews('./reviews/20170607/飲む/')
     # fw = open('reviews/20170607/all_text_飲む.txt', 'w')
