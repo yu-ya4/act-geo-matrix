@@ -7,7 +7,9 @@ import lxml.html
 from time import sleep
 import sys
 import MySQLdb
-from configparser import ConfigParser
+import os
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 class TabelogSearcher:
     '''
@@ -37,9 +39,7 @@ class TabelogSearcher:
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
         self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
         self.rst_url = 'https://tabelog.com/rstLst/'
-        env = ConfigParser()
-        env.read('./.env')
-        self.db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
+        self.db_connection = MySQLdb.connect(host=os.environ.get('HOST'), user=os.environ.get('DB_USER'), passwd=os.environ.get('PASSWD'), db=os.environ.get('DATABASE'), charset=os.environ.get('CHARSET'))
         self.cursor = self.db_connection.cursor()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
