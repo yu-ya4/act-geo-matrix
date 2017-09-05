@@ -33,14 +33,43 @@ class TabelogSearcher:
 
     '''
 
-    def __init__(self):
+    def __init__(self, db):
+        '''
+        Args:
+            db: str
+                'local' or 'ieyasu'
+        '''
         # change the request url along with the change of specifications of 食べログ
         # 2017/06/07 by yu-ya4
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
         self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
         self.rst_url = 'https://tabelog.com/rstLst/'
-        self.db_connection = MySQLdb.connect(host=os.environ.get('HOST'), user=os.environ.get('DB_USER'), passwd=os.environ.get('PASSWD'), db=os.environ.get('DATABASE'), charset=os.environ.get('CHARSET'))
+        self.db_connection = self.get_db_connection(db)
         self.cursor = self.db_connection.cursor()
+
+    def get_db_connection(self, db):
+        '''
+        Get database connection
+
+        Args:
+            db: str
+                local
+                ieyasu
+                ieyasu-berry
+        '''
+        try:
+            if db == 'local':
+                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
+            elif db == 'ieyasu':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
+            elif db == 'ieyasu-berry':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
+            else:
+                print('Error: please select correct database')
+                exit()
+        except MySQLdb.Error as e:
+            print('MySQLdb.Error: ', e)
+            exit()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
