@@ -1,6 +1,12 @@
 # act-geo-matrix
 For my research, Action-geographic-Matrix
 
+## DB connection
+
+```
+$ ssh -f -N -C -L 10000:localhost:3306 ieyasu -p 22
+$ ssh -f -N -C -L 20000:localhost:3306 ieyasu-berry -p 22
+```
 
 ## Read data
 
