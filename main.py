@@ -20,21 +20,21 @@ if __name__ == '__main__':
     # geos.read_geos_from_database()
     # exit()
 
-    mm = MatrixMaker('./actions/20170816/20170816test-actions.txt')
-    mm.get_scores_by_frequencies()
-    mat = mm.make_matrix()
-    mat.normalize_at_row()
-    mat.show_geo_ranking('ちょっと', 15)
-    mat.show_geo_ranking('一杯', 15)
-    mat.show_geo_ranking('静かに', 15)
-    mat.show_geo_ranking('彼女と', 15)
-
-    mat.reflect_action_similarity_in_matrix('./actions/20170816/similarity/drink_15_15/', 10)
-    mat.show_geo_ranking('ちょっと', 15)
-    mat.show_geo_ranking('一杯', 15)
-    mat.show_geo_ranking('静かに', 15)
-    mat.show_geo_ranking('彼女と', 15)
-    exit()
+    # mm = MatrixMaker('./actions/20170816/20170816test-actions.txt')
+    # mm.get_scores_by_frequencies()
+    # mat = mm.make_matrix()
+    # mat.normalize_at_row()
+    # mat.show_geo_ranking('ちょっと', 15)
+    # mat.show_geo_ranking('一杯', 15)
+    # mat.show_geo_ranking('静かに', 15)
+    # mat.show_geo_ranking('彼女と', 15)
+    #
+    # mat.reflect_action_similarity_in_matrix('./actions/20170816/similarity/drink_15_15/', 10)
+    # mat.show_geo_ranking('ちょっと', 15)
+    # mat.show_geo_ranking('一杯', 15)
+    # mat.show_geo_ranking('静かに', 15)
+    # mat.show_geo_ranking('彼女と', 15)
+    # exit()
     # trs = TabelogReviews('./reviews/20170607/飲む/')
     # fw = open('reviews/20170607/all_text_飲む.txt', 'w')
     # for tr in trs.reviews:
@@ -179,21 +179,24 @@ if __name__ == '__main__':
     # print(restaurants)
 
 
-    tls = TabelogSearcher()
+    tls = TabelogSearcher('ieyasu-local')
 
-    restaurant_urls = tls.get_restaurant_urls_from_db(200,3669)
+    restaurant_urls = tls.get_restaurant_urls_from_db(10,3669)
+    print(restaurant_urls)
+
+    exit()
 
     # tls = TabelogSearcher()
     # restaurant_urls = [
     #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
     #     ]
-    for restaurant_url in restaurant_urls:
-        review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
-        reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
-        print(len(reviews))
-        tls.save_reviews(reviews)
-    tls.db_connection.close()
-    exit()
+    # for restaurant_url in restaurant_urls:
+    #     review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+    #     reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    #     print(len(reviews))
+    #     tls.save_reviews(reviews)
+    # tls.db_connection.close()
+    # exit()
     # reviews.write_review('./reviews/20170607/飲む/')
     # exit()
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')
