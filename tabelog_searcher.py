@@ -7,7 +7,9 @@ import lxml.html
 from time import sleep
 import sys
 import MySQLdb
-from configparser import ConfigParser
+import os
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 class TabelogSearcher:
     '''
@@ -31,16 +33,45 @@ class TabelogSearcher:
 
     '''
 
-    def __init__(self):
+    def __init__(self, db):
+        '''
+        Args:
+            db: str
+                'local' or 'ieyasu'
+        '''
         # change the request url along with the change of specifications of 食べログ
         # 2017/06/07 by yu-ya4
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
         self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
         self.rst_url = 'https://tabelog.com/rstLst/'
-        env = ConfigParser()
-        env.read('./.env')
-        self.db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
+        self.db_connection = self.get_db_connection(db)
         self.cursor = self.db_connection.cursor()
+
+    def get_db_connection(self, db):
+        '''
+        Get database connection
+
+        Args:
+            db: str
+                local
+                ieyasu
+                ieyasu-berry
+        '''
+        try:
+            if db == 'local':
+                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
+            elif db == 'ieyasu':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
+            elif db == 'ieyasu-berry':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
+            elif db == 'ieyasu-local':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'))
+            else:
+                print('Error: please select correct database')
+                exit()
+        except MySQLdb.Error as e:
+            print('MySQLdb.Error: ', e)
+            exit()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
@@ -331,7 +362,7 @@ class TabelogSearcher:
                     # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    sleep(1)
+                    sleep(4)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
@@ -759,3 +790,26 @@ class TabelogSearcher:
                 pal_id += 1
 
         self.db_connection.commit()
+
+    def get_area_list_from_db(self):
+        '''
+        Get area list from db
+        such as [('hokkaido', 'A0101', 'A010103'), ...]
+
+        Returns:
+            list[tuple(str, str, str)]
+        '''
+        sql = '''
+            select p.name as pal_name, lp.name as lst_prfs_name, la.name as lst_ares_name,
+            p.code as pal_code, lp.code as lst_prfs_code, la.code as lst_ares_code from pals as p
+            left join lst_prfs as lp on p.id=lp.pal_id
+            left join lst_ares as la on lp.id= la.lst_prf_id;
+            '''
+
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        area_list= []
+        for row in result:
+            area_list.append((row[3], row[4], row[5]))
+
+        return area_list

@@ -2,6 +2,7 @@
 # -*- coding: utf-8
 
 from tabelog_review import TabelogReview, TabelogReviews
+from geo import Geo, Geos
 from tabelog_searcher import TabelogSearcher
 from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
@@ -11,6 +12,29 @@ sys.path.append('../chiebukuro')
 from chiebukuro_analyzer import ChiebukuroAnalyzer
 
 if __name__ == '__main__':
+
+    # trs = TabelogReviews()
+    # trs.read_reviews_from_database()
+    #
+    # geos = Geos()
+    # geos.read_geos_from_database()
+    # exit()
+
+    # mm = MatrixMaker('./actions/20170816/20170816test-actions.txt')
+    # mm.get_scores_by_frequencies()
+    # mat = mm.make_matrix()
+    # mat.normalize_at_row()
+    # mat.show_geo_ranking('ちょっと', 15)
+    # mat.show_geo_ranking('一杯', 15)
+    # mat.show_geo_ranking('静かに', 15)
+    # mat.show_geo_ranking('彼女と', 15)
+    #
+    # mat.reflect_action_similarity_in_matrix('./actions/20170816/similarity/drink_15_15/', 10)
+    # mat.show_geo_ranking('ちょっと', 15)
+    # mat.show_geo_ranking('一杯', 15)
+    # mat.show_geo_ranking('静かに', 15)
+    # mat.show_geo_ranking('彼女と', 15)
+    # exit()
     # trs = TabelogReviews('./reviews/20170607/飲む/')
     # fw = open('reviews/20170607/all_text_飲む.txt', 'w')
     # for tr in trs.reviews:
@@ -155,21 +179,32 @@ if __name__ == '__main__':
     # print(restaurants)
 
 
-    tls = TabelogSearcher()
+    tls = TabelogSearcher('ieyasu')
+    area_list = tls.get_area_list_from_db()
+    # restaurant_urls = tls.get_restaurant_urls_from_db(10,3669)
+    cat_list = [('BC', 'BC01', ''), ('BC', 'BC02', ''), ('BC', 'BC03', ''), ('BC', 'BC04', ''), ('BC', 'BC05', ''), ('BC', 'BC06', ''), ('BC', 'BC07', ''), ('BC', 'BC99', ''),
+        ('RC', 'RC21', 'RC2101'), ('RC', 'RC21', 'RC2102'), ('RC', 'RC21', 'RC2199')]
 
-    restaurant_urls = tls.get_restaurant_urls_from_db(200,3669)
+    for area in area_list:
+        if area[0] == 'kyoto' and area[1] != 'A2601':
+            print(area)
+            for cat in cat_list:
+                restaurant_htmls = tls.search_for_restaurants('', area[0], area[1], area[2], cat[0], cat[1], cat[2], '')
+                restaurants = tls.parse_restaurants(restaurant_htmls[0], restaurant_htmls[1])
+                tls.save_restaurants(restaurants)
+    exit()
 
     # tls = TabelogSearcher()
     # restaurant_urls = [
     #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
     #     ]
-    for restaurant_url in restaurant_urls:
-        review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
-        reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
-        print(len(reviews))
-        tls.save_reviews(reviews)
-    tls.db_connection.close()
-    exit()
+    # for restaurant_url in restaurant_urls:
+    #     review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+    #     reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    #     print(len(reviews))
+    #     tls.save_reviews(reviews)
+    # tls.db_connection.close()
+    # exit()
     # reviews.write_review('./reviews/20170607/飲む/')
     # exit()
     # tr = TabelogReview(1, '鳥貴族 出町柳前店', '爆飲みするなら！', '出町柳周辺で学生さんが爆飲みするのにピッタシなお店です．')

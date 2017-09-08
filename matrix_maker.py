@@ -2,8 +2,11 @@
 # -*- coding: utf-8
 
 from tabelog_review import TabelogReview, TabelogReviews
+from geo import Geo, Geos
 from act_geo_matrix import ActGeoMatrix
 import numpy as np
+import MySQLdb
+from configparser import ConfigParser
 
 class MatrixMaker:
     '''
@@ -11,14 +14,22 @@ class MatrixMaker:
     MatrixMaker has several ways of making matrix.
     '''
 
-    def __init__(self, actions_filename, geos_filename):
+    def __init__(self, actions_filename):
         '''
         get actions list and geographic features list to make a matrix
+
+        Args:
+            actions_filename: str
         '''
 
+        self.env = ConfigParser()
+        self.env.read('./.env')
         self.actions = self.read_actions(actions_filename)
-        self.geos = self.read_geos(geos_filename)
-        self.scores = np.zeros([len(self.actions), len(self.geos)])
+        # self.geos = self.read_geos(geos_filename)
+        self.geos = Geos()
+        self.reviews = {}
+        self.get_geos_from_db()
+        self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
 
     def read_actions(self, actions_filename):
         '''
@@ -81,6 +92,103 @@ class MatrixMaker:
             counts_list.append(reviews.get_review_counts_for_each_geo_contain_word(self.geos, action))
 
         self.scores = np.array(counts_list)
+
+    def get_geos_from_db(self):
+        '''
+        get geos(restaurants) from db
+
+        Returns:
+            None
+        '''
+
+        try:
+            db_connection = MySQLdb.connect(host=self.env.get('mysql', 'HOST'), user=self.env.get('mysql', 'USER'), passwd=self.env.get('mysql', 'PASSWD'), db=self.env.get('mysql', 'DATABASE'), charset=self.env.get('mysql', 'CHARSET'))
+            cursor = db_connection.cursor()
+            sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id order by res.id;'
+            cursor.execute(sql)
+            result = cursor.fetchall()
+
+            geo_ids = []
+            for row in result:
+                geo_id = row[0]
+                name = row[1]
+                geo_url = '' if row[2] is None else row[2]
+                pr_title = '' if row[3] is None else row[3]
+                pr_body = '' if row[4] is None else row[4]
+                geo = Geo(geo_id, name, geo_url, pr_title, pr_body)
+                if geo_id not in geo_ids:
+                    geo_ids.append(geo_id)
+                    self.geos.append(geo)
+                rvw_title = '' if row[5] is None else row[5]
+                rvw_body = '' if row[6] is None else row[6]
+                review = rvw_title + rvw_body
+
+                if geo_id in self.reviews:
+                    self.reviews[geo_id].append(review)
+                else:
+                    self.reviews[geo_id] = [review]
+
+        except MySQLdb.Error as e:
+            print('MySQLdb.Error: ', e)
+
+        except Exception as e:
+            traceback.print_exc()
+            print(e)
+
+        cursor.close()
+        db_connection.close()
+
+    def get_scores_by_frequencies(self):
+        '''
+        get matrix scores by frequencies of reviews that include experiences fro geos
+        '''
+
+        for j, geo in enumerate(self.geos.geos):
+            geo_id = geo.geo_id
+            reviews = self.reviews[geo_id]
+            for i, modifier in enumerate(self.actions):
+                frequency = 0
+                for review in reviews:
+                    # ここ要相談
+                    if modifier in review and '飲む' in review:
+                    # if modifier+'飲む' in review:
+                        frequency += 1
+                self.scores[i,j] = frequency
+
+
+    def test(self):
+        '''
+        for test
+        '''
+        self.actions = [
+                'ちょっと',
+                '一人で',
+                '女性と',
+                'しっぽり'
+        ]
+        self.geos = Geos([
+                Geo(1, 'くれしま', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(2, 'くれない', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(3, '鳥貴族', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(4, '鳥次郎', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(5, '大島', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(6, '順菜', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(7, '魔境', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．'),
+                Geo(8, '眠い', 'http://test.com', '宴会に最適！', 'エンジェルがいるよ．')
+        ])
+
+        self.reviews = {
+        1: ['なんて日だ！', 'ちょっと飲むにはいい店です．', 'ちょっと飲むの楽しい'],
+        2: ['なんて日だ！'],
+        3: [],
+        4: ['ちょっとだけと思ったのに気づいたら飲む飲む', '一人で参戦！飲む', '楽しい'],
+        5: ['女性としっぽりと飲むでました', '女性とちょっとだけ飲む'],
+        6: [],
+        7: ['しっぽり！'],
+        8: ['ちょっと', '一人でゆっくりと飲む']
+        }
+
+        self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
 
 
     def make_matrix(self):
