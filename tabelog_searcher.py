@@ -790,3 +790,26 @@ class TabelogSearcher:
                 pal_id += 1
 
         self.db_connection.commit()
+
+    def get_area_list_from_db(self):
+        '''
+        Get area list from db
+        such as [('hokkaido', 'A0101', 'A010103'), ...]
+
+        Returns:
+            list[tuple(str, str, str)]
+        '''
+        sql = '''
+            select p.name as pal_name, lp.name as lst_prfs_name, la.name as lst_ares_name,
+            p.code as pal_code, lp.code as lst_prfs_code, la.code as lst_ares_code from pals as p
+            left join lst_prfs as lp on p.id=lp.pal_id
+            left join lst_ares as la on lp.id= la.lst_prf_id;
+            '''
+
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        area_list= []
+        for row in result:
+            area_list.append((row[3], row[4], row[5]))
+
+        return area_list
