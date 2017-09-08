@@ -362,7 +362,7 @@ class TabelogSearcher:
                     # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    sleep(1)
+                    sleep(4)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
