@@ -1,3 +1,6 @@
+select p.name as pal_name, lp.name as lst_prfs_name, la.name as lst_ares_name, p.code as pal_code, lp.code as lst_prfs_code, la.code as lst_ares_code from pals as p left join lst_prfs as lp on p.id=lp.pal_id left join lst_ares as la on lp.id= la.lst_prf_id where p.id=1;
+
+
 ### 食べログ
 
 pal
@@ -32,6 +35,7 @@ LstAre
 カテゴリ
 
 - バー・お酒: BC
+-- バー: BC01
 -- パブ: BC02
 -- ラウンジ: BC03
 -- ワインバー: BC04
