@@ -180,13 +180,15 @@ if __name__ == '__main__':
 
 
     tls = TabelogSearcher('ieyasu')
+    saved_area_list = tls.get_saved_area_in_db()
+
     area_list = tls.get_area_list_from_db()
     # restaurant_urls = tls.get_restaurant_urls_from_db(10,3669)
     cat_list = [('BC', 'BC01', ''), ('BC', 'BC02', ''), ('BC', 'BC03', ''), ('BC', 'BC04', ''), ('BC', 'BC05', ''), ('BC', 'BC06', ''), ('BC', 'BC07', ''), ('BC', 'BC99', ''),
         ('RC', 'RC21', 'RC2101'), ('RC', 'RC21', 'RC2102'), ('RC', 'RC21', 'RC2199')]
 
     for area in area_list:
-        if area[0] == 'kyoto' and area[1] != 'A2601':
+        if area[0] == 'osaka' and area[2] not in saved_area_list:
             print(area)
             for cat in cat_list:
                 restaurant_htmls = tls.search_for_restaurants('', area[0], area[1], area[2], cat[0], cat[1], cat[2], '')

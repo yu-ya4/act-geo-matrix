@@ -813,3 +813,20 @@ class TabelogSearcher:
             area_list.append((row[3], row[4], row[5]))
 
         return area_list
+
+    def get_saved_area_in_db(self):
+        '''
+        get lst_ares already saved in restaurants table
+
+        Returns:
+            list[str]
+        '''
+        sql = 'select distinct LstAre from restaurants'
+
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        saved_area_list= []
+        for row in result:
+            saved_area_list.append(row[0])
+
+        return saved_area_list
