@@ -22,12 +22,12 @@ geos.read_geos_from_database()
 ## Make matrix
 
 ```
-mm = MatrixMaker('./actions/test_actions_0608.txt')
+mm = MatrixMaker()
 mm.get_scores_by_frequencies()
 mat = mm.make_matrix()
-mat.show_geo_ranking('ちょっと', 15)
-mat.show_geo_ranking('hoge', 15)
-mat.show_geo_ranking('たくさん', 15)
+mat.show_geo_ranking('飲む', ['ちょっと'], 15)
+mat.show_geo_ranking('飲む', ['たくさん'], 15)
+
 
 top 15 geos for the action "ちょっと
 26000665 京極スタンド            （きょうごくすたんど）: 9.0
