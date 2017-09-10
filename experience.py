@@ -97,6 +97,28 @@ class Experiences:
         cursor.close()
         db_connection.close()
 
+    def get_index(self, verb, modifiers):
+        '''
+        Get index of Experience
+
+        Args:
+            verb: str
+            modifiers: list[str]
+
+        Return:
+            int or None
+        '''
+        for i, experience in enumerate(self.experiences):
+            if experience.verb == verb and len(experience.modifiers) == len(modifiers):
+                flg = True
+                for modifier in modifiers:
+                    if modifier not in experience.modifiers:
+                        flg = False
+                        break
+                if flg == True:
+                    return i
+
+
     def append(self, another_experience):
         '''
         append a Experience to the Experiences
