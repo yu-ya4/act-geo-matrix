@@ -11,49 +11,50 @@ class ActGeoMatrix:
     a element means some score of the action and geographic feature
     '''
 
-    def __init__(self, actions, geos, scores):
+    def __init__(self, experiences, geos, scores):
         '''
         get actions, geographic features list and scores from MatrixMaker
 
         Args:
-            actions: list[str]
+            experiences: Experiences()
             geos: Geos()
             scores: numpy.ndarray[float]
         '''
 
-        # actions of rows
-        self.__actions = actions
+        # experiences of rows
+        # self.__actions = actions
+        self.__experiences = experiences
         # geographic features of columns
         self.__geos = geos
         self.scores = scores
         self.action_similarities = []
 
     @property
-    def actions(self):
-        return self.__actions
+    def experiences(self):
+        return self.__experiences
 
     @property
     def geos(self):
         return self.__geos
 
-    def show_geo_ranking(self, action, result_num):
+    def show_geo_ranking(self, verb, modifiers, result_num):
         '''
         show geo ranking with its score
         Args:
-            action: str
-                action
+            verb: str
+            modifiers: list[str]
             result_num: int
                 the number of geos shown
         '''
-        try:
-            # print(self.actions)
-            action_index = self.actions.index(action)
-        except:
+
+        experience_index = self.experiences.get_index(verb, modifiers)
+        if experience_index is None:
             return print('no index \n')
-        row = self.scores[action_index]
+
+        row = self.scores[experience_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
 
-        print('top ' + str(result_num) + ' geos for the action "' + action)
+        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': [' + ','.join(modifiers) + ']' )
         for i in range(result_num+1):
             if i == 0:
                 continue

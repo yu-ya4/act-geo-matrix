@@ -3,10 +3,14 @@
 
 from tabelog_review import TabelogReview, TabelogReviews
 from geo import Geo, Geos
+from experience import Experience, Experiences
 from act_geo_matrix import ActGeoMatrix
 import numpy as np
 import MySQLdb
-from configparser import ConfigParser
+import os
+import traceback
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 class MatrixMaker:
     '''
@@ -14,50 +18,74 @@ class MatrixMaker:
     MatrixMaker has several ways of making matrix.
     '''
 
-    def __init__(self, actions_filename):
+    def __init__(self):
         '''
         get actions list and geographic features list to make a matrix
-
-        Args:
-            actions_filename: str
         '''
 
-        self.env = ConfigParser()
-        self.env.read('./.env')
-        self.actions = self.read_actions(actions_filename)
+        # self.actions = self.read_actions(actions_filename)
         # self.geos = self.read_geos(geos_filename)
+        self.experiences = Experiences()
         self.geos = Geos()
         self.reviews = {}
+        self.get_experiences_from_db('test0')
         self.get_geos_from_db()
-        self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
+        # self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
+        self.scores = np.zeros([len(self.experiences.experiences), len(self.geos.geos)])
 
-    def read_actions(self, actions_filename):
+    def get_db_connection(self, db='ieyasu'):
         '''
-        read actions list from text file
-
-        Args:
-            actions_filename: str
-        Returns:
-            list[str]
-        '''
-        f_a = open(actions_filename, 'r')
-        actions = [line.replace('\n', '') for line in f_a]
-        f_a.close()
-        return actions
-
-    def read_geos(self, geos_filename):
-        '''
-        read geos list from text file
+        Get database connection
 
         Args:
-            geos_filename: str
-        Returns:
-            list[str]
+            db: str
+                local
+                ieyasu
+                ieyasu-berry
         '''
-        f_g = open(geos_filename, 'r')
-        geos = [line.replace('\n', '') for line in f_g]
-        f_g.close()
-        return geos
+        try:
+            if db == 'local':
+                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
+            elif db == 'ieyasu':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
+            elif db == 'ieyasu-berry':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
+            elif db == 'ieyasu-local':
+                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'))
+            else:
+                print('Error: please select correct database')
+                exit()
+        except MySQLdb.Error as e:
+            print('MySQLdb.Error: ', e)
+            exit()
+
+    # def read_actions(self, actions_filename):
+    #     '''
+    #     read actions list from text file
+    #
+    #     Args:
+    #         actions_filename: str
+    #     Returns:
+    #         list[str]
+    #     '''
+    #     f_a = open(actions_filename, 'r')
+    #     actions = [line.replace('\n', '') for line in f_a]
+    #     f_a.close()
+    #     return actions
+
+    # def read_geos(self, geos_filename):
+    #     '''
+    #     read geos list from text file
+    #
+    #     Args:
+    #         geos_filename: str
+    #     Returns:
+    #         list[str]
+    #     '''
+    #     f_g = open(geos_filename, 'r')
+    #     geos = [line.replace('\n', '') for line in f_g]
+    #     f_g.close()
+    #     return geos
 
     def get_scores_by_review_counts_for_each_geo(self, reviews_dir):
         '''
@@ -102,9 +130,9 @@ class MatrixMaker:
         '''
 
         try:
-            db_connection = MySQLdb.connect(host=self.env.get('mysql', 'HOST'), user=self.env.get('mysql', 'USER'), passwd=self.env.get('mysql', 'PASSWD'), db=self.env.get('mysql', 'DATABASE'), charset=self.env.get('mysql', 'CHARSET'))
+            db_connection = self.get_db_connection()
             cursor = db_connection.cursor()
-            sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id order by res.id;'
+            sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where res.LstPrf = "A2601" order by res.id;'
             cursor.execute(sql)
             result = cursor.fetchall()
 
@@ -135,22 +163,38 @@ class MatrixMaker:
             traceback.print_exc()
             print(e)
 
-        cursor.close()
-        db_connection.close()
+        finally:
+            cursor.close()
+            db_connection.close()
+
+    def get_experiences_from_db(self, label):
+        self.experiences.read_experiences_from_database(label)
 
     def get_scores_by_frequencies(self):
         '''
-        get matrix scores by frequencies of reviews that include experiences fro geos
+        get matrix scores by frequencies of reviews that include experiences from geos
         '''
+        #
+        # for j, geo in enumerate(self.geos.geos):
+        #     geo_id = geo.geo_id
+        #     reviews = self.reviews[geo_id]
+        #     for i, modifier in enumerate(self.actions):
+        #         frequency = 0
+        #         for review in reviews:
+        #             # ここ要相談
+        #             if modifier in review and '飲む' in review:
+        #             # if modifier+'飲む' in review:
+        #                 frequency += 1
+        #         self.scores[i,j] = frequency
 
         for j, geo in enumerate(self.geos.geos):
             geo_id = geo.geo_id
             reviews = self.reviews[geo_id]
-            for i, modifier in enumerate(self.actions):
+            for i, experience in enumerate(self.experiences.experiences):
                 frequency = 0
                 for review in reviews:
                     # ここ要相談
-                    if modifier in review and '飲む' in review:
+                    if experience.modifiers[0] in review and experience.verb in review:
                     # if modifier+'飲む' in review:
                         frequency += 1
                 self.scores[i,j] = frequency
@@ -199,4 +243,5 @@ class MatrixMaker:
             ActGeoMatrix
         '''
 
-        return ActGeoMatrix(self.actions, self.geos, self.scores)
+        # return ActGeoMatrix(self.actions, self.geos, self.scores)
+        return ActGeoMatrix(self.experiences, self.geos, self.scores)
