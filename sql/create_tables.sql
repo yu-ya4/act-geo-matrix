@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS stations(
     updated_at timestamp not null default current_timestamp on update current_timestamp
 );
 
-CREATE TABLE IF NOT EXISTS experiments(
+CREATE TABLE IF NOT EXISTS experiences(
     id int primary key AUTO_INCREMENT,
     verb varchar(255) NOT NULL,
     modifier varchar(255) NOT NULL,

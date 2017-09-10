@@ -3,25 +3,25 @@ import os
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-class Experiment:
+class Experience:
     '''
-    This class represents an experiment
+    This class represents an experience
     '''
 
-    def __init__(self, experiment_id, verb, modifiers):
+    def __init__(self, experience_id, verb, modifiers):
         '''
         Args:
-            experiment_id: int
+            experience_id: int
             verb: str
             modifiers: list[str]
         '''
-        self.__experiment_id = experiment_id
+        self.__experience_id = experience_id
         self.__verb = verb
         self.__modifiers = modifiers
 
     @property
-    def experiment_id(self):
-        return self.__experiment_id
+    def experience_id(self):
+        return self.__experience_id
 
     @property
     def verb(self):
@@ -32,17 +32,17 @@ class Experiment:
         return  self.__modifiers
 
 
-class Experiments:
+class Experiences:
     '''
-    This class represents a list of Experiments.
+    This class represents a list of Experiences.
     '''
 
     def __init__(self):
-        self.__experiments = []
+        self.__experiences = []
 
     @property
-    def experiments(self):
-        return self.__experiments
+    def experiences(self):
+        return self.__experiences
 
     def get_db_connection(self, db='local'):
         '''
@@ -70,7 +70,7 @@ class Experiments:
             print('MySQLdb.Error: ', e)
             exit()
 
-    def read_experiments_from_database(self, label):
+    def read_experiences_from_database(self, label):
         '''
         Args:
             label: str
@@ -80,13 +80,12 @@ class Experiments:
         try:
             db_connection = self.get_db_connection()
             cursor = db_connection.cursor()
-            sql = 'SELECT id, verb, modifier, label FROM experiments where label ="' + label + '";'
+            sql = 'SELECT id, verb, modifier, label FROM experiences where label ="' + label + '";'
             cursor.execute(sql)
             result = cursor.fetchall()
-            print(result)
             for row in result:
-                experiment = Experiment(int(row[0]), row[1], [row[2]])
-                self.__experiments.append(experiment)
+                experience = Experience(int(row[0]), row[1], [row[2]])
+                self.__experiences.append(experience)
 
         except MySQLdb.Error as e:
             print('MySQLdb.Error: ', e)
@@ -97,3 +96,25 @@ class Experiments:
 
         cursor.close()
         db_connection.close()
+
+    def append(self, another_experience):
+        '''
+        append a Experience to the Experiences
+
+        Args:
+            another_experience: Experience
+        Returns:
+            None
+        '''
+        self.__experiences.append(another_experience)
+
+    def extend(self, another_experiences):
+        '''
+        extend the Experiences by another Experiences
+
+        Args:
+            another_experiences: Experiences
+        Returns:
+            None
+        '''
+        self.__experiences.extend(another_experiences.experiences)
