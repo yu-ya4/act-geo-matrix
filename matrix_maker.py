@@ -28,7 +28,7 @@ class MatrixMaker:
         self.experiences = Experiences()
         self.geos = Geos()
         self.reviews = {}
-        self.get_experiences_from_db('test0')
+        self.get_experiences_from_db('chie-extracted2')
         self.get_geos_from_db()
         # self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
         self.scores = np.zeros([len(self.experiences.experiences), len(self.geos.geos)])
@@ -58,68 +58,6 @@ class MatrixMaker:
         except MySQLdb.Error as e:
             print('MySQLdb.Error: ', e)
             exit()
-
-    # def read_actions(self, actions_filename):
-    #     '''
-    #     read actions list from text file
-    #
-    #     Args:
-    #         actions_filename: str
-    #     Returns:
-    #         list[str]
-    #     '''
-    #     f_a = open(actions_filename, 'r')
-    #     actions = [line.replace('\n', '') for line in f_a]
-    #     f_a.close()
-    #     return actions
-
-    # def read_geos(self, geos_filename):
-    #     '''
-    #     read geos list from text file
-    #
-    #     Args:
-    #         geos_filename: str
-    #     Returns:
-    #         list[str]
-    #     '''
-    #     f_g = open(geos_filename, 'r')
-    #     geos = [line.replace('\n', '') for line in f_g]
-    #     f_g.close()
-    #     return geos
-
-    def get_scores_by_review_counts_for_each_geo(self, reviews_dir):
-        '''
-        for each action, get review counts for each geographic feature(store name)
-
-        Args:
-            reviews_dir: str
-        Returns:
-            None
-        '''
-        counts_list = []
-        for action in self.actions:
-            # reviews got by each action query
-            reviews = TabelogReviews(reviews_dir + action + '/')
-            counts_list.append(reviews.get_review_counts_for_each_geo(self.geos))
-
-        self.scores = np.array(counts_list)
-
-    def get_scores_by_review_counts_for_each_geo_by_modifiers(self, reviews_dir):
-        '''
-        for each modify that means an action,
-        get review counts for each geographic feature(store name)
-
-        Args:
-            reviews_dir: str
-        Returns:
-            None
-        '''
-        counts_list = []
-        reviews = TabelogReviews(reviews_dir)
-        for action in self.actions:
-            counts_list.append(reviews.get_review_counts_for_each_geo_contain_word(self.geos, action))
-
-        self.scores = np.array(counts_list)
 
     def get_geos_from_db(self):
         '''

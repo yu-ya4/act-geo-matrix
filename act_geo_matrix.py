@@ -22,7 +22,6 @@ class ActGeoMatrix:
         '''
 
         # experiences of rows
-        # self.__actions = actions
         self.__experiences = experiences
         # geographic features of columns
         self.__geos = geos
