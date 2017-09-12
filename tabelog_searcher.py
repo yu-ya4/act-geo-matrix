@@ -362,7 +362,7 @@ class TabelogSearcher:
                     # print(restaurant_url)
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    sleep(4)
+                    sleep(1)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
@@ -555,8 +555,8 @@ class TabelogSearcher:
         self.db_connection.commit()
         # self.db_connection.close()
 
-    def get_restaurant_urls_from_db(self, num, offset):
-        sql = 'select id, url from restaurants order by id limit ' + str(offset) + ', ' + str(num)
+    def get_restaurant_urls_from_db(self, num, offset, lst_are):
+        sql = 'select id, url from restaurants where LstAre="' + lst_are + '" order by id limit ' + str(offset) + ', ' + str(num)
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         urls = []
@@ -821,7 +821,7 @@ class TabelogSearcher:
         Returns:
             list[str]
         '''
-        sql = 'select distinct LstAre from restaurants'
+        sql = 'select distinct LstAre from restaurants where pal="kyoto"'
 
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
