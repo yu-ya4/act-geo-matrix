@@ -79,3 +79,12 @@ CREATE TABLE IF NOT EXISTS stations(
     created_at timestamp not null default current_timestamp,
     updated_at timestamp not null default current_timestamp on update current_timestamp
 );
+
+CREATE TABLE IF NOT EXISTS experiences(
+    id int primary key AUTO_INCREMENT,
+    verb varchar(255) NOT NULL,
+    modifier varchar(255) NOT NULL,
+    label varchar(255) NOT NULL,
+    created_at timestamp not null default current_timestamp,
+    updated_at timestamp not null default current_timestamp on update current_timestamp
+);
