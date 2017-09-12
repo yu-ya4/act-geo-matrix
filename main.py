@@ -3,6 +3,7 @@
 
 from tabelog_review import TabelogReview, TabelogReviews
 from geo import Geo, Geos
+from experience import Experience, Experiences
 from tabelog_searcher import TabelogSearcher
 from matrix_maker import MatrixMaker
 from act_geo_matrix import ActGeoMatrix
@@ -10,8 +11,16 @@ import MeCab
 import sys
 sys.path.append('../chiebukuro')
 from chiebukuro_analyzer import ChiebukuroAnalyzer
+import pickle
 
 if __name__ == '__main__':
+
+    # exs = Experiences()
+    # exs.read_experiences_from_database('test0')
+    # print(exs.experiences)
+    # i = exs.get_index('飲む', ['ちょと'])
+    # print(i)
+    # exit()
 
     # trs = TabelogReviews()
     # trs.read_reviews_from_database()
@@ -19,39 +28,27 @@ if __name__ == '__main__':
     # geos = Geos()
     # geos.read_geos_from_database()
     # exit()
-
-    # mm = MatrixMaker('./actions/20170816/20170816test-actions.txt')
+    #
+    # mm = MatrixMaker()
     # mm.get_scores_by_frequencies()
     # mat = mm.make_matrix()
-    # mat.normalize_at_row()
-    # mat.show_geo_ranking('ちょっと', 15)
-    # mat.show_geo_ranking('一杯', 15)
-    # mat.show_geo_ranking('静かに', 15)
-    # mat.show_geo_ranking('彼女と', 15)
-    #
-    # mat.reflect_action_similarity_in_matrix('./actions/20170816/similarity/drink_15_15/', 10)
-    # mat.show_geo_ranking('ちょっと', 15)
-    # mat.show_geo_ranking('一杯', 15)
-    # mat.show_geo_ranking('静かに', 15)
-    # mat.show_geo_ranking('彼女と', 15)
+    # with open('../../data/matrix/natural_matrix.pickle', mode='wb') as f:
+    #     pickle.dump(mat, f)
     # exit()
-    # trs = TabelogReviews('./reviews/20170607/飲む/')
-    # fw = open('reviews/20170607/all_text_飲む.txt', 'w')
-    # for tr in trs.reviews:
-    #     fw.write(tr.title + tr.body + '\n')
-    # fw.close()
-    # mm = MatrixMaker(actions_filename='./actions/20170607飲むcut.txt', geos_filename='./geos/20170607飲む.txt')
-    # mm.get_scores_by_review_counts_for_each_geo_by_modifiers('./reviews/20170607/飲む/')
-    # mat = mm.make_matrix()
-    # print(mat.scores.shape)
-    # print('\n')
-    # print('----------xxxxxxxxxxxxxxx--------------')
-    # queries = ['ちょっと', '軽く', 'みんな', 'ひたすら', '友人']
-    # # for query in queries:
-    # #     print(query + '\n')
-    # #     mat.show_geo_ranking(query, 10)
-    # #     print('\n')
-    #
+
+    with open('../../data/matrix/natural_matrix.pickle', mode='rb') as f:
+        mat = pickle.load(f)
+    mat.normalize_at_row()
+    mat.show_geo_ranking('飲む', ['ちょっと'], 15)
+    mat.show_geo_ranking('飲む', ['女性と'], 15)
+    mat.show_geo_ranking('飲む', ['美味しく'], 15)
+    # exit()
+    mat.reflect_experience_similarity_in_matrix('../../data/similarities/test/drink_10_5_three/', 10)
+    mat.show_geo_ranking('飲む', ['ちょっと'], 15)
+    mat.show_geo_ranking('飲む', ['女性と'], 15)
+    mat.show_geo_ranking('飲む', ['美味しく'], 15)
+    exit()
+
     # # mat.show_geo_ranking_by_multipule_actions(['ちょっと', '水'], 10)
     # mat.normalize_at_row()
     # for query in queries:
@@ -74,17 +71,6 @@ if __name__ == '__main__':
     # mat.show_geo_ranking_by_multipule_actions(['ちょっと', 'みんな'], 10)
     #
     #
-    # exit()
-
-    # fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
-    # print(fre)
-    # exit()
-    # mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
-    # mat.show_geo_ranking('大勢で飲む', 30)
-    # print('\n')
-    # mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
-    # mat.show_geo_ranking('大勢で飲む', 50)
-    # exit()
     # exit()
 
     # areas = [
@@ -179,32 +165,69 @@ if __name__ == '__main__':
     # print(restaurants)
 
 
+    # tls = TabelogSearcher('ieyasu')
+    # saved_area_list = tls.get_saved_area_in_db()
+    #
+    # area_list = tls.get_area_list_from_db()
+    # # restaurant_urls = tls.get_restaurant_urls_from_db(10,3669)
+    # cat_list = [('BC', 'BC01', ''), ('BC', 'BC02', ''), ('BC', 'BC03', ''), ('BC', 'BC04', ''), ('BC', 'BC05', ''), ('BC', 'BC06', ''), ('BC', 'BC07', ''), ('BC', 'BC99', ''),
+    #     ('RC', 'RC21', 'RC2101'), ('RC', 'RC21', 'RC2102'), ('RC', 'RC21', 'RC2199')]
+    #
+    # for area in area_list:
+    #     if (area[0] == 'osaka' and area[2] not in saved_area_list) or area[2] == 'A270103':
+    #         print(area)
+    #         for cat in cat_list:
+    #             print(cat)
+    #             restaurant_htmls = tls.search_for_restaurants('', area[0], area[1], area[2], cat[0], cat[1], cat[2], '')
+    #             restaurants = tls.parse_restaurants(restaurant_htmls[0], restaurant_htmls[1])
+    #             tls.save_restaurants(restaurants)
+    # exit()
+
+
+
     tls = TabelogSearcher('ieyasu')
     saved_area_list = tls.get_saved_area_in_db()
-
-    area_list = tls.get_area_list_from_db()
-    # restaurant_urls = tls.get_restaurant_urls_from_db(10,3669)
-    cat_list = [('BC', 'BC01', ''), ('BC', 'BC02', ''), ('BC', 'BC03', ''), ('BC', 'BC04', ''), ('BC', 'BC05', ''), ('BC', 'BC06', ''), ('BC', 'BC07', ''), ('BC', 'BC99', ''),
-        ('RC', 'RC21', 'RC2101'), ('RC', 'RC21', 'RC2102'), ('RC', 'RC21', 'RC2199')]
-
-    for area in area_list:
-        if area[0] == 'osaka' and area[2] not in saved_area_list:
-            print(area)
-            for cat in cat_list:
-                restaurant_htmls = tls.search_for_restaurants('', area[0], area[1], area[2], cat[0], cat[1], cat[2], '')
-                restaurants = tls.parse_restaurants(restaurant_htmls[0], restaurant_htmls[1])
-                tls.save_restaurants(restaurants)
-    exit()
-
-    # tls = TabelogSearcher()
     # restaurant_urls = [
     #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
     #     ]
-    # for restaurant_url in restaurant_urls:
-    #     review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
-    #     reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
-    #     print(len(reviews))
-    #     tls.save_reviews(reviews)
+    restaurant_urls = tls.get_restaurant_urls_from_db(100000, 0, 'A280501')
+    restaurant_urls += tls.get_restaurant_urls_from_db(100000, 0, 'A280502')
+    restaurant_urls += tls.get_restaurant_urls_from_db(100000, 0, 'A280503')
+    restaurant_urls += tls.get_restaurant_urls_from_db(100000, 0, 'A280504')
+    restaurant_urls += tls.get_restaurant_urls_from_db(100000, 0, 'A280505')
+
+    print(len(restaurant_urls))
+    flg = True
+    for restaurant_url in restaurant_urls:
+        # if restaurant_url == 'https://tabelog.com/hyogo/A2801/A280102/28000411/':
+        #     flg = True
+
+        if flg:
+            review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+            reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+            print(len(reviews))
+            tls.save_reviews(reviews)
+    tls.db_connection.close()
+    exit()
+
+
+
+
+
+    # tls = TabelogSearcher('ieyasu')
+    # saved_area_list = tls.get_saved_area_in_db()
+    # # restaurant_urls = [
+    # #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
+    # #     ]
+    # for saved_area in saved_area_list:
+    #     restaurant_urls = tls.get_restaurant_urls_from_db(100000, 0, saved_area)
+    #     print(saved_area)
+    #
+    #     for restaurant_url in restaurant_urls:
+    #         review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
+    #         reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
+    #         print(len(reviews))
+    #         tls.save_reviews(reviews)
     # tls.db_connection.close()
     # exit()
     # reviews.write_review('./reviews/20170607/飲む/')
@@ -256,78 +279,3 @@ if __name__ == '__main__':
     #
     # fw.close()
     # exit()
-
-    mm = MatrixMaker(actions_filename='./actions/action_飲む_extended.txt', geos_filename='./geos/search_test_geos.txt')
-    mm.get_scores_by_review_counts_for_each_geo('./reviews/search_test/')
-    mat = mm.make_matrix()
-    # print(mat.actions[1])
-    # sum = 0
-    # for s in mat.scores[1]:
-    #     if s != 0.0:
-    #         sum += s
-    #         print(s)
-    # print(sum)
-    mat.show_geo_ranking('仕事終わりに飲む', 20)
-    print('\n')
-    mat.normalize_at_row()
-    mat.show_geo_ranking('仕事終わりに飲む', 10)
-    print('\n')
-    # print(mat.scores)
-    # mat.read_action_similarities('./actions/similarities_100/', 5)
-    mat.reflect_action_similarity_in_matrix('./actions/similarities_100/', 3)
-    mat.show_geo_ranking('仕事終わりに飲む', 10)
-
-    exit()
-    fre = trs.get_review_counts_for_each_geo(['くれしま',  'やよい軒', '吉野家'])
-    print(fre)
-    exit()
-    mat = ActGeoMatrix('./actions/actions_飲む.txt', './tabelog_reviews_sep')
-    mat.show_geo_ranking('大勢で飲む', 30)
-    print('\n')
-    mat.reflect_action_similarity_in_matrix('replace_5_5', 10)
-    mat.show_geo_ranking('大勢で飲む', 50)
-    exit()
-
-    # for row in mat.matrix:
-    #     count = 0
-    #     for i in row:
-    #         count += i
-    #     print(count)
-    #
-    # print(mat.actions)
-    # exit()
-    # action_list = []
-    # f_a = open('./actions/actions_飲む.txt', 'r')
-    # i = 1
-    # for line in f_a:
-    #     action = line.replace('\n', '')
-    #     action_list.append(action)
-    # f_a.close()
-    #
-    # trs = TabelogReviewSearcher()
-    # action = '軽く一杯飲む'
-    # # query = action[:-2] + ' ' + "飲む"
-    # query = "軽く 一杯 飲む"
-    # reviews = trs.search(query)
-    # reviews.write_review('./reviews/search_test/' + action + '/')
-
-    # for action in action_list:
-    #     query = action[:-2] + ' ' + "飲む"
-    #     reviews = trs.search(query)
-    #     reviews.write_review('./reviews/search_test/' + action + '/')
-
-
-    #     f_urls = open('./tabelog_reviews_sep/urls/' + action + '.txt', 'w')
-    #     f_store_names = open('./tabelog_reviews_sep/store_names/' + action + '.txt', 'w')
-    #     f_titles = open('./tabelog_reviews_sep/titles/' + action + '.txt', 'w')
-    #     f_bodies = open('./tabelog_reviews_sep/bodies/' + action + '.txt', 'w')
-    #
-    #     for review in reviews:
-    #         f_urls.write(review.get_url() + '\n')
-    #         f_store_names.write(review.get_store_name() + '\n')
-    #         f_titles.write(review.get_title() + '\n')
-    #         f_bodies.write(review.get_body() + '\n')
-    #     f_urls.close()
-    #     f_store_names.close()
-    #     f_titles.close()
-    #     f_bodies.close()
