@@ -28,6 +28,10 @@ mat = mm.make_matrix()
 mat.show_geo_ranking('飲む', ['ちょっと'], 15)
 mat.show_geo_ranking('飲む', ['たくさん'], 15)
 
+# save as pickle
+with open('../../data/matrix/natural_matrix.pickle', mode='wb') as f:
+    pickle.dump(mat, f)
+
 
 top 15 geos for the action "ちょっと
 26000665 京極スタンド            （きょうごくすたんど）: 9.0
@@ -65,4 +69,19 @@ top 15 geos for the action "たくさん
 26003757 清水家 錦 烏丸錦店: 2.0
 26002029 京都 五行            （きょうと ごぎょう）: 2.0
 26007406 ベジテジや 四条烏丸店: 2.0
+```
+
+## Operate MatrixMaker
+
+```
+# read from pickle
+with open('../../data/matrix/natural_matrix.pickle', mode='rb') as f:
+    mat = pickle.load(f)
+
+# normalize
+mat.normalize_at_row()
+
+# reflect similarity for each experiences
+mat.reflect_experience_similarity_in_matrix('../../data/similarities/0912/reviews_5_10/', 10)
+
 ```
