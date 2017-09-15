@@ -5,15 +5,15 @@ import numpy as np
 
 class ExperienceGeoMatrix:
     '''
-    Action and Gegraphic feature matrix
-    a row means an action such as "drink a little"
+    Experience and Gegraphic feature matrix
+    a row means a experience such as "drink a little"
     a column means an geographic feature such as "Torikizoku Demachiyanagiten"
-    a element means some score of the action and geographic feature
+    a element means some score of the experience and geographic feature
     '''
 
     def __init__(self, experiences, geos, scores):
         '''
-        get actions, geographic features list and scores from MatrixMaker
+        get experiences, geographic features list and scores from MatrixMaker
 
         Args:
             experiences: Experiences()
@@ -36,24 +36,24 @@ class ExperienceGeoMatrix:
     def geos(self):
         return self.__geos
 
-    def show_geo_ranking(self, verb, modifiers, result_num):
+    def show_geo_ranking(self, verb, modifier, result_num):
         '''
         show geo ranking with its score
         Args:
             verb: str
-            modifiers: list[str]
+            modifier: str
             result_num: int
                 the number of geos shown
         '''
 
-        experience_index = self.experiences.get_index(verb, modifiers)
+        experience_index = self.experiences.get_index(verb, modifier)
         if experience_index is None:
             return print('no index \n')
 
         row = self.scores[experience_index]
         ranking = sorted([(v,i) for (i,v) in enumerate(row)])
 
-        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': [' + ','.join(modifiers) + ']' )
+        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': [' + ','.join(modifier) + ']' )
         for i in range(result_num+1):
             if i == 0:
                 continue
@@ -113,7 +113,7 @@ class ExperienceGeoMatrix:
         Args:
             result_dir: str
             num: int
-                read top n similar actions
+                read top n similar experiences
 
         Returns:
             None
@@ -123,7 +123,7 @@ class ExperienceGeoMatrix:
         self.experience_similarities = []
         for experience in self.experiences.experiences:
             experience_similarity_dict = {}
-            f_s = open(result_dir + experience.modifiers[0] + '.txt', 'r')
+            f_s = open(result_dir + experience.modifier + '.txt', 'r')
             i = 0
             for line in f_s:
                 if i == num:
@@ -137,7 +137,7 @@ class ExperienceGeoMatrix:
 
     def reflect_experience_similarity_in_matrix(self, result_dir, num):
         '''
-        remake geo-act-matrix reflecting similar experiences
+        remake experience-geo-matrix reflecting similar experiences
 
         Args:
             num: int
@@ -149,20 +149,20 @@ class ExperienceGeoMatrix:
         # pass by value
         original_matrix = self.scores[:]
         experience_index = 0
-        # a row for an action
+        # a row for a experience
         for row in original_matrix:
             if experience_index == len(self.experiences.experiences):
                 break
-            # an experience similarities dict for the action
+            # an experience similarities dict for the experience
             experience_similarity_dict = self.experience_similarities[experience_index]
             # TOPn件のみの類似度・頻度を反映するという仕様に後で変更する
             # 今はとりあえず全部反映
-            # an similar action and its similarity of the action
+            # an similar experience and its similarity of the experience
             for similar_experience, similarity in experience_similarity_dict.items():
-                similar_experience_index = self.experiences.get_index('飲む', [similar_experience])
+                similar_experience_index = self.experiences.get_index('飲む', similar_experience)
                 similar_experience_row = original_matrix[similar_experience_index]
-                # reflect the similar actions row in the action row
-                # add each element of the similar action multiplied by the similarity to the element of the action
+                # reflect the similar experience row in the experience row
+                # add each element of the similar experience multiplied by the similarity to the element of the experience
                 self.scores[experience_index] = [x + float(similarity) * y for (x, y) in zip(self.scores[experience_index], similar_experience_row)]
             experience_index += 1
 
