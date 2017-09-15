@@ -1,5 +1,6 @@
 import MySQLdb
 import os
+from dbconnection import get_db_connection
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
@@ -8,16 +9,16 @@ class Experience:
     This class represents an experience
     '''
 
-    def __init__(self, experience_id, verb, modifiers):
+    def __init__(self, experience_id, verb, modifier):
         '''
         Args:
             experience_id: int
             verb: str
-            modifiers: list[str]
+            modifier: str
         '''
         self.__experience_id = experience_id
         self.__verb = verb
-        self.__modifiers = modifiers
+        self.__modifier = modifier
 
     @property
     def experience_id(self):
@@ -28,8 +29,8 @@ class Experience:
         return self.__verb
 
     @property
-    def modifiers(self):
-        return  self.__modifiers
+    def modifier(self):
+        return  self.__modifier
 
 
 class Experiences:
@@ -44,47 +45,25 @@ class Experiences:
     def experiences(self):
         return self.__experiences
 
-    def get_db_connection(self, db='local'):
+    def read_experiences_from_database(self, db, label):
         '''
-        Get database connection
-
         Args:
             db: str
-                local
-                ieyasu
-                ieyasu-berry
-        '''
-        try:
-            if db == 'local':
-                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            elif db == 'ieyasu':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
-            elif db == 'ieyasu-berry':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
-            elif db == 'ieyasu-local':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            else:
-                print('Error: please select correct database')
-                exit()
-        except MySQLdb.Error as e:
-            print('MySQLdb.Error: ', e)
-            exit()
-
-    def read_experiences_from_database(self, label):
-        '''
-        Args:
+                'local'
+                'ieyasu'
+                'ieyasu-berry'
             label: str
         '''
         self.__init__()
+        db_connection = get_db_connection(db)
+        cursor = db_connection.cursor()
 
         try:
-            db_connection = self.get_db_connection()
-            cursor = db_connection.cursor()
             sql = 'SELECT id, verb, modifier, label FROM experiences where label ="' + label + '";'
             cursor.execute(sql)
             result = cursor.fetchall()
             for row in result:
-                experience = Experience(int(row[0]), row[1], [row[2]])
+                experience = Experience(int(row[0]), row[1], row[2])
                 self.__experiences.append(experience)
 
         except MySQLdb.Error as e:
@@ -97,26 +76,27 @@ class Experiences:
         cursor.close()
         db_connection.close()
 
-    def get_index(self, verb, modifiers):
+    def get_index(self, verb, modifier):
         '''
         Get index of Experience
 
         Args:
             verb: str
-            modifiers: list[str]
+                '飲む'
+            modifier: str
+                'ちょっと'
 
         Return:
             int or None
         '''
+        index = None
+
         for i, experience in enumerate(self.experiences):
-            if experience.verb == verb and len(experience.modifiers) == len(modifiers):
-                flg = True
-                for modifier in modifiers:
-                    if modifier not in experience.modifiers:
-                        flg = False
-                        break
-                if flg == True:
-                    return i
+            if experience.verb == verb and experience.modifier == modifier:
+                index = i
+                break
+
+        return index
 
 
     def append(self, another_experience):
@@ -128,7 +108,10 @@ class Experiences:
         Returns:
             None
         '''
-        self.__experiences.append(another_experience)
+        if self.has_id(another_experience.experience_id):
+            print('erorr: duplicate id: ' + str(another_experience.experience_id))
+        else:
+            self.__experiences.append(another_experience)
 
     def extend(self, another_experiences):
         '''
@@ -139,4 +122,11 @@ class Experiences:
         Returns:
             None
         '''
+        for another_experience in another_experiences.experiences:
+            if self.has_id(another_experience.experience_id):
+                print('erorr: duplicate id: ' + str(another_experience.experience_id))
+                return
         self.__experiences.extend(another_experiences.experiences)
+
+    def has_id(self, e_id):
+        return e_id in [ex.experience_id for ex in self.experiences]

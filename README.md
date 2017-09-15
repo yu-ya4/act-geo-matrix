@@ -1,5 +1,5 @@
-# act-geo-matrix
-For my research, Action-geographic-Matrix
+# experinece-geo-matrix
+For my research, Experience-Geo-Matrix
 
 ## DB connection
 
@@ -83,5 +83,25 @@ mat.normalize_at_row()
 
 # reflect similarity for each experiences
 mat.reflect_experience_similarity_in_matrix('../../data/similarities/0912/reviews_5_10/', 10)
+
+```
+
+
+## Experience, Experiences
+
+```
+from experience import Experience, Experiences
+ex = Experience(1, '飲む', 'ちょっと')
+
+exs = Experiences()
+exs.read_experiences_from_database('ieyasu', 'chie-extracted2')
+exs.get_index('飲む', 'ちょっと')
+
+exs_2 = Experiences()
+exs_2.read_experiences_from_database('ieyasu', 'chie-extracted')
+
+exs.append(ex)
+exs.extend(exs_2)
+
 
 ```
