@@ -4,7 +4,7 @@
 from tabelog_review import TabelogReview, TabelogReviews
 from geo import Geo, Geos
 from experience import Experience, Experiences
-from act_geo_matrix import ActGeoMatrix
+from experience_geo_matrix import ExperienceGeoMatrix
 import numpy as np
 from dbconnection import get_db_connection
 
@@ -153,4 +153,4 @@ class MatrixMaker:
         '''
 
         # return ActGeoMatrix(self.actions, self.geos, self.scores)
-        return ActGeoMatrix(self.experiences, self.geos, self.scores)
+        return ExperienceGeoMatrix(self.experiences, self.geos, self.scores)

@@ -3,7 +3,7 @@
 
 import numpy as np
 
-class ActGeoMatrix:
+class ExperienceGeoMatrix:
     '''
     Action and Gegraphic feature matrix
     a row means an action such as "drink a little"

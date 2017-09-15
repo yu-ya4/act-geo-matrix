@@ -26,8 +26,8 @@ from matrix_maker import MatrixMaker
 mm = MatrixMaker()
 mm.get_scores_by_frequencies_of_reviews_with_experiences()
 mat = mm.make_matrix()
-mat.show_geo_ranking('飲む', ['ちょっと'], 15)
-mat.show_geo_ranking('飲む', ['たくさん'], 15)
+mat.show_geo_ranking('飲む', 'ちょっと', 15)
+mat.show_geo_ranking('飲む', 'たくさん', 15)
 
 # save as pickle
 with open('../../data/matrix/natural_matrix.pickle', mode='wb') as f:
