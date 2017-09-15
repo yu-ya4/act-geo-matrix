@@ -6,11 +6,7 @@ from geo import Geo, Geos
 from experience import Experience, Experiences
 from act_geo_matrix import ActGeoMatrix
 import numpy as np
-import MySQLdb
-import os
-import traceback
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
+from dbconnection import get_db_connection
 
 class MatrixMaker:
     '''
@@ -23,53 +19,28 @@ class MatrixMaker:
         get actions list and geographic features list to make a matrix
         '''
 
-        # self.actions = self.read_actions(actions_filename)
-        # self.geos = self.read_geos(geos_filename)
         self.experiences = Experiences()
         self.geos = Geos()
         self.reviews = {}
-        self.get_experiences_from_db('chie-extracted2')
-        self.get_geos_from_db()
-        # self.scores = np.zeros([len(self.actions), len(self.geos.geos)])
+        self.get_experiences_from_db()
+        self.get_geos_and_reviews_from_db()
         self.scores = np.zeros([len(self.experiences.experiences), len(self.geos.geos)])
 
-    def get_db_connection(self, db='ieyasu'):
+    def get_geos_and_reviews_from_db(self, db='ieyasu'):
         '''
-        Get database connection
+        Get geos(restaurants) from db
+        Now specify '京都市'
+        where res.LstPrf = "A2601"
 
         Args:
             db: str
-                local
-                ieyasu
-                ieyasu-berry
-        '''
-        try:
-            if db == 'local':
-                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            elif db == 'ieyasu':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
-            elif db == 'ieyasu-berry':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
-            elif db == 'ieyasu-local':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            else:
-                print('Error: please select correct database')
-                exit()
-        except MySQLdb.Error as e:
-            print('MySQLdb.Error: ', e)
-            exit()
-
-    def get_geos_from_db(self):
-        '''
-        get geos(restaurants) from db
-
         Returns:
             None
         '''
 
+        db_connection = get_db_connection(db)
+        cursor = db_connection.cursor()
         try:
-            db_connection = self.get_db_connection()
-            cursor = db_connection.cursor()
             sql = 'select res.restaurant_id, res.name, res.url, res.pr_comment_title, res.pr_comment_body, rev.title, rev.body from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where res.LstPrf = "A2601" order by res.id;'
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -105,10 +76,10 @@ class MatrixMaker:
             cursor.close()
             db_connection.close()
 
-    def get_experiences_from_db(self, label):
-        self.experiences.read_experiences_from_database(label)
+    def get_experiences_from_db(self, db='ieyasu', label='chie-extracted2'):
+        self.experiences.read_experiences_from_database(db, label)
 
-    def get_scores_by_frequencies(self):
+    def get_scores_by_frequencies_of_reviews_with_experiences(self):
         '''
         get matrix scores by frequencies of reviews that include experiences from geos
         '''
@@ -132,7 +103,7 @@ class MatrixMaker:
                 frequency = 0
                 for review in reviews:
                     # ここ要相談
-                    if experience.modifiers[0] in review and experience.verb in review:
+                    if experience.modifier in review and experience.verb in review:
                     # if modifier+'飲む' in review:
                         frequency += 1
                 self.scores[i,j] = frequency
