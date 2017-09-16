@@ -36,24 +36,24 @@ class ExperienceGeoMatrix:
     def geos(self):
         return self.__geos
 
-    def show_geo_ranking(self, verb, modifier, result_num):
+    def get_experience_vector(self, verb, modifier):
         '''
-        show geo ranking with its score
         Args:
             verb: str
             modifier: str
-            result_num: int
-                the number of geos shown
-        '''
 
+        Returns:
+            list[float]
+        '''
         experience_index = self.experiences.get_index(verb, modifier)
         if experience_index is None:
             return print('no index \n')
 
-        row = self.scores[experience_index]
-        ranking = sorted([(v,i) for (i,v) in enumerate(row)])
+        return self.scores[experience_index]
 
-        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': [' + ','.join(modifier) + ']' )
+    def show_geo_ranking_by_vector(self, experience_vec, result_num):
+        ranking = sorted([(v,i) for (i,v) in enumerate(experience_vec)])
+
         for i in range(result_num+1):
             if i == 0:
                 continue
@@ -63,8 +63,22 @@ class ExperienceGeoMatrix:
 
             if score == 0:
                 break
-            print(str(geo.geo_id) + ' ' + geo.name + ': ' + str(score))
+            print(geo.url + ' ' + geo.name + ': ' + str(score))
         print('\n')
+
+    def show_geo_ranking_by_experience(self, verb, modifier, result_num):
+        '''
+        show geo ranking with its score
+        Args:
+            verb: str
+            modifier: str
+            result_num: int
+                the number of geos shown
+        '''
+
+        experience_vec = self.get_experience_vector(verb, modifier)
+        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': ' + modifier )
+        self.show_geo_ranking_by_vector(experience_vec, result_num)
 
     def show_geo_ranking_by_multipule_actions(self, actions, result_num):
         '''
