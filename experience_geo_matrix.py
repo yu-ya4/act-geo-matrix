@@ -18,7 +18,7 @@ class ExperienceGeoMatrix:
         Args:
             experiences: Experiences()
             geos: Geos()
-            scores: numpy.ndarray[float]
+            scores: numpy.ndarray[numpy.float64]
         '''
 
         # experiences of rows
@@ -43,7 +43,7 @@ class ExperienceGeoMatrix:
             modifier: str
 
         Returns:
-            list[float]
+            numpy.ndarray[numpy.float64]
         '''
         experience_index = self.experiences.get_index(verb, modifier)
         if experience_index is None:
@@ -52,6 +52,13 @@ class ExperienceGeoMatrix:
         return self.scores[experience_index]
 
     def show_geo_ranking_by_vector(self, experience_vec, result_num):
+        '''
+        Args:
+            experience_vec: numpy.ndarray[numpy.float64]
+
+        Returns:
+            None
+        '''
         ranking = sorted([(v,i) for (i,v) in enumerate(experience_vec)])
 
         for i in range(result_num+1):
@@ -68,58 +75,49 @@ class ExperienceGeoMatrix:
 
     def show_geo_ranking_by_experience(self, verb, modifier, result_num):
         '''
-        show geo ranking with its score
         Args:
             verb: str
             modifier: str
             result_num: int
-                the number of geos shown
-        '''
 
-        experience_vec = self.get_experience_vector(verb, modifier)
-        print('top ' + str(result_num) + ' geos for the experience "' + verb + ': ' + modifier )
-        self.show_geo_ranking_by_vector(experience_vec, result_num)
-
-    def show_geo_ranking_by_multipule_actions(self, actions, result_num):
+        Returns:
+            None
         '''
-        show geo ranking with its score
+        vec = self.get_experience_vector(verb, modifier)
+        self.show_geo_ranking_by_vector(vec, result_num)
+
+    def show_geo_ranking_by_multipule_experiences(self, verb1, modifier1, verb2, modifier2, result_num):
+        '''
+        Calculate vectors for multiple experiences and show geos
+
+        v_e1e2 = α(v_e1 + v_e2)/2 + (1-α)(v_e1 AND v_e2)
+        α: sim(e_1, e_2)
+
         Args:
-            actions: list<str>
-                actions
+            verb1, verb2: str
+            modifier1, modifier2: str
             result_num: int
                 the number of geos shown
         '''
+        ex_vec1 = self.get_experience_vector(verb1, modifier1)
+        ex_vec2 = self.get_experience_vector(verb2, modifier2)
 
-        rows = []
-        for action in actions:
-            try:
-                rows.append(self.scores[self.actions.index(action)])
-            except:
-                return print('no index')
+        ex1_index = self.experiences.get_index(verb1, modifier1)
+        sim_dict = self.experience_similarities[ex1_index]
+        print(sim_dict)
+        try:
+            sim = float(sim_dict[modifier2])
+        except:
+            sim = 0.0
 
-        sum_row = []
-        for i in range(len(rows[0])):
-            sum = 0.0
-            mul = 1.0
-            for row in rows:
-                sum += row[i]
-                mul = mul * row[i]
+        print(sim)
+        alfa = sim
 
-            if mul == 0.0:
-                sum = 0.0
-            sum_row.append(sum)
+        and_vec = np.logical_and(ex_vec1, ex_vec2)
+        sum_vec = ex_vec1 + ex_vec2
+        mul_vec = alfa * sum_vec/2 + (1-alfa) * sum_vec/2 * and_vec
 
-
-        ranking = sorted([(v,i) for (i,v) in enumerate(sum_row)])
-        for i in range(result_num+1):
-            if i == 0:
-                continue
-            geo_index = ranking[-i][1]
-            score = ranking[-i][0]
-
-            if score == 0:
-                break
-            print(self.geos[geo_index] + ': ' + str(score))
+        self.show_geo_ranking_by_vector(mul_vec, result_num)
 
     def read_experience_similarities(self, result_dir, num):
         '''
