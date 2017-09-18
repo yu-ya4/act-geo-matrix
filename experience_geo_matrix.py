@@ -138,7 +138,43 @@ class ExperienceGeoMatrix:
 
         self.show_geo_ranking_by_vector(mul_vec, result_num)
 
-    def read_experience_similarities(self, result_dir, num):
+    def get_experience_vector_reflecting_similar_experiences(self, verb, modifier, similar_count):
+        '''
+        Args:
+            verb: str
+            modifier: str
+            num: int
+
+        Returns:
+            numpy.ndarray[numpy.float64]
+        '''
+        ex_vec = self.get_experience_vector(verb, modifier)
+        ex_index = self.experiences.get_index(verb, modifier)
+        sim_dict = self.experience_similarities[ex_index]
+
+        ranking = sorted(sim_dict.items(), key = lambda x: x[1], reverse=True)
+
+        for i in range(similar_count):
+            try:
+                sim_modifier = ranking[i][0]
+                similarity = float(ranking[i][1])
+                sim_ex_vec = self.get_experience_vector(verb, sim_modifier)
+                ex_vec += similarity * sim_ex_vec
+            except Exception as e:
+                print(e)
+                break
+
+        # normalize
+        if np.amax(ex_vec) * 1 != 0:
+            ex_vec = ex_vec / np.amax(ex_vec) * 1
+
+        return ex_vec
+
+    def show_geo_ranking_by_experience_reflecting_similar_experiences(self, verb, modifier, similar_count, result_num):
+        ex_vec = self.get_experience_vector_reflecting_similar_experiences(verb, modifier, similar_count)
+        self.show_geo_ranking_by_vector(ex_vec, result_num)
+
+    def read_experience_similarities(self, result_dir, num=200):
         '''
         read experience similarities from txt file
         Args:
