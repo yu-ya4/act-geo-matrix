@@ -3,7 +3,7 @@
 
 import MySQLdb
 import traceback
-from configparser import ConfigParser
+from dbconnection import get_db_connection
 
 class Geo:
     '''
@@ -63,7 +63,7 @@ class Geos:
     def geos(self):
         return self.__geos
 
-    def read_geos_from_database(self):
+    def read_geos_from_database(self, db='ieyasu'):
         '''
         Read Geos from database(restaurants in tabelog)
 
@@ -72,12 +72,10 @@ class Geos:
         '''
 
         self.__init__()
-        env = ConfigParser()
-        env.read('./.env')
+        db_connection = get_db_connection(db)
+        cursor = db_connection.cursor()
         try:
-            db_connection = MySQLdb.connect(host=env.get('mysql', 'HOST'), user=env.get('mysql', 'USER'), passwd=env.get('mysql', 'PASSWD'), db=env.get('mysql', 'DATABASE'), charset=env.get('mysql', 'CHARSET'))
-            cursor = db_connection.cursor()
-            sql = 'SELECT id, restaurant_id, name, url, pr_comment_title, pr_comment_body FROM restaurants;'
+            sql = 'SELECT id, restaurant_id, name, url, pr_comment_title, pr_comment_body FROM restaurants where LstPrf = "A2601" order by id;'
             cursor.execute(sql)
             result = cursor.fetchall()
             for row in result:
