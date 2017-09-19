@@ -25,9 +25,13 @@ geos.read_geos_from_database()
 from matrix_maker import MatrixMaker
 mm = MatrixMaker()
 mm.get_scores_by_frequencies_of_reviews_with_experiences()
+
 mat = mm.make_matrix()
-mat.show_geo_ranking('飲む', 'ちょっと', 15)
-mat.show_geo_ranking('飲む', 'たくさん', 15)
+
+ex_vec = mat.get_experience_vector('飲む', 'ちょっと')
+mat.show_geo_ranking_by_vector(ex_vec, 10)
+
+mat.show_geo_ranking_by_experience('飲む', 'ちょっと', 10)
 
 # save as pickle
 with open('../../data/matrix/natural_matrix.pickle', mode='wb') as f:
