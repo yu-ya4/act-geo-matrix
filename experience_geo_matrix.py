@@ -117,6 +117,24 @@ class ExperienceGeoMatrix:
         vec = self.get_experience_vector(verb, modifier)
         self.show_geo_ranking_by_vector(vec, result_num)
 
+
+    def calc_multiple_experiences_vector(self, ex_vec1, ex_vec2, sim):
+        '''
+        Calculate multiple experiences vector
+
+        Args:
+            ex_vec1, ex_vec2: numpy.ndarray[numpy.float64]
+        Returns:
+            numpy.ndarray[numpy.float64]
+        '''
+
+        and_vec = np.logical_and(ex_vec1, ex_vec2)
+        sum_vec = ex_vec1 + ex_vec2
+        mul_vec = sim * sum_vec/2 + (1-sim) * sum_vec/2 * and_vec
+
+        return mul_vec
+
+
     def get_multiple_experiences_vector(self, verb1, modifier1, verb2, modifier2):
         '''
         Get the experience vector by calculating scores for multiple experiences
@@ -145,18 +163,13 @@ class ExperienceGeoMatrix:
         except:
             sim = 0.0
 
-        print(sim)
-        alfa = sim
-
-        and_vec = np.logical_and(ex_vec1, ex_vec2)
-        sum_vec = ex_vec1 + ex_vec2
-        mul_vec = alfa * sum_vec/2 + (1-alfa) * sum_vec/2 * and_vec
+        mul_vec = self.calc_multiple_experiences_vector(ex_vec1, ex_vec2, sim)
 
         return mul_vec
 
-    def test_get_multiple_experiences_vector(self, verb1, modifier1, verb2, modifier2, sim_dir):
+    def get_multiple_experiences_vector_reflecting_similar_experiences(self, verb1, modifier1, verb2, modifier2, similar_count):
         '''
-        Calculate vectors for multiple experiences
+        Get the experience vector by calculating scores for multiple experiences
 
         v_e1e2 = α(v_e1 + v_e2)/2 + (1-α)(v_e1 AND v_e2)
         α: sim(e_1, e_2)
@@ -164,18 +177,14 @@ class ExperienceGeoMatrix:
         Args:
             verb1, verb2: str
             modifier1, modifier2: str
-
+            similar_count: int
         Returns:
             numpy.ndarray[numpy.float64]
         '''
-        ex_vec1 = self.get_experience_vector(verb1, modifier1)
-        ex_vec2 = self.get_experience_vector(verb2, modifier2)
+        ex_vec1 = self.get_experience_vector_reflecting_similar_experiences(verb1, modifier1, similar_count)
+        ex_vec2 = self.get_experience_vector_reflecting_similar_experiences(verb2, modifier2, similar_count)
 
         ex1_index = self.experiences.get_index(verb1, modifier1)
-
-        # 読み直す
-        self.read_experience_similarities(sim_dir)
-
         try:
             sim_dict = self.experience_similarities[ex1_index]
         except:
@@ -186,14 +195,10 @@ class ExperienceGeoMatrix:
         except:
             sim = 0.0
 
-        print(sim)
-        alfa = sim
-
-        and_vec = np.logical_and(ex_vec1, ex_vec2)
-        sum_vec = ex_vec1 + ex_vec2
-        mul_vec = alfa * sum_vec/2 + (1-alfa) * sum_vec/2 * and_vec
+        mul_vec = self.calc_multiple_experiences_vector(ex_vec1, ex_vec2, sim)
 
         return mul_vec
+
 
     def show_geo_ranking_by_multiple_experiences(self, verb1, modifier1, verb2, modifier2, result_num):
         '''
@@ -213,21 +218,22 @@ class ExperienceGeoMatrix:
 
         self.show_geo_ranking_by_vector(mul_vec, result_num)
 
-    def test_show_geo_ranking_by_multiple_experiences(self, verb1, modifier1, verb2, modifier2, result_num, sim_dir):
+    def show_geo_ranking_by_multiple_experiences_reflecting_similar_experiences(self, verb1, modifier1, verb2, modifier2, result_num, similar_count):
         '''
-        Show geos for multiple experiences
+        Show top n geos for multiple experiences
 
         Args:
             verb1, verb2: str
             modifier1, modifier2: str
             result_num: int
                 the number of geos shown
+            similar_count: int
 
         Returns:
             None
         '''
 
-        mul_vec = self.test_get_multiple_experiences_vector(verb1, modifier1, verb2, modifier2, sim_dir)
+        mul_vec = self.get_multiple_experiences_vector_reflecting_similar_experiences(verb1, modifier1, verb2, modifier2, similar_count)
 
         self.show_geo_ranking_by_vector(mul_vec, result_num)
 
