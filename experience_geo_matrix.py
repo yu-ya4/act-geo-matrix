@@ -249,7 +249,7 @@ class ExperienceGeoMatrix:
         Returns:
             numpy.ndarray[numpy.float64]
         '''
-        ex_vec = self.get_experience_vector(verb, modifier)
+        ex_vec = self.get_experience_vector(verb, modifier).copy()
         ex_index = self.experiences.get_index(verb, modifier)
         sim_dict = self.experience_similarities[ex_index]
 
