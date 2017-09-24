@@ -59,7 +59,7 @@ class ExperienceGeoMatrix:
         Args:
             vec: numpy.ndarray[numpy.float64]
         Returns:
-
+            list[int]
         '''
         result_list = []
         ranking = sorted([(v,i) for (i,v) in enumerate(experience_vec)])
@@ -69,11 +69,11 @@ class ExperienceGeoMatrix:
                 continue
             geo_index = ranking[-i][1]
             geo = self.geos.geos[geo_index]
-            score = float(ranking[-i][0])
+            score = ranking[-i][0]
 
             if score == 0:
                 break
-            result_list.append((geo.geo_id, score))
+            result_list.append(geo.geo_id)
 
         return result_list
 
@@ -99,7 +99,8 @@ class ExperienceGeoMatrix:
 
             if score == 0:
                 break
-            print(geo.url + ' ' + geo.name + ': ' + str(score))
+            # print(geo.url + ' ' + geo.name + ': ' + str(score))
+            print(geo.url)
         print('\n')
 
     def show_geo_ranking_by_experience(self, verb, modifier, result_num):
