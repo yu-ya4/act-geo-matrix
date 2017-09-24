@@ -1,6 +1,7 @@
 from geo import Geo, Geos
 import csv
 import codecs
+import numpy as np
 
 def read_experiment_results(result_file):
     '''
@@ -93,27 +94,52 @@ class Experimenter:
         self.correct_dict.update(correct_dict)
 
 
-    def get_value_of_dcg(self, result_list):
+    def get_value_of_dcg(self, result_list, topn):
         '''
         Args:
-            result_list[tuple(int, float)]
+            result_list[int]
+                a list of geo ids
         Returns:
             float
         '''
 
         val = 0.0
         for i in range(0, len(result_list)):
-            geo_id = result_list[i][0]
+            geo_id = result_list[i]
             if self.correct_dict[geo_id]:
                 if i == 0:
-                    val += result_list[i][1]
+                    val += self.correct_dict[geo_id]
                 else:
-                    val += result_list[i][1] / np.log2(i + 1)
+                    val += self.correct_dict[geo_id] / np.log2(i + 1)
             else:
                 pass
             i += 1
+            if i == topn:
+                break
 
         return val
+
+    def get_value_of_ndcg(self, result_list, topn):
+        ideal_result_list = self.get_ideal_result_list()
+
+        dcg = self.get_value_of_dcg(result_list, topn)
+        ideal_dcg = self.get_value_of_dcg(ideal_result_list, topn)
+
+        if ideal_dcg == 0.0:
+            ndcg = 0.0
+        else:
+            ndcg = dcg/ideal_dcg
+
+        return ndcg
+
+    def get_ideal_result_list(self):
+        ideal_result_list = []
+        for geo_id, score in sorted(self.correct_dict.items(), key=lambda x: x[1], reverse=True):
+            ideal_result_list.append(geo_id)
+
+        return ideal_result_list
+
+
 
     def get_value_of_ap(self, result_list):
         '''
