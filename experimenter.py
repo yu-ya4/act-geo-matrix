@@ -23,12 +23,12 @@ class Experimenter:
         Initialize correct_dict
 
         Returns:
-            dict{id: bool}
+            dict{id: float}
         '''
         self.geos.read_geos_from_database()
         correct_dict = {}
         for geo in self.geos.geos:
-            correct_dict[geo.geo_id] = False
+            correct_dict[geo.geo_id] = 0.0
         return correct_dict, label
 
     def update_correct_dict(self, geo_ids, correct_flg=True):
