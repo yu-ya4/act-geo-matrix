@@ -1,5 +1,57 @@
 from geo import Geo, Geos
-import pandas as pd
+import csv
+import codecs
+
+def read_experiment_results(result_file):
+    '''
+    Read results of experiments from csv
+
+    Args:
+        result_file: str
+
+    Returns:
+        dict{str: dict{int: float}}
+    '''
+    correct_dict_dict = {}
+    with codecs.open(result_file, 'r', 'utf-8-sig') as f:
+        data = csv.reader(f)
+
+        for line in data:
+            top = line[0]
+            if top == '' or top == '正誤':
+                continue
+
+            elif top != '1':
+                label = top
+                correct_dict_dict[label] = {}
+
+            else:
+                url = line[1]
+                geo_id = int(url.split('/')[6])
+                correct_dict_dict[label][geo_id] = float(top)
+
+    return correct_dict_dict
+
+def merge_correct_dict_dicts(dict1, dict2):
+    '''
+    Merge correct dictionaries.
+    Same keys are added.
+
+    Args:
+        dict1, dict2:
+    '''
+    merged_dict = dict1.copy()
+    for label, correct_dict in dict2.items():
+        if label in merged_dict:
+            for k, v in correct_dict.items():
+                if k in merged_dict[label]:
+                    merged_dict[label][k] += v
+                else:
+                    merged_dict[label][k] = v
+        else:
+            merged_dict[k] = correct_dict
+
+    return merged_dict
 
 class Experimenter:
     '''
