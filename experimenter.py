@@ -1,4 +1,5 @@
 from geo import Geo, Geos
+import pandas as pd
 
 class Experimenter:
     '''
@@ -93,3 +94,22 @@ class Experimenter:
             ap = 0
 
         return ap
+
+
+class Experimenters:
+    '''
+    This class is a list of Experimenters.
+    '''
+
+    def __init__(self):
+        self.__experimenters = []
+
+    @property
+    def experimenters(self):
+        return self.__experimenters
+
+    def append(self, another_experimenter):
+        self.__experimenters.append(another_experimenter)
+
+    def extend(self, another_experimenters):
+        self.__experimenters.extend(another_experimenters.experimenters)
