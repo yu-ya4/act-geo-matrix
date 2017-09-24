@@ -83,20 +83,14 @@ class Experimenter:
             correct_dict[geo.geo_id] = 0.0
         return correct_dict, label
 
-    def update_correct_dict(self, geo_ids, correct_flg=True):
+    def update_correct_dict(self, correct_dict):
         '''
         Args:
-            geo_ids: list[int]
-            correct_flg: bool
-                if true update true, if false update false
+            correct_dict: dict{int: float}
         Returns:
             None
         '''
-        for geo_id in geo_ids:
-            try:
-                self.correct_dict[geo_id] = correct_flg
-            except:
-                continue
+        self.correct_dict.update(correct_dict)
 
 
     def get_value_of_dcg(self, result_list):
