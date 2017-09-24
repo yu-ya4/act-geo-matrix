@@ -124,7 +124,7 @@ if __name__ == '__main__':
             smat.read_experience_similarities('../../data/similarities/0918/reviews_10_15/')
             exp_vec_sim = smat.get_multiple_experiences_vector_reflecting_similar_experiences(v, m ,v, mm, 5)
             result_list_sim = smat.convert_experience_vector_to_result_list(exp_vec_sim, 10)
-            ndcg_w_sim = exp.get_value_of_ndcg(result_list_w_sim, 10)
+            ndcg_sim = exp.get_value_of_ndcg(result_list_sim, 10)
 
             # weight-sim
             with open('../../data/matrix/normalized_matrix.pickle', mode='rb') as f:
