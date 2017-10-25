@@ -279,21 +279,6 @@ if __name__ == '__main__':
 
     exit()
 
-
-
-    ex_vec1 = mat.get_experience_vector('飲む', 'ちょっと')
-    ex_vec2 = mat.get_experience_vector('飲む', '軽く')
-
-    res = mat.convert_experience_vector_to_result_list(ex_vec1)
-    print(type(res[0][0]))
-    print(type(res[0][1]))
-    exit()
-
-    mat.show_geo_ranking_by_experience('飲む', 'ちょっと', 10)
-    mat.show_geo_ranking_by_experience('飲む', 'のんびり', 10)
-
-    mat.show_geo_ranking_by_multiple_experiences('飲む', 'ちょっと', '飲む', 'のんびり', 10)
-    exit()
     #
     # mm = MatrixMaker()
     # mm.get_scores_by_frequencies()
