@@ -39,6 +39,8 @@ class ExperienceGeoMatrix:
 
     def get_experience_vector(self, verb, modifier):
         '''
+        Get the experience vector, the row of the matrix by an experience(a verb and a modifier)
+
         Args:
             verb: str
             modifier: str
@@ -57,7 +59,7 @@ class ExperienceGeoMatrix:
         Args:
             vec: numpy.ndarray[numpy.float64]
         Returns:
-
+            list[int]
         '''
         result_list = []
         ranking = sorted([(v,i) for (i,v) in enumerate(experience_vec)])
@@ -67,16 +69,19 @@ class ExperienceGeoMatrix:
                 continue
             geo_index = ranking[-i][1]
             geo = self.geos.geos[geo_index]
-            score = float(ranking[-i][0])
+            score = ranking[-i][0]
 
             if score == 0:
                 break
-            result_list.append((geo.geo_id, score))
+            result_list.append(geo.geo_id)
 
         return result_list
 
     def show_geo_ranking_by_vector(self, experience_vec, result_num):
         '''
+        Show top n geos of an experience vector
+        geo url, geo name, socre
+
         Args:
             experience_vec: numpy.ndarray[numpy.float64]
 
@@ -94,11 +99,14 @@ class ExperienceGeoMatrix:
 
             if score == 0:
                 break
-            print(geo.url + ' ' + geo.name + ': ' + str(score))
+            # print(geo.url + ' ' + geo.name + ': ' + str(score))
+            print(geo.url)
         print('\n')
 
     def show_geo_ranking_by_experience(self, verb, modifier, result_num):
         '''
+        Show top n geos of a row of the matrix by an experience(a verb, a modifier)
+
         Args:
             verb: str
             modifier: str
@@ -110,9 +118,27 @@ class ExperienceGeoMatrix:
         vec = self.get_experience_vector(verb, modifier)
         self.show_geo_ranking_by_vector(vec, result_num)
 
+
+    def calc_multiple_experiences_vector(self, ex_vec1, ex_vec2, sim):
+        '''
+        Calculate multiple experiences vector
+
+        Args:
+            ex_vec1, ex_vec2: numpy.ndarray[numpy.float64]
+        Returns:
+            numpy.ndarray[numpy.float64]
+        '''
+
+        and_vec = np.logical_and(ex_vec1, ex_vec2)
+        sum_vec = ex_vec1 + ex_vec2
+        mul_vec = sim * sum_vec/2 + (1-sim) * sum_vec/2 * and_vec
+
+        return mul_vec
+
+
     def get_multiple_experiences_vector(self, verb1, modifier1, verb2, modifier2):
         '''
-        Calculate vectors for multiple experiences
+        Get the experience vector by calculating scores for multiple experiences
 
         v_e1e2 = α(v_e1 + v_e2)/2 + (1-α)(v_e1 AND v_e2)
         α: sim(e_1, e_2)
@@ -128,25 +154,56 @@ class ExperienceGeoMatrix:
         ex_vec2 = self.get_experience_vector(verb2, modifier2)
 
         ex1_index = self.experiences.get_index(verb1, modifier1)
-        sim_dict = self.experience_similarities[ex1_index]
+        try:
+            sim_dict = self.experience_similarities[ex1_index]
+        except:
+            sim_dict = {}
 
         try:
             sim = float(sim_dict[modifier2])
         except:
             sim = 0.0
 
-        print(sim)
-        alfa = sim
-
-        and_vec = np.logical_and(ex_vec1, ex_vec2)
-        sum_vec = ex_vec1 + ex_vec2
-        mul_vec = alfa * sum_vec/2 + (1-alfa) * sum_vec/2 * and_vec
+        mul_vec = self.calc_multiple_experiences_vector(ex_vec1, ex_vec2, sim)
 
         return mul_vec
 
+    def get_multiple_experiences_vector_reflecting_similar_experiences(self, verb1, modifier1, verb2, modifier2, similar_count):
+        '''
+        Get the experience vector by calculating scores for multiple experiences
+
+        v_e1e2 = α(v_e1 + v_e2)/2 + (1-α)(v_e1 AND v_e2)
+        α: sim(e_1, e_2)
+
+        Args:
+            verb1, verb2: str
+            modifier1, modifier2: str
+            similar_count: int
+        Returns:
+            numpy.ndarray[numpy.float64]
+        '''
+        ex_vec1 = self.get_experience_vector_reflecting_similar_experiences(verb1, modifier1, similar_count)
+        ex_vec2 = self.get_experience_vector_reflecting_similar_experiences(verb2, modifier2, similar_count)
+
+        ex1_index = self.experiences.get_index(verb1, modifier1)
+        try:
+            sim_dict = self.experience_similarities[ex1_index]
+        except:
+            sim_dict = {}
+
+        try:
+            sim = float(sim_dict[modifier2])
+        except:
+            sim = 0.0
+
+        mul_vec = self.calc_multiple_experiences_vector(ex_vec1, ex_vec2, sim)
+
+        return mul_vec
+
+
     def show_geo_ranking_by_multiple_experiences(self, verb1, modifier1, verb2, modifier2, result_num):
         '''
-        Show geos for multiple experiences
+        Show top n geos for multiple experiences
 
         Args:
             verb1, verb2: str
@@ -162,8 +219,29 @@ class ExperienceGeoMatrix:
 
         self.show_geo_ranking_by_vector(mul_vec, result_num)
 
+    def show_geo_ranking_by_multiple_experiences_reflecting_similar_experiences(self, verb1, modifier1, verb2, modifier2, result_num, similar_count):
+        '''
+        Show top n geos for multiple experiences
+
+        Args:
+            verb1, verb2: str
+            modifier1, modifier2: str
+            result_num: int
+                the number of geos shown
+            similar_count: int
+
+        Returns:
+            None
+        '''
+
+        mul_vec = self.get_multiple_experiences_vector_reflecting_similar_experiences(verb1, modifier1, verb2, modifier2, similar_count)
+
+        self.show_geo_ranking_by_vector(mul_vec, result_num)
+
     def get_experience_vector_reflecting_similar_experiences(self, verb, modifier, similar_count):
         '''
+        Get the experience vector, the row of the experience reflecting similar experiences by an experience(a verb, a modifier)
+
         Args:
             verb: str
             modifier: str
@@ -172,7 +250,7 @@ class ExperienceGeoMatrix:
         Returns:
             numpy.ndarray[numpy.float64]
         '''
-        ex_vec = self.get_experience_vector(verb, modifier)
+        ex_vec = self.get_experience_vector(verb, modifier).copy()
         ex_index = self.experiences.get_index(verb, modifier)
         sim_dict = self.experience_similarities[ex_index]
 

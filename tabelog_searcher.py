@@ -191,7 +191,7 @@ class TabelogSearcher:
                 for review_item in review_items:
                     review_url = 'http://tabelog.com' + review_item.attrib['data-detail-url']
                     rvw_res = requests.get(review_url)
-                    sleep(1)
+                    sleep(2)
                     review_html = rvw_res.text
 
                     review_htmls.append(review_html)
