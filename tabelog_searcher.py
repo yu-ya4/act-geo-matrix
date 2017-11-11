@@ -566,6 +566,20 @@ class TabelogSearcher:
 
         return urls
 
+    def get_restaurant_urls_without_reviews_from_db(self, num, offset, lst_are):
+        '''
+        Get restaurant urls which have no reviews in db
+        '''
+        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where rev.id is NULL and res.pal="kyoto" and res.LstAre="' + lst_are + '" GROUP BY res.id, res.url order by res.id limit ' + str(offset) + ', ' + str(num)
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        urls = []
+        for row in result:
+            # print(row)
+            urls.append(row[1])
+
+        return urls
+
     def get_areas(self):
         areas = []
         tabelog_url = 'https://tabelog.com'
