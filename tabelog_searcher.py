@@ -821,7 +821,7 @@ class TabelogSearcher:
         Returns:
             list[str]
         '''
-        sql = 'select distinct LstAre from restaurants where pal="kyoto"'
+        sql = 'select distinct LstAre from restaurants'
 
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
