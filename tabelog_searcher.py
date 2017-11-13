@@ -58,6 +58,7 @@ class TabelogSearcher:
                 ieyasu-berry
         '''
         try:
+            print(db)
             if db == 'local':
                 return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
             elif db == 'ieyasu':
@@ -70,7 +71,7 @@ class TabelogSearcher:
                 print('Error: please select correct database')
                 exit()
         except MySQLdb.Error as e:
-            print('MySQLdb.Error: ', e)
+            print('MySQLdb.Erroraa: ', e)
             exit()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
@@ -191,7 +192,7 @@ class TabelogSearcher:
                 for review_item in review_items:
                     review_url = 'http://tabelog.com' + review_item.attrib['data-detail-url']
                     rvw_res = requests.get(review_url)
-                    sleep(2)
+                    # sleep(7)
                     review_html = rvw_res.text
 
                     review_htmls.append(review_html)
@@ -557,6 +558,20 @@ class TabelogSearcher:
 
     def get_restaurant_urls_from_db(self, num, offset, lst_are):
         sql = 'select id, url from restaurants where LstAre="' + lst_are + '" order by id limit ' + str(offset) + ', ' + str(num)
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        urls = []
+        for row in result:
+            # print(row)
+            urls.append(row[1])
+
+        return urls
+
+    def get_restaurant_urls_without_reviews_from_db(self, num, offset, lst_are):
+        '''
+        Get restaurant urls which have no reviews in db
+        '''
+        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where rev.id is NULL and res.pal="kyoto" and res.LstAre="' + lst_are + '" GROUP BY res.id, res.url order by res.id limit ' + str(offset) + ', ' + str(num)
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         urls = []

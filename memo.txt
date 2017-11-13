@@ -89,3 +89,21 @@ LstAre
 
 20171109
 レストラン収集(Area: 京都市[A2601], Category: ラーメン[MC], カフェ・喫茶[CC], パン・スイーツ[SC], 旅館・オーベルジュ[YC])
+
+
+select r.id, r.url from restaurants as r left join reviews as v on r.restaurant_id=v.restaurant_id where r.pal='kyoto' and v.id is NULL group by r.id, r.url;
+select res.id, res.url from restaurants as res right join reviews as rev on res.id = rev.restaurant_id where pal = 'kyoto' GROUP BY res.id, res.url limit 100;
+
+
+A260605
+34
+A260604
+159
+A260603
+238
+A260602
+54
+A260201
+1619
+A260301
+1782
