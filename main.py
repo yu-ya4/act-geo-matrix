@@ -452,8 +452,8 @@ if __name__ == '__main__':
 
 
 
-    tls = TabelogSearcher('ieyasu')
-    saved_area_list = tls.get_saved_area_in_db()
+    # tls = TabelogSearcher('ieyasu')
+    # saved_area_list = tls.get_saved_area_in_db()
     # restaurant_urls = [
     #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
     #     ]
@@ -477,7 +477,7 @@ if __name__ == '__main__':
 
 
 
-    tls = TabelogSearcher('ieyasu')
+    tls = TabelogSearcher('ieyasu-berry')
     saved_area_list = tls.get_saved_area_in_db()
     # restaurant_urls = [
     #     'http://tabelog.com/kyoto/A2601/A260603/26011408/'
@@ -490,11 +490,14 @@ if __name__ == '__main__':
         restaurant_urls = tls.get_restaurant_urls_without_reviews_from_db(100000, 0, saved_area)
         print(saved_area)
         print(len(restaurant_urls))
-        if saved_area == 'A260201':
-            restaurant_urls += 'https://tabelog.com/kyoto/A2601/A260201/26005726/'
+        # if saved_area == 'A260201':
+        #     restaurant_urls += 'https://tabelog.com/kyoto/A2601/A260201/26005726/'
 
         for restaurant_url in restaurant_urls:
-
+            if restaurant_url == 'https://tabelog.com/kyoto/A2601/A260201/26003620/':
+                flg = True
+            if flg == False:
+                continue
             review_htmls = tls.get_reviews_from_restaurant(restaurant_url)
             reviews = tls.parse_reviews(review_htmls[0], review_htmls[1])
             print(len(reviews))
