@@ -8,6 +8,47 @@ $ ssh -f -N -C -L 10000:localhost:3306 ieyasu -p 22
 $ ssh -f -N -C -L 20000:localhost:3306 ieyasu-berry -p 22
 ```
 
+## import
+```
+form egmat import tabelog_searcher as ts
+```
+
+## search tabelog for reviews and save in database
+```
+searcher = ts.TabelogSearcher()
+review_htmls, review_urls = searcher.search_for_reviews('彼女と飲む', 'kyoto', 'A2601', 'A260201', 'BC', 'BC04', '4596', '')
+print(review_htmls)
+# ['hogehogehogehtml',
+'fugauga',
+'hehehehe',...
+]
+print(review_urls)
+# ['https://tabelog.com/tokyo/A1303/A130301/13090861/dtlrvwlst/B192731458/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1', 'https://tabelog.com/tokyo/A1310/A131002/13172383/dtlrvwlst/B109259930/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1', 'https://tabelog.com/fukuoka/A4001/A400203/40020640/dtlrvwlst/B122357957/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1', 'https://tabelog.com/tokyo/A1302/A130202/13123366/dtlrvwlst/B81693110/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1',
+...]
+reviews = searcher.parse_reviews(review_htmls, review_urls)
+print(reviews)
+# [
+    {
+        'review_id': 'B192731458',
+        'restaurant_id': '13090861',
+        'title': '初めてなのに懐かしい？コスパも抜群！駅近が魅力なもつ焼き店',
+        'body': '心置きなく酔っ払えるのが嬉しくて彼女と飲む時は必ず記憶が曖昧なはちですが先日に限っては、はちの方が飲んでたくせに翌朝ポケットにおつりが入っていてさすがに青くなりました（すまん！次回！）そもそも飲んで帰ろー！と誘っておいて2000円しか持ってないし（え）でも2000円で足りたよ素晴らしきコストパフォーマンス！場所はマークシティ1F森本を覗くも当然ながら満席だったので、すぐ近くのこちらに流れてきました金曜日の夜ということもあり混んでいたけれど陽気が良かったので外のテーブルで乾杯♪とあるイベント帰りで少し飲んでいたため烏龍杯@400円からのスタートです定番のもつ煮込み@450円はお豆腐多めで嬉しい色んな種類が食べたかったので串焼きは「もつ焼きセット」@480円なるお任せ5本セットをチョイスそして最後に唐揚@500円を頼んだ彼女これが30代と40代の大きな差だよなぁと思いながら今宵も更けていったのでした。楽しかった！ちなみにポケットに300円（おつり）しかなくてバスのなくなった駅で一気に酔いが覚めたというのはナイショ。',
+        'rate': 3.17,
+        'url': 'https://tabelog.com/tokyo/A1303/A130301/13090861/dtlrvwlst/B192731458/?use_type=0&srt=&sby=&rvw_part=all&lc=0&smp=1',
+        'html': 'hoehoeghoehgeoghehoeoh'
+    },...
+]
+searcher.save_reviews(reviews)
+```
+## search tabelog for restaurants and save in database
+```
+searcher = ts.TabelogSearcher()
+restaurant_htmls, restaurant_urls = tls.search_for_restaurants('', 'kyoto', 'A2601', '', 'RC', 'RC21', 'RC2199', '')
+restaurants = tls.parse_restaurants(restaurant_htmls, restaurant_urls)
+
+```
+
+
 ## Read data
 
 ```
