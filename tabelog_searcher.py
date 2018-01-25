@@ -1,13 +1,14 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8
 
-from tabelog_review import TabelogReview, TabelogReviews
+from .tabelog_review import TabelogReview, TabelogReviews
 import requests
 import lxml.html
 from time import sleep
 import sys
 import MySQLdb
 import os
+from .dbconnection import get_db_connection
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
@@ -33,7 +34,7 @@ class TabelogSearcher:
 
     '''
 
-    def __init__(self, db):
+    def __init__(self):
         '''
         Args:
             db: str
@@ -44,35 +45,6 @@ class TabelogSearcher:
         # self.url = 'https://tabelog.com/kyoto/0/0/rvw/COND-0-0-2-0/D-dt/'
         self.rvw_url = 'https://tabelog.com/0/0/rvw/COND-0-0-1-0/D-edited_at/'
         self.rst_url = 'https://tabelog.com/rstLst/'
-        self.db_connection = self.get_db_connection(db)
-        self.cursor = self.db_connection.cursor()
-
-    def get_db_connection(self, db):
-        '''
-        Get database connection
-
-        Args:
-            db: str
-                local
-                ieyasu
-                ieyasu-berry
-        '''
-        try:
-            print(db)
-            if db == 'local':
-                return MySQLdb.connect(host=os.environ.get('LOCAL_DB_HOST'), user=os.environ.get('LOCAL_DB_USER'), passwd=os.environ.get('LOCAL_DB_PASSWD'), db=os.environ.get('LOCAL_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            elif db == 'ieyasu':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_DB_PORT')))
-            elif db == 'ieyasu-berry':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'), port=int(os.environ.get('IEYASU_BERRY_DB_PORT')))
-            elif db == 'ieyasu-local':
-                return MySQLdb.connect(host=os.environ.get('IEYASU_DB_HOST'), user=os.environ.get('IEYASU_DB_USER'), passwd=os.environ.get('IEYASU_DB_PASSWD'), db=os.environ.get('IEYASU_DB_DATABASE'), charset=os.environ.get('CHARSET'))
-            else:
-                print('Error: please select correct database')
-                exit()
-        except MySQLdb.Error as e:
-            print('MySQLdb.Erroraa: ', e)
-            exit()
 
     def search_for_reviews(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
@@ -124,7 +96,6 @@ class TabelogSearcher:
         while 1:
             url = self.rvw_url + str(page) + '/'
             res = requests.get(url, params=parameters)
-            # print(res.url)
             # a page of the search results
             html = res.text
             root = lxml.html.fromstring(html)
@@ -138,7 +109,6 @@ class TabelogSearcher:
                 for review in reviews:
                     # review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__title-target')[0].attrib['href']
                     review_url = 'https://tabelog.com' + review.cssselect('.rvw-item__frame')[0].attrib['data-detail-url']
-                    # print(review_url)
                     # get review detail
                     review = requests.get(review_url)
                     # sleep(5)
@@ -269,10 +239,12 @@ class TabelogSearcher:
         Args:
             restaurants: list[dict{}]
         '''
+        db_connection = get_db_connection()
+        cursor = db_connection.cursor()
 
         for review in reviews:
             try:
-                self.cursor.execute(
+                cursor.execute(
                     'INSERT INTO reviews(\
                         review_id,\
                         restaurant_id,\
@@ -299,8 +271,10 @@ class TabelogSearcher:
                 with open('mysqllog.txt', 'a') as f:
                     f.write(review['url'] + '\n')
                     f.write('MySQLdb.Error: ' +  e.args[1] +  '\n')
-        self.db_connection.commit()
-        # self.db_connection.close()
+
+        db_connection.commit()
+        cursor.close()
+        db_connection.close()
 
     def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
         '''
@@ -489,10 +463,12 @@ class TabelogSearcher:
         Args:
             restaurants: list[dict{}]
         '''
+        db_connection = get_db_connection()
+        cursor = db_connection.cursor()
 
         for restaurant in restaurants:
             try:
-                self.cursor.execute(
+                cursor.execute(
                     'INSERT INTO restaurants(\
                         restaurant_id,\
                         name,\
@@ -553,8 +529,9 @@ class TabelogSearcher:
             except MySQLdb.Error as e:
                 print(restaurant['url'])
                 print('MySQLdb.Error: ', e)
-        self.db_connection.commit()
-        # self.db_connection.close()
+        db_connection.commit()
+        cursor.close()
+        db_connection.close()
 
     def get_restaurant_urls_from_db(self, num, offset, lst_are):
         sql = 'select id, url from restaurants where LstAre="' + lst_are + '" order by id limit ' + str(offset) + ', ' + str(num)
