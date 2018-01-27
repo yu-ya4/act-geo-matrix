@@ -1,6 +1,6 @@
 import MySQLdb
 import os
-from dbconnection import get_db_connection
+from .dbconnection import get_db_connection
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
@@ -45,17 +45,13 @@ class Experiences:
     def experiences(self):
         return self.__experiences
 
-    def read_experiences_from_database(self, db, label):
+    def read_experiences_from_database(self, label):
         '''
         Args:
-            db: str
-                'local'
-                'ieyasu'
-                'ieyasu-berry'
             label: str
         '''
         self.__init__()
-        db_connection = get_db_connection(db)
+        db_connection = get_db_connection()
         cursor = db_connection.cursor()
 
         try:
