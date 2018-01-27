@@ -48,6 +48,27 @@ restaurants = tls.parse_restaurants(restaurant_htmls, restaurant_urls)
 
 ```
 
+## get reviews from tabelog by specific restaurant url
+```
+restaurant_url = 'https://tabelog.com/kyoto/A2601/A260201/26003620/'
+review_htmls, review_urls = searcher.get_reviews_from_tabelog_by_restaurant_url(restaurant_url)
+reviews = searcher.parse_reviews(review_htmls, review_urls)
+```
+
+## get restaurant urls from database
+```
+restaurant_urls = searcher.get_restaurant_urls_from_db(10, 10)
+print(restaurant_urls)
+# ['https://tabelog.com/kyoto/A2601/A260605/26013639/', 'https://tabelog.com/kyoto/A2601/A260605/26011528/', 'https://tabelog.com/kyoto/A2601/A260604/26017862/', 'https://tabelog.com/kyoto/A2601/A260604/26024090/', 'https://tabelog.com/kyoto/A2601/A260604/26009098/', 'https://tabelog.com/kyoto/A2601/A260604/26014077/', 'https://tabelog.com/kyoto/A2601/A260604/26025100/', 'https://tabelog.com/kyoto/A2601/A260604/26002162/', 'https://tabelog.com/kyoto/A2601/A260604/26017476/', 'https://tabelog.com/kyoto/A2601/A260604/26022980/']
+
+# レビューがデータベース上にないレストランをデータベースから取得
+restaurant_urls = searcher.get_restaurant_urls_without_reviews_from_db(10, 10)
+print(restaurant_urls)
+# ['https://tabelog.com/kyoto/A2601/A260604/26010303/', 'https://tabelog.com/kyoto/A2601/A260604/26015141/', 'https://tabelog.com/kyoto/A2601/A260604/26027524/', 'https://tabelog.com/kyoto/A2601/A260604/26011487/', 'https://tabelog.com/kyoto/A2601/A260604/26009460/', 'https://tabelog.com/kyoto/A2601/A260604/26009502/', 'https://tabelog.com/kyoto/A2601/A260604/26011496/', 'https://tabelog.com/kyoto/A2601/A260604/26011489/', 'https://tabelog.com/kyoto/A2601/A260604/26003331/', 'https://tabelog.com/kyoto/A2601/A260604/26011691/']
+
+```
+
+
 
 ## Read data
 
