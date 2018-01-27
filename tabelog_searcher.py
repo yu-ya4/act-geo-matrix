@@ -125,15 +125,15 @@ class TabelogSearcher:
 
         return review_htmls, review_urls
 
-    def get_reviews_from_restaurant(self, restaurant_url):
+    def get_reviews_from_tabelog_by_restaurant_url(self, restaurant_url):
         '''
-        get review htmls from restaurant
+        get review htmls from tabelog by a specific restaurant url
 
         Args:
-            restaurant: str
+            restaurant_url: str
         Returns:
-            list[list[str], list[str]]
-                review htmls
+            list[str], list[str]
+                review htmls, review urls
         '''
 
         review_htmls = []
@@ -276,7 +276,7 @@ class TabelogSearcher:
         cursor.close()
         db_connection.close()
 
-    def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id):
+    def search_for_restaurants(self, query, pal, LstPrf, LstAre, Cat, LstCat, LstCatD, station_id, skip_urls):
         '''
         search tabelog for restaurants by some condition
         get htmls got by each url of restaurants
@@ -334,10 +334,15 @@ class TabelogSearcher:
                     break
                 for restaurant in restaurants:
                     restaurant_url = restaurant.cssselect('.list-rst__rst-name-target')[0].attrib['href']
-                    # print(restaurant_url)
+
+                    # 指定したurlを飛ばす
+                    if restaurant_url in skip_urls:
+                        continue
+                    print(restaurant_url)
+
                     # get review detail
                     restaurant = requests.get(restaurant_url)
-                    sleep(1)
+                    # sleep(1)
                     restaurant_html = restaurant.text
                     restaurant_htmls.append(restaurant_html)
                     restaurant_urls.append(restaurant_url)
@@ -533,37 +538,62 @@ class TabelogSearcher:
         cursor.close()
         db_connection.close()
 
-    def get_restaurant_urls_from_db(self, num, offset, lst_are):
-        sql = 'select id, url from restaurants where LstAre="' + lst_are + '" order by id limit ' + str(offset) + ', ' + str(num)
-        self.cursor.execute(sql)
-        result = self.cursor.fetchall()
+    def get_restaurant_urls_from_db(self, conditions='', num=0, offset=0):
+        '''
+        get restaurant urls from db
+
+        Args:
+            num: int
+            offset: int
+            conditions: str
+                'where pal="osaka"'
+        Returns:
+            list[str]
+        '''
+        sql = 'select id, url from restaurants ' + conditions + ' order by id'
+        if num:
+            get_count = ' limit ' + str(offset) + ', ' + str(num)
+            sql += get_count
+        db_connection = get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
         urls = []
         for row in result:
-            # print(row)
             urls.append(row[1])
+        cursor.close()
+        db_connection.close()
 
         return urls
 
-    def get_restaurant_urls_without_reviews_from_db(self, num, offset, lst_are):
+    def get_restaurant_urls_without_reviews_from_db(self, num, offset):
         '''
         Get restaurant urls which have no reviews in db
         '''
-        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where rev.id is NULL and res.pal="kyoto" and res.LstAre="' + lst_are + '" GROUP BY res.id, res.url order by res.id limit ' + str(offset) + ', ' + str(num)
-        self.cursor.execute(sql)
-        result = self.cursor.fetchall()
+        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where rev.id is NULL GROUP BY res.id, res.url order by res.id limit ' + str(offset) + ', ' + str(num)
+        db_connection = get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
         urls = []
         for row in result:
-            # print(row)
             urls.append(row[1])
+        cursor.close()
+        db_connection.close()
 
         return urls
 
     def get_areas(self):
+        '''
+        tabelog.comのエリア情報をスクレイピングしてくる
+
+        Returns:
+            list[dict{str: str}]
+        '''
         areas = []
         tabelog_url = 'https://tabelog.com'
         map_url = 'https://tabelog.com/map/'
         res = requests.get(map_url)
-        # print(res.url)
         html = res.text
         root = lxml.html.fromstring(html)
 
@@ -627,8 +657,6 @@ class TabelogSearcher:
                 pal_dict[pal_name].append(lst_prf_dict_list)
 
                 areas.append(pal_dict)
-                # i += 1
-
 
         except Exception as e:
             import traceback
@@ -798,12 +826,17 @@ class TabelogSearcher:
             left join lst_ares as la on lp.id= la.lst_prf_id;
             '''
 
-        self.cursor.execute(sql)
-        result = self.cursor.fetchall()
+        db_connection = get_db_connection()
+        cursor = db_connection.cursor()
+
+        cursor.execute(sql)
+        result = cursor.fetchall()
         area_list= []
         for row in result:
             area_list.append((row[3], row[4], row[5]))
 
+        cursor.close()
+        db_connection.close()
         return area_list
 
     def get_saved_area_in_db(self):
