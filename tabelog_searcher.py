@@ -112,6 +112,7 @@ class TabelogSearcher:
                     # get review detail
                     review = requests.get(review_url)
                     # sleep(5)
+                    print(review_url)
                     review_html = review.text
                     review_htmls.append(review_html)
                     review_urls.append(review_url)
@@ -566,11 +567,14 @@ class TabelogSearcher:
 
         return urls
 
-    def get_restaurant_urls_without_reviews_from_db(self, num, offset):
+    def get_restaurant_urls_without_reviews_from_db(self, num=0, offset=0):
         '''
         Get restaurant urls which have no reviews in db
         '''
-        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where rev.id is NULL GROUP BY res.id, res.url order by res.id limit ' + str(offset) + ', ' + str(num)
+        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where res.pal="osaka" and rev.id is NULL GROUP BY res.id, res.url order by res.id'
+        if num != 0:
+            get_num = ' limit ' + str(offset) + ', ' + str(num)
+            sql += get_num
         db_connection = get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute(sql)
