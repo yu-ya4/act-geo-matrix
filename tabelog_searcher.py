@@ -571,7 +571,7 @@ class TabelogSearcher:
         '''
         Get restaurant urls which have no reviews in db
         '''
-        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where res.pal="osaka" and rev.id is NULL GROUP BY res.id, res.url order by res.id'
+        sql = 'select res.id, res.url from restaurants as res left join reviews as rev on res.restaurant_id = rev.restaurant_id where res.pal="osaka" and rev.id is NULL GROUP BY res.id, res.url order by res.id desc'
         if num != 0:
             get_num = ' limit ' + str(offset) + ', ' + str(num)
             sql += get_num
